@@ -1,0 +1,163 @@
+/* ============================================================
+   BASE.CSS — Variables, Reset, Utilities, Typography
+   kitayangdesain.com
+============================================================ */
+
+/* ============================
+   CSS VARIABLES
+============================ */
+:root {
+  /* Colors */
+  --bg:      #F7F5F2;
+  --bg2:     #EEEAE4;
+  --fg:      #1A1714;
+  --fg2:     #5C5651;
+  --fg3:     #9C958E;
+  --accent:  #C8A96E;
+  --accent2: #8B5E3C;
+  --white:   #FFFFFF;
+  --border:  rgba(26, 23, 20, 0.1);
+
+  /* Typography */
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Outfit', system-ui, sans-serif;
+
+  /* Spacing & Shape */
+  --radius: 2px;
+  --nav-h:  72px;
+
+  /* Easing */
+  --ease:     cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* ============================
+   RESET
+============================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img  { max-width: 100%; display: block; }
+a    { text-decoration: none; color: inherit; }
+ul   { list-style: none; }
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: var(--sans);
+}
+
+/* ============================
+   SCROLLBAR
+============================ */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+/* ============================
+   SELECTION
+============================ */
+::selection { background: var(--accent); color: var(--white); }
+
+/* ============================
+   LAYOUT UTILITIES
+============================ */
+.section    { padding: clamp(5rem, 10vw, 9rem) clamp(1.5rem, 5vw, 4rem); }
+.section-sm { padding: clamp(3rem, 6vw, 5rem)  clamp(1.5rem, 5vw, 4rem); }
+
+.container    { max-width: 1200px; margin: 0 auto; }
+.container-sm { max-width: 800px;  margin: 0 auto; }
+
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+
+/* ============================
+   TYPOGRAPHY UTILITIES
+============================ */
+.label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.title-xl {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.title-lg {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.title-md {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  color: var(--fg2);
+  line-height: 1.75;
+  font-weight: 300;
+  max-width: 540px;
+}
+
+.divider {
+  width: 48px;
+  height: 1px;
+  background: var(--accent);
+  margin: 2rem 0;
+}
+
+/* ============================
+   ANIMATION UTILITIES
+============================ */
+.fade-in {
+  animation: fadeUp 0.7s var(--ease-out) both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.stagger > * {
+  animation: fadeUp 0.6s var(--ease-out) both;
+}
+.stagger > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger > *:nth-child(2) { animation-delay: 0.15s; }
+.stagger > *:nth-child(3) { animation-delay: 0.25s; }
+.stagger > *:nth-child(4) { animation-delay: 0.35s; }
+.stagger > *:nth-child(5) { animation-delay: 0.45s; }

@@ -1,0 +1,600 @@
+/* ============================================================
+   portfolio-page.css — Halaman Publik Portofolio
+   kitayangdesain.com
+============================================================ */
+
+/* ============================
+   PAGE WRAPPER
+============================ */
+.pf-page {
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+/* ============================
+   HEADER
+============================ */
+.pf-header {
+  background: var(--fg);
+  padding: clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem);
+  position: relative;
+  overflow: hidden;
+}
+.pf-header::before {
+  content: 'KYD';
+  position: absolute;
+  right: -2rem; bottom: -2rem;
+  font-family: var(--serif);
+  font-size: 20rem;
+  font-weight: 300;
+  color: rgba(200, 169, 110, 0.05);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.05em;
+}
+.pf-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.pf-header-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.pf-header-label::before {
+  content: '';
+  width: 32px; height: 1px;
+  background: var(--accent);
+}
+.pf-header h1 {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--white);
+}
+.pf-header h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+.pf-header-meta {
+  text-align: right;
+}
+.pf-header-count {
+  font-family: var(--serif);
+  font-size: 4rem;
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
+  display: block;
+}
+.pf-header-count-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.pf-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  transition: color 0.25s;
+  margin-bottom: 2.5rem;
+  text-decoration: none;
+}
+.pf-back-link:hover { color: var(--accent); }
+
+/* ============================
+   FILTER BAR
+============================ */
+.pf-filter-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.pf-filter-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem clamp(1.5rem, 5vw, 4rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.pf-filter-tabs {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.pf-filter-tab {
+  padding: 0.45rem 1.1rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--fg2);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.25s;
+  font-family: var(--sans);
+}
+.pf-filter-tab:hover { border-color: var(--fg2); color: var(--fg); }
+.pf-filter-tab.active { background: var(--fg); color: var(--white); border-color: var(--fg); }
+
+.pf-view-toggle {
+  display: flex;
+  gap: 0.5rem;
+}
+.pf-view-btn {
+  width: 36px; height: 36px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem;
+  color: var(--fg3);
+  cursor: pointer;
+  background: transparent;
+  transition: all 0.2s;
+}
+.pf-view-btn.active { background: var(--fg); color: var(--white); border-color: var(--fg); }
+.pf-view-btn:hover:not(.active) { border-color: var(--fg2); color: var(--fg); }
+
+/* ============================
+   GRID CONTAINER
+============================ */
+.pf-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem clamp(1.5rem, 5vw, 4rem) 6rem;
+}
+
+/* ============================
+   FEATURED SECTION
+============================ */
+.pf-featured-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg3);
+}
+.pf-featured-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.pf-featured-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+}
+.pf-featured-card {
+  aspect-ratio: 4 / 3;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background: var(--bg2);
+}
+.pf-featured-card:first-child {
+  grid-column: span 2;
+  aspect-ratio: 21 / 9;
+}
+
+/* ============================
+   ALL WORKS GRID — Default (3-col masonry-style)
+============================ */
+.pf-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+/* List view */
+.pf-grid.view-list {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+/* ============================
+   PORTFOLIO CARD
+============================ */
+.pf-card {
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--bg2);
+  transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
+  animation: cardAppear 0.5s var(--ease-out) both;
+}
+.pf-card.hidden {
+  display: none;
+}
+@keyframes cardAppear {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+.pf-card:hover { transform: translateY(-6px); box-shadow: 0 24px 64px rgba(26, 23, 20, 0.12); }
+
+/* Card image */
+.pf-card-img-wrap {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  position: relative;
+}
+.pf-card-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease);
+  display: block;
+}
+.pf-card:hover .pf-card-img-wrap img { transform: scale(1.06); }
+
+.pf-card-placeholder {
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 2.5rem;
+  color: rgba(255, 255, 255, 0.6);
+  transition: transform 0.7s var(--ease);
+}
+.pf-card:hover .pf-card-placeholder { transform: scale(1.06); }
+.pf-card-placeholder span {
+  font-family: var(--serif);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Card overlay */
+.pf-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26, 23, 20, 0.88) 0%, rgba(26, 23, 20, 0) 55%);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.75rem;
+}
+.pf-card:hover .pf-card-overlay { opacity: 1; }
+
+.pf-card-cat {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+.pf-card-title {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+.pf-card-meta {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* Arrow button */
+.pf-card-arrow {
+  position: absolute;
+  top: 1.25rem; right: 1.25rem;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  font-size: 0.85rem;
+  opacity: 0;
+  transform: scale(0.6) rotate(-45deg);
+  transition: opacity 0.3s, transform 0.3s var(--ease);
+}
+.pf-card:hover .pf-card-arrow { opacity: 1; transform: scale(1) rotate(0deg); }
+
+/* Card info bar (below image) */
+.pf-card-info {
+  padding: 1rem 1.25rem;
+  background: var(--white);
+}
+.pf-card-info-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pf-card-info-sub {
+  font-size: 0.72rem;
+  color: var(--fg3);
+}
+
+/* ============================
+   LIST VIEW CARD
+============================ */
+.pf-grid.view-list .pf-card {
+  border-radius: 0;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  transform: none !important;
+  box-shadow: none !important;
+  background: transparent;
+}
+.pf-grid.view-list .pf-card:first-child { border-top: 1px solid var(--border); }
+.pf-grid.view-list .pf-card-img-wrap { aspect-ratio: 4 / 3; border-radius: 4px; margin: 1.25rem; }
+.pf-grid.view-list .pf-card-overlay { opacity: 0; display: none; }
+.pf-grid.view-list .pf-card-info {
+  padding: 1.25rem 1.25rem 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: transparent;
+}
+.pf-grid.view-list .pf-card-info-title { font-size: 1.1rem; white-space: normal; }
+.pf-grid.view-list .pf-card-info-tags  { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.75rem; }
+.pf-grid.view-list .pf-card-info-tag   {
+  padding: 0.2rem 0.7rem;
+  background: var(--bg2);
+  border-radius: 100px;
+  font-size: 0.68rem;
+  color: var(--fg2);
+}
+.pf-grid.view-list .pf-card-arrow { display: none; }
+.pf-grid.view-list .pf-card:hover { background: var(--white); }
+
+/* ============================
+   EMPTY STATE
+============================ */
+.pf-empty {
+  text-align: center;
+  padding: 6rem 2rem;
+  grid-column: 1 / -1;
+}
+.pf-empty-icon { font-size: 3.5rem; margin-bottom: 1.5rem; }
+.pf-empty h3 {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 300;
+  margin-bottom: 0.75rem;
+}
+.pf-empty p { font-size: 0.9rem; color: var(--fg2); }
+
+/* ============================
+   DETAIL MODAL
+============================ */
+.pf-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(26, 23, 20, 0.9);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s var(--ease), visibility 0.35s;
+  padding: 1rem;
+}
+.pf-modal-overlay.open { opacity: 1; visibility: visible; }
+
+.pf-modal {
+  background: var(--bg);
+  max-width: 900px;
+  width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
+  border-radius: 10px;
+  position: relative;
+  transform: translateY(30px) scale(0.97);
+  transition: transform 0.35s var(--ease);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.pf-modal-overlay.open .pf-modal { transform: translateY(0) scale(1); }
+
+.pf-modal-img {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 10px 0 0 10px;
+  position: relative;
+}
+.pf-modal-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.pf-modal-img-placeholder {
+  width: 100%; height: 100%;
+  min-height: 300px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 5rem;
+}
+.pf-modal-body {
+  padding: 2.5rem;
+  overflow-y: auto;
+}
+.pf-modal-close {
+  position: absolute;
+  top: 1.25rem; right: 1.25rem;
+  z-index: 5;
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: rgba(26, 23, 20, 0.5);
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.25s;
+  backdrop-filter: blur(4px);
+}
+.pf-modal-close:hover { background: var(--accent); }
+
+.pf-modal-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+.pf-modal-tag {
+  padding: 0.28rem 0.8rem;
+  background: var(--bg2);
+  border-radius: 100px;
+  font-size: 0.68rem;
+  color: var(--fg2);
+}
+.pf-modal-title {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+.pf-modal-client {
+  font-size: 0.8rem;
+  color: var(--fg3);
+  margin-bottom: 1.5rem;
+}
+.pf-modal-section-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.6rem;
+}
+.pf-modal-text {
+  font-size: 0.9rem;
+  color: var(--fg2);
+  line-height: 1.8;
+  margin-bottom: 1.75rem;
+}
+.pf-modal-result {
+  padding: 1.25rem;
+  background: var(--bg2);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+  font-size: 0.88rem;
+  color: var(--fg2);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+.pf-modal-nav {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+.pf-modal-nav-btn {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg2);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.25s;
+  font-family: var(--sans);
+  text-align: center;
+}
+.pf-modal-nav-btn:hover { background: var(--fg); color: var(--white); border-color: var(--fg); }
+.pf-modal-nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* ============================
+   FEATURED BADGE
+============================ */
+.featured-badge {
+  position: absolute;
+  top: 1rem; left: 1rem;
+  background: var(--accent);
+  color: var(--white);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border-radius: 100px;
+  z-index: 2;
+}
+
+/* ============================
+   TOAST
+============================ */
+.pf-toast {
+  position: fixed;
+  bottom: 2rem; left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--fg);
+  color: var(--white);
+  padding: 0.9rem 2rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  z-index: 999;
+  transition: transform 0.4s var(--ease);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.pf-toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ============================
+   RESPONSIVE
+============================ */
+@media (max-width: 1024px) {
+  .pf-grid { grid-template-columns: repeat(2, 1fr); }
+  .pf-featured-grid { grid-template-columns: 1fr; }
+  .pf-featured-card:first-child { grid-column: span 1; aspect-ratio: 16 / 9; }
+  .pf-modal { grid-template-columns: 1fr; }
+  .pf-modal-img { aspect-ratio: 16 / 9; border-radius: 10px 10px 0 0; }
+}
+
+@media (max-width: 768px) {
+  .pf-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .pf-grid.view-list .pf-card { grid-template-columns: 120px 1fr; }
+  .pf-header-meta { display: none; }
+  .pf-view-toggle { display: none; }
+}
+
+@media (max-width: 480px) {
+  .pf-grid { grid-template-columns: 1fr; }
+  .pf-card-info { padding: 0.85rem 1rem; }
+}
