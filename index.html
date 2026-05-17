@@ -29,10 +29,10 @@
   <ul class="nav-links">
     <li><a href="index.html" onclick="navigate('home')" data-page="home" class="active" data-hover>Home</a></li>
     <li><a href="portfolio.html" onclick="navigate('portofolio')" data-page="portofolio" class="active" data-hover>Portofolio</a></li>
-    <li><a href="#" onclick="navigate('profile')" data-page="profile" data-hover>Profil</a></li>
-    <li><a href="#" onclick="navigate('venture')" data-page="venture" data-hover>Our Venture</a></li>
-    <li><a href="#" onclick="navigate('blog')" data-page="blog" data-hover>Blog</a></li>
-    <li><a href="#" onclick="navigate('collab')" data-page="collab" data-hover>Kerjasama</a></li>
+    <li><a href="profile.html" onclick="navigate('profile')" data-page="profile" data-hover>Profil</a></li>
+    <li><a href="venture.html" onclick="navigate('venture')" data-page="venture" data-hover>Our Venture</a></li>
+    <li><a href="blog.html" onclick="navigate('blog')" data-page="blog" data-hover>Blog</a></li>
+    <li><a href="collab.html" onclick="navigate('collab')" data-page="collab" data-hover>Kerjasama</a></li>
     <li><a href="#" class="nav-cta" onclick="navigate('collab')" data-hover>Mulai Proyek</a></li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()" data-hover>
@@ -44,7 +44,7 @@
 <div class="nav-drawer" id="nav-drawer">
   <a href="index.html" onclick="navigate('home');toggleMenu()">Home</a>
   <a href="portfolio.html" onclick="navigate('portofolio');toggleMenu()">Portofolio</a>
-  <a href="#" onclick="navigate('profile');toggleMenu()">Profil</a>
+  <a href="profile.html" onclick="navigate('profile');toggleMenu()">Profil</a>
   <a href="#" onclick="navigate('venture');toggleMenu()">Our Venture</a>
   <a href="#" onclick="navigate('blog');toggleMenu()">Blog</a>
   <a href="#" onclick="navigate('collab');toggleMenu()">Kerjasama</a>
@@ -60,7 +60,7 @@
     <div class="hero-bg"></div>
     <div class="hero-line"></div>
     <div class="hero-content fade-in">
-      <div class="hero-eyebrow">Studio Kreatif Jakarta</div>
+      <div class="hero-eyebrow">Studio Kreatif Bogor</div>
       <h1 class="hero-title">
         Desain yang<br><em>bercerita.</em>
       </h1>
@@ -69,7 +69,7 @@
           Kami merancang identitas visual, pengalaman digital, dan narasi brand yang meninggalkan kesan mendalam.
         </p>
         <div class="hero-actions">
-          <a href="#" class="btn btn-primary" onclick="document.getElementById('portfolio-section').scrollIntoView({behavior:'smooth'})">Lihat Karya ↓</a>
+          <a href="portfolio.html" class="btn btn-primary" onclick="document.getElementById('portfolio-section').scrollIntoView({behavior:'smooth'})">Lihat Karya ↓</a>
           <a href="#" class="btn btn-outline" onclick="navigate('collab')">Mulai Proyek</a>
         </div>
       </div>
@@ -356,131 +356,7 @@
 <!-- ================================================
      PAGE: PROFILE
 ================================================ -->
-<div id="page-profile" class="page">
-  <section class="section">
-    <div class="container">
-      <div class="profile-hero fade-in">
-        <div class="profile-img-wrap">
-          <div class="profile-img-placeholder">👤</div>
-        </div>
-        <div>
-          <div class="profile-badges">
-            <span class="badge">Creative Director</span>
-            <span class="badge">Brand Strategist</span>
-            <span class="badge">Visual Designer</span>
-          </div>
-          <span class="label">Tentang Saya</span>
-          <h1 class="title-lg" style="margin-bottom:1rem">Andi <em style="font-style:italic;color:var(--accent)">Wirawan</em></h1>
-          <p style="font-size:1rem;color:var(--fg2);line-height:1.8;margin-bottom:1.5rem">
-            Seorang desainer multidisiplin dengan lebih dari 8 tahun pengalaman membangun identitas visual dan narasi brand untuk perusahaan-perusahaan pilihan di Indonesia dan Asia Tenggara.
-          </p>
-          <p style="font-size:1rem;color:var(--fg2);line-height:1.8;margin-bottom:2rem">
-            Saya percaya bahwa desain yang baik bukan hanya soal estetika — ia adalah alat komunikasi yang paling jujur antara brand dan manusianya. Setiap kurva, setiap warna, setiap spasi adalah keputusan yang disengaja.
-          </p>
-          <div class="divider"></div>
-          <div class="skills-list">
-            <div class="skill-row">
-              <div class="skill-row-top"><span>Brand Identity</span><span>95%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-row-top"><span>UI/UX Design</span><span>88%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-row-top"><span>Typography</span><span>92%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-row-top"><span>Motion Design</span><span>78%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div>
-            </div>
-            <div class="skill-row">
-              <div class="skill-row-top"><span>Web Development</span><span>72%</span></div>
-              <div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div>
-            </div>
-          </div>
-          <div style="display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap">
-            <a href="#" class="btn btn-primary" onclick="navigate('collab')">Hubungi Saya</a>
-            <a href="#" class="btn btn-outline">Download CV</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- TIMELINE -->
-  <section class="section" style="background:var(--white)">
-    <div class="container-sm">
-      <span class="label">Perjalanan</span>
-      <h2 class="title-md" style="margin-bottom:3rem">Pengalaman &<br>Pendidikan</h2>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-year">2020 – Kini</div>
-          <div>
-            <div class="timeline-title">Founder & Creative Director</div>
-            <div class="timeline-sub">Kita Yang Desain, Jakarta</div>
-            <div class="timeline-desc">Mendirikan studio kreatif independen yang melayani brand lokal dan regional. Memimpin tim 8 desainer dalam proyek branding, digital, dan spatial.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2017 – 2020</div>
-          <div>
-            <div class="timeline-title">Senior Brand Designer</div>
-            <div class="timeline-sub">Pentagram Alumni Network, Singapore</div>
-            <div class="timeline-desc">Mengerjakan identitas visual untuk klien Fortune 500 di kawasan Asia Pasifik. Spesialisasi pada rebranding korporat skala besar.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2015 – 2017</div>
-          <div>
-            <div class="timeline-title">Junior Designer</div>
-            <div class="timeline-sub">Bhinneka Creative, Bandung</div>
-            <div class="timeline-desc">Memulai karier profesional dalam desain grafis, packaging, dan branding untuk UMKM Indonesia.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2011 – 2015</div>
-          <div>
-            <div class="timeline-title">S1 Desain Komunikasi Visual</div>
-            <div class="timeline-sub">Institut Teknologi Bandung</div>
-            <div class="timeline-desc">Lulus dengan predikat Cumlaude. Tugas akhir tentang identitas visual budaya Sunda dalam konteks desain kontemporer.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- AWARDS -->
-  <section class="section">
-    <div class="container">
-      <span class="label">Penghargaan</span>
-      <h2 class="title-md" style="margin-bottom:2.5rem">Pencapaian</h2>
-      <div class="awards-grid">
-        <div class="award-item">
-          <div class="award-icon">🥇</div>
-          <div class="award-title">Best Brand Identity</div>
-          <div class="award-org">IDA Awards 2023</div>
-        </div>
-        <div class="award-item">
-          <div class="award-icon">🏆</div>
-          <div class="award-title">ASEAN Creative Award</div>
-          <div class="award-org">ASEAN Design Week 2022</div>
-        </div>
-        <div class="award-item">
-          <div class="award-icon">⭐</div>
-          <div class="award-title">Rising Studio</div>
-          <div class="award-org">Design Week Indonesia 2021</div>
-        </div>
-        <div class="award-item">
-          <div class="award-icon">🎖️</div>
-          <div class="award-title">Top 10 Packaging Design</div>
-          <div class="award-org">Pentaward 2023</div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
 
 <!-- ================================================
      PAGE: BLOG
@@ -835,14 +711,14 @@
             <div class="contact-info-icon">📧</div>
             <div class="contact-info-text">
               <h4>Email</h4>
-              <p>hello@kitayangdesain.com<br>project@kitayangdesain.com</p>
+              <p>hello@kitayangdesain.com</p>
             </div>
           </div>
           <div class="contact-info-item">
             <div class="contact-info-icon">📞</div>
             <div class="contact-info-text">
               <h4>WhatsApp</h4>
-              <p>+62 812 3456 7890<br>Senin–Jumat, 09.00–18.00 WIB</p>
+              <p>+62 896 1426 5935<br>Senin–Sabtu, 09.00–17.00 WIB</p>
             </div>
           </div>
           <div class="contact-info-item">
@@ -855,16 +731,16 @@
           <div class="divider"></div>
           <h4 style="font-size:0.8rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--fg2);margin-bottom:1rem">Ikuti Kami</h4>
           <div class="social-links">
-            <a href="#" class="social-link" title="Instagram" onclick="showToast('Membuka Instagram...')">Ig</a>
-            <a href="#" class="social-link" title="LinkedIn" onclick="showToast('Membuka LinkedIn...')">Li</a>
-            <a href="#" class="social-link" title="Behance" onclick="showToast('Membuka Behance...')">Be</a>
-            <a href="#" class="social-link" title="Dribbble" onclick="showToast('Membuka Dribbble...')">Dr</a>
-            <a href="#" class="social-link" title="YouTube" onclick="showToast('Membuka YouTube...')">Yt</a>
+            <a href="https://www.instagram.com/kitayangdesain" class="social-link" title="Instagram" onclick="showToast('Membuka Instagram...')">Ig</a>
+            <a href="https://www.linkedin.com/company/kitayangdesain" class="social-link" title="LinkedIn" onclick="showToast('Membuka LinkedIn...')">Li</a>
+            <a href="https://www.behance.net/kitayangdesain" class="social-link" title="Behance" onclick="showToast('Membuka Behance...')">Be</a>
+            <a href="https://dribbble.com/kitayangdesain" class="social-link" title="Dribbble" onclick="showToast('Membuka Dribbble...')">Dr</a>
+            <a href="https://www.youtube.com/kitayangdesain" class="social-link" title="YouTube" onclick="showToast('Membuka YouTube...')">Yt</a>
           </div>
           <div style="margin-top:3rem;padding:2rem;background:var(--bg2);border-radius:4px">
             <div style="font-family:var(--serif);font-size:1.5rem;margin-bottom:1rem">"</div>
             <p style="font-family:var(--serif);font-style:italic;color:var(--fg2);font-size:0.95rem;line-height:1.7">Desain bukan tentang membuat sesuatu terlihat bagus. Ini tentang membuat sesuatu bekerja dengan indah.</p>
-            <div style="margin-top:1rem;font-size:0.78rem;color:var(--fg3)">— Andi Wirawan, Founder</div>
+            <div style="margin-top:1rem;font-size:0.78rem;color:var(--fg3)">— Devin Agastya, Founder</div>
           </div>
         </div>
       </div>
@@ -932,7 +808,6 @@
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
-
 <script src="js/main.js"></script>
 </body>
 </html>

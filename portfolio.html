@@ -19,8 +19,35 @@
 <body class="pf-page">
 
   <!-- CURSOR -->
-  <div class="cursor"      id="cursor"></div>
-  <div class="cursor-ring" id="cursor-ring"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- NAVIGATION -->
+<nav id="nav">
+  <a href="#" class="nav-logo" onclick="navigate('home')" data-hover>KitaYang<span>Desain</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html" onclick="navigate('home')" data-page="home" class="active" data-hover>Home</a></li>
+    <li><a href="portfolio.html" onclick="navigate('portofolio')" data-page="portofolio" class="active" data-hover>Portofolio</a></li>
+    <li><a href="profile.html" onclick="navigate('profile')" data-page="profile" data-hover>Profil</a></li>
+    <li><a href="venture.html" onclick="navigate('venture')" data-page="venture" data-hover>Our Venture</a></li>
+    <li><a href="blog.html" onclick="navigate('blog')" data-page="blog" data-hover>Blog</a></li>
+    <li><a href="collab.html" onclick="navigate('collab')" data-page="collab" data-hover>Kerjasama</a></li>
+    <li><a href="#" class="nav-cta" onclick="navigate('collab')" data-hover>Mulai Proyek</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()" data-hover>
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="nav-drawer">
+  <a href="index.html" onclick="navigate('home');toggleMenu()">Home</a>
+  <a href="portfolio.html" onclick="navigate('portofolio');toggleMenu()">Portofolio</a>
+  <a href="#" onclick="navigate('profile');toggleMenu()">Profil</a>
+  <a href="#" onclick="navigate('venture');toggleMenu()">Our Venture</a>
+  <a href="#" onclick="navigate('blog');toggleMenu()">Blog</a>
+  <a href="#" onclick="navigate('collab');toggleMenu()">Kerjasama</a>
+</div>
 
   <!-- ============================
        HEADER
