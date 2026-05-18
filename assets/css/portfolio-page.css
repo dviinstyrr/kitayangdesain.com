@@ -215,8 +215,9 @@
 ============================ */
 .pf-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr)); 
   gap: 1.25rem;
+  width: 100%;
 }
 
 /* List view */
@@ -236,6 +237,7 @@
   background: var(--bg2);
   transition: transform 0.45s var(--ease), box-shadow 0.45s var(--ease);
   animation: cardAppear 0.5s var(--ease-out) both;
+  min-width: 0;
 }
 .pf-card.hidden {
   display: none;
@@ -580,7 +582,7 @@
    RESPONSIVE
 ============================ */
 @media (max-width: 1024px) {
-  .pf-grid { grid-template-columns: repeat(2, 1fr); }
+  .pf-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .pf-featured-grid { grid-template-columns: 1fr; }
   .pf-featured-card:first-child { grid-column: span 1; aspect-ratio: 16 / 9; }
   .pf-modal { grid-template-columns: 1fr; }
@@ -588,7 +590,7 @@
 }
 
 @media (max-width: 768px) {
-  .pf-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .pf-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
   .pf-grid.view-list .pf-card { grid-template-columns: 120px 1fr; }
   .pf-header-meta { display: none; }
   .pf-view-toggle { display: none; }

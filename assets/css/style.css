@@ -595,8 +595,9 @@
     /* ============================
        ▶ PAGE: PROFILE
     ============================ */
+    
     .profile-hero {
-      padding-top: calc(var(--nav-h) + 5rem);
+      padding-top: calc(var(--nav-h) + 0rem);
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 4rem; align-items: center;
     }
@@ -649,7 +650,7 @@
     /* ============================
        ▶ PAGE: BLOG
     ============================ */
-    .blog-header { padding-top: calc(var(--nav-h) + 5rem); }
+    .blog-header { padding-top: calc(var(--nav-h) + -5rem); }
     .blog-featured {
       display: grid; grid-template-columns: 3fr 2fr; gap: 2rem;
       margin-bottom: 4rem;

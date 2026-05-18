@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kitadangdesain — Studio Kreatif</title>
-  <meta name="description" content="Kitadangdesain adalah studio kreatif yang berfokus pada desain visual, branding, dan pengalaman digital yang bermakna." />
+  <title>KitaYangDesain — Studio Kreatif</title>
+  <meta name="description" content="Kita Yang Desain adalah studio kreatif yang berfokus pada desain visual, branding, dan pengalaman digital yang bermakna." />
   <meta name="keywords" content="desain, branding, kreatif, portofolio, studio desain, Indonesia" />
-  <meta property="og:title" content="Kitadangdesain" />
+  <meta property="og:title" content="Kita Yang Desain" />
   <meta property="og:description" content="Studio kreatif untuk desain visual, branding, dan pengalaman digital." />
   <meta property="og:url" content="https://kitayangdesain.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
 
@@ -25,15 +25,14 @@
 
 <!-- NAVIGATION -->
 <nav id="nav">
-  <a href="#" class="nav-logo" onclick="navigate('home')" data-hover>KitaYang<span>Desain</span></a>
+  <a href="#" class="nav-logo" onclick="navigate('home')" data-hover>Kitayang<span>desain</span></a>
   <ul class="nav-links">
-    <li><a href="index.html" onclick="navigate('home')" data-page="home" class="active" data-hover>Home</a></li>
-    <li><a href="portfolio.html" onclick="navigate('portofolio')" data-page="portofolio" class="active" data-hover>Portofolio</a></li>
+    <li><a href="portfolio.html" onclick="navigate('home')" data-page="home" data-hover>Portofolio</a></li>
     <li><a href="profile.html" onclick="navigate('profile')" data-page="profile" data-hover>Profil</a></li>
     <li><a href="venture.html" onclick="navigate('venture')" data-page="venture" data-hover>Our Venture</a></li>
     <li><a href="blog.html" onclick="navigate('blog')" data-page="blog" data-hover>Blog</a></li>
     <li><a href="collab.html" onclick="navigate('collab')" data-page="collab" data-hover>Kerjasama</a></li>
-    <li><a href="#" class="nav-cta" onclick="navigate('collab')" data-hover>Mulai Proyek</a></li>
+    <li><a href="collab.html" class="nav-cta" onclick="navigate('collab')" data-hover>Mulai Proyek</a></li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()" data-hover>
     <span></span><span></span><span></span>
@@ -42,18 +41,17 @@
 
 <!-- MOBILE DRAWER -->
 <div class="nav-drawer" id="nav-drawer">
-  <a href="index.html" onclick="navigate('home');toggleMenu()">Home</a>
-  <a href="portfolio.html" onclick="navigate('portofolio');toggleMenu()">Portofolio</a>
+  <a href="portfolio.html" onclick="navigate('home');toggleMenu()">Portofolio</a>
   <a href="profile.html" onclick="navigate('profile');toggleMenu()">Profil</a>
-  <a href="#" onclick="navigate('venture');toggleMenu()">Our Venture</a>
-  <a href="#" onclick="navigate('blog');toggleMenu()">Blog</a>
-  <a href="#" onclick="navigate('collab');toggleMenu()">Kerjasama</a>
+  <a href="venture.html" onclick="navigate('venture');toggleMenu()">Our Venture</a>
+  <a href="blog.html" onclick="navigate('blog');toggleMenu()">Blog</a>
+  <a href="collab.html" onclick="navigate('collab');toggleMenu()">Kerjasama</a>
 </div>
 
 <!-- ================================================
      PAGE: HOME
 ================================================ -->
-<div id="page-home" class="page active">
+<div id="page-home" class="page active"> 
 
   <!-- HERO -->
   <section class="hero">
@@ -69,7 +67,7 @@
           Kami merancang identitas visual, pengalaman digital, dan narasi brand yang meninggalkan kesan mendalam.
         </p>
         <div class="hero-actions">
-          <a href="portfolio.html" class="btn btn-primary" onclick="document.getElementById('portfolio-section').scrollIntoView({behavior:'smooth'})">Lihat Karya ↓</a>
+          <a href="#" class="btn btn-primary" onclick="document.getElementById('portfolio-section').scrollIntoView({behavior:'smooth'})">Lihat Karya ↓</a>
           <a href="#" class="btn btn-outline" onclick="navigate('collab')">Mulai Proyek</a>
         </div>
       </div>
@@ -79,10 +77,11 @@
   <!-- STATS BAR -->
   <div class="stats-bar">
     <div class="stats-inner">
-      <div class="stat-item"><span class="stat-num">60+</span><span class="stat-label">Proyek Selesai</span></div>
-      <div class="stat-item"><span class="stat-num">5+</span><span class="stat-label">Tahun Pengalaman</span></div>
-      <div class="stat-item"><span class="stat-num">85+</span><span class="stat-label">Klien Puas</span></div>
-      <div class="stat-item"><span class="stat-num">5</span><span class="stat-label">Venture Aktif</span></div>
+      <div class="stat-item"><span class="stat-num">73+</span><span class="stat-label">Proyek Selesai</span></div>
+      <div class="stat-item"><span class="stat-num">7+</span><span class="stat-label">Tahun Pengalaman</span></div>
+      <div class="stat-item"><span class="stat-num">52+</span><span class="stat-label">Klien Puas</span></div>
+      <!--<div class="stat-item"><span class="stat-num">12</span><span class="stat-label">Penghargaan</span></div>-->
+      <div class="stat-item"><span class="stat-num">18</span><span class="stat-label">Venture Aktif</span></div>
     </div>
   </div>
 
@@ -92,7 +91,7 @@
       <div class="stagger">
         <span class="label">Karya Pilihan</span>
         <h2 class="title-lg">Portofolio<br><em style="font-style:italic;color:var(--accent)">kami</em></h2>
-        <p class="subtitle" style="margin:1.5rem 0 3rem">Setiap proyek adalah kolaborasi bermakna — dari konsep hingga eksekusi yang penuh integritas.</p>
+        <p class="subtitle" style="margin:1.5rem 0 3rem">Setiap proyek adalah kolaborasi yang bermakna dari sebuah konsep hingga eksekusi yang penuh integritas.</p>
       </div>
       <div class="filter-tabs" id="filter-tabs">
         <button class="filter-tab active" onclick="filterPortfolio('all', this)">Semua</button>
@@ -104,20 +103,20 @@
       </div>
       <div class="portfolio-grid" id="portfolio-grid">
 
-        <div class="pf-card" data-cat="branding" onclick="openModal('nusantara')">
+        <div class="pf-card" data-cat="branding" onclick="openModal('nevval')">
           <div class="pf-card-img-placeholder" style="background:linear-gradient(135deg,#E8DFD5 0%,#C8A96E22 100%)">
-            <div style="text-align:center"><div style="font-size:3rem;margin-bottom:0.5rem">🌿</div>Nusantara Heritage</div>
+            <img src="assets/img/portofolio/homepage/Nevval-logo.webp" alt="Nevval" style="width:100%;height:auto;">
           </div>
           <div class="pf-card-overlay">
             <span class="pf-card-cat">Branding & Identity</span>
-            <h3 class="pf-card-title">Nusantara Heritage Co.</h3>
+            <h3 class="pf-card-title">Nevval</h3>
           </div>
           <div class="pf-card-arrow">↗</div>
         </div>
 
         <div class="pf-card" data-cat="digital" onclick="openModal('fintech')">
           <div class="pf-card-img-placeholder" style="background:linear-gradient(135deg,#1A1714 0%,#3D2B1F 100%)">
-            <div style="text-align:center;color:#C8A96E"><div style="font-size:2.5rem;margin-bottom:0.5rem">◈</div>FinWave App</div>
+            <div style="text-align:center;color:#C8A96E"><div style="font-size:2.5rem;margin-bottom:0.5rem">◈</div>Bisbox Packing</div>
           </div>
           <div class="pf-card-overlay">
             <span class="pf-card-cat">UI/UX Design</span>
@@ -172,7 +171,7 @@
 
       </div>
       <div style="text-align:center;margin-top:3rem">
-        <a href="#" class="btn btn-outline" onclick="showMorePortfolio()">Lihat Semua Karya ↓</a>
+        <a href="portfolio.html" class="btn btn-outline" onclick="showMorePortfolio()">Lihat Semua Karya ↓</a>
       </div>
     </div>
   </section>
@@ -198,12 +197,12 @@
         <div class="service-item">
           <div class="service-num">03</div>
           <h3 class="service-title">Packaging & Print</h3>
-          <p class="service-desc">Kemasan produk dan materi cetak yang berbicara di rak — dari konsep hingga produksi siap cetak.</p>
+          <p class="service-desc">Kemasan produk dan materi cetak yang berbicara di rak, dari konsep hingga produksi siap cetak.</p>
         </div>
         <div class="service-item">
           <div class="service-num">04</div>
           <h3 class="service-title">Web Development</h3>
-          <p class="service-desc">Website yang cepat, modern, dan performan — dibangun di atas fondasi desain yang kuat.</p>
+          <p class="service-desc">Website yang cepat, modern, dan performan dibangun di atas fondasi desain yang kuat.</p>
         </div>
         <div class="service-item">
           <div class="service-num">05</div>
@@ -259,41 +258,42 @@
   <!-- MARQUEE / CLIENTS -->
   <div class="marquee-wrap">
     <div class="marquee-track" id="marquee">
-      <span class="marquee-item">Kemenparekraf</span>
+      <span class="marquee-item">Nevalda Collection</span>
       <span class="marquee-dot"></span>
-      <span class="marquee-item">Tokopedia</span>
+      <span class="marquee-item">Zaafer Indonesia</span>
       <span class="marquee-dot"></span>
-      <span class="marquee-item">Garuda Indonesia</span>
+      <span class="marquee-item">Nevval</span>
       <span class="marquee-dot"></span>
-      <span class="marquee-item">BNI</span>
+      <span class="marquee-item">Bolu Amor</span>
       <span class="marquee-dot"></span>
-      <span class="marquee-item">Astra Motor</span>
+      <span class="marquee-item">Porsche</span>
       <span class="marquee-dot"></span>
-      <span class="marquee-item">Mayapada</span>
+      <span class="marquee-item">MD Pictures</span>
       <span class="marquee-dot"></span>
-      <span class="marquee-item">Sinar Mas</span>
+      <span class="marquee-item">Kinsuroi</span>
       <span class="marquee-dot"></span>
-      <span class="marquee-item">CIMB Niaga</span>
+      <span class="marquee-item">SHKYN</span>
       <span class="marquee-dot"></span>
-      <span class="marquee-item">Kemenparekraf</span>
+      <span class="marquee-item">Greebel</span>
       <span class="marquee-dot"></span>
-      <span class="marquee-item">Tokopedia</span>
+      <span class="marquee-item">Sheynas</span>
       <span class="marquee-dot"></span>
-      <span class="marquee-item">Garuda Indonesia</span>
+      <span class="marquee-item">Keibi</span>
       <span class="marquee-dot"></span>
-      <span class="marquee-item">BNI</span>
+      <span class="marquee-item">Zaafer Indonesia</span>
       <span class="marquee-dot"></span>
-      <span class="marquee-item">Astra Motor</span>
+      <span class="marquee-item">Nevval</span>
       <span class="marquee-dot"></span>
-      <span class="marquee-item">Mayapada</span>
+      <span class="marquee-item">Porsche</span>
       <span class="marquee-dot"></span>
-      <span class="marquee-item">Sinar Mas</span>
+      <span class="marquee-item">Kinsuroi</span>
       <span class="marquee-dot"></span>
-      <span class="marquee-item">CIMB Niaga</span>
+      <span class="marquee-item">MD Pictures</span>
     </div>
   </div>
 
-  <!-- TESTIMONIALS -->
+  
+  <!-- TESTIMONIALS 
   <section class="section" style="background:var(--bg2)">
     <div class="container">
       <div style="margin-bottom:3rem" class="stagger">
@@ -336,7 +336,8 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
+
 
   <!-- CTA -->
   <section class="cta-section">
@@ -351,12 +352,8 @@
     </div>
   </section>
 
-</div><!-- end page-home -->
-
-<!-- ================================================
-     PAGE: PROFILE
-================================================ -->
-
+</div> 
+<!-- end page-home -->
 
 <!-- ================================================
      PAGE: BLOG
@@ -448,7 +445,7 @@
             <p class="blog-excerpt" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">Panduan praktis untuk desainer freelance dan studio kecil yang ingin keluar dari jebakan undercharging.</p>
             <div class="blog-meta"><span>10 Des 2024</span></div>
           </div>
-        </div>
+        </div>  
       </div>
 
       <div style="text-align:center;margin-top:3rem">
@@ -711,14 +708,14 @@
             <div class="contact-info-icon">📧</div>
             <div class="contact-info-text">
               <h4>Email</h4>
-              <p>hello@kitayangdesain.com</p>
+              <p>hello@kitayangdesain.com<br>project@kitayangdesain.com</p>
             </div>
           </div>
           <div class="contact-info-item">
             <div class="contact-info-icon">📞</div>
             <div class="contact-info-text">
               <h4>WhatsApp</h4>
-              <p>+62 896 1426 5935<br>Senin–Sabtu, 09.00–17.00 WIB</p>
+              <p>+62 812 3456 7890<br>Senin–Jumat, 09.00–18.00 WIB</p>
             </div>
           </div>
           <div class="contact-info-item">
@@ -731,16 +728,16 @@
           <div class="divider"></div>
           <h4 style="font-size:0.8rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--fg2);margin-bottom:1rem">Ikuti Kami</h4>
           <div class="social-links">
-            <a href="https://www.instagram.com/kitayangdesain" class="social-link" title="Instagram" onclick="showToast('Membuka Instagram...')">Ig</a>
-            <a href="https://www.linkedin.com/company/kitayangdesain" class="social-link" title="LinkedIn" onclick="showToast('Membuka LinkedIn...')">Li</a>
-            <a href="https://www.behance.net/kitayangdesain" class="social-link" title="Behance" onclick="showToast('Membuka Behance...')">Be</a>
-            <a href="https://dribbble.com/kitayangdesain" class="social-link" title="Dribbble" onclick="showToast('Membuka Dribbble...')">Dr</a>
-            <a href="https://www.youtube.com/kitayangdesain" class="social-link" title="YouTube" onclick="showToast('Membuka YouTube...')">Yt</a>
+            <a href="#" class="social-link" title="Instagram" onclick="showToast('Membuka Instagram...')">Ig</a>
+            <a href="#" class="social-link" title="LinkedIn" onclick="showToast('Membuka LinkedIn...')">Li</a>
+            <a href="#" class="social-link" title="Behance" onclick="showToast('Membuka Behance...')">Be</a>
+            <a href="#" class="social-link" title="Dribbble" onclick="showToast('Membuka Dribbble...')">Dr</a>
+            <a href="#" class="social-link" title="YouTube" onclick="showToast('Membuka YouTube...')">Yt</a>
           </div>
           <div style="margin-top:3rem;padding:2rem;background:var(--bg2);border-radius:4px">
             <div style="font-family:var(--serif);font-size:1.5rem;margin-bottom:1rem">"</div>
             <p style="font-family:var(--serif);font-style:italic;color:var(--fg2);font-size:0.95rem;line-height:1.7">Desain bukan tentang membuat sesuatu terlihat bagus. Ini tentang membuat sesuatu bekerja dengan indah.</p>
-            <div style="margin-top:1rem;font-size:0.78rem;color:var(--fg3)">— Devin Agastya, Founder</div>
+            <div style="margin-top:1rem;font-size:0.78rem;color:var(--fg3)">— Andi Wirawan, Founder</div>
           </div>
         </div>
       </div>
@@ -752,46 +749,46 @@
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
-      <span class="nav-logo">Kita Yang <span>Desain</span></span>
-      <p class="footer-desc">Studio kreatif berbasis di Jakarta yang percaya bahwa desain yang baik adalah desain yang jujur — pada brand, pada audiens, dan pada dirinya sendiri.</p>
+      <span class="nav-logo">Kitayang<span>desain</span></span>
+      <p class="footer-desc">Studio kreatif berbasis di Bogor yang percaya bahwa desain yang baik adalah desain yang jujur pada brand, pada audiens, dan pada dirinya sendiri.</p>
       <div style="margin-top:2rem;display:flex;gap:0.75rem">
-        <a href="#" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)" onclick="showToast('Instagram')">Ig</a>
-        <a href="#" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)" onclick="showToast('LinkedIn')">Li</a>
-        <a href="#" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)" onclick="showToast('Behance')">Be</a>
+        <a href="https://www.instagram.com/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)" onclick="showToast('Instagram')">Ig</a>
+        <a href="https://www.linkedin.com/company/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)" onclick="showToast('LinkedIn')">Li</a>
+        <a href="https://www.behance.net/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)" onclick="showToast('Behance')">Be</a>
       </div>
     </div>
     <div class="footer-col">
       <h5>Studio</h5>
       <ul>
-        <li><a href="#" onclick="navigate('home')">Portofolio</a></li>
-        <li><a href="#" onclick="navigate('profile')">Profil</a></li>
-        <li><a href="#" onclick="navigate('venture')">Our Venture</a></li>
-        <li><a href="#" onclick="navigate('blog')">Blog</a></li>
+        <li><a href="portfolio.html" onclick="navigate('home')">Portofolio</a></li>
+        <li><a href="profile.html" onclick="navigate('profile')">Profil</a></li>
+        <li><a href="venture.html" onclick="navigate('venture')">Our Venture</a></li>
+        <li><a href="blog.html" onclick="navigate('blog')">Blog</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h5>Layanan</h5>
       <ul>
-        <li><a href="#" onclick="navigate('collab')">Brand Identity</a></li>
-        <li><a href="#" onclick="navigate('collab')">UI/UX Design</a></li>
-        <li><a href="#" onclick="navigate('collab')">Packaging</a></li>
-        <li><a href="#" onclick="navigate('collab')">Web Design</a></li>
-        <li><a href="#" onclick="navigate('collab')">Motion</a></li>
+        <li><a href="collab.html" onclick="navigate('collab')">Brand Identity</a></li>
+        <li><a href="collab.html" onclick="navigate('collab')">UI/UX Design</a></li>
+        <li><a href="collab.html" onclick="navigate('collab')">Packaging</a></li>
+        <li><a href="collab.html" onclick="navigate('collab')">Web Design</a></li>
+        <li><a href="collab.html" onclick="navigate('collab')">Motion</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h5>Kontak</h5>
       <ul>
         <li><a href="mailto:hello@kitayangdesain.com">hello@kitayangdesain.com</a></li>
-        <li><a href="tel:+6281234567890">+62 812 3456 7890</a></li>
-        <li><a href="#">Kemang, Jakarta Selatan</a></li>
-        <li><a href="#" onclick="navigate('collab')">Mulai Proyek</a></li>
+        <li><a href="tel:+6285156460209">+62 851 5646 0209</a></li>
+        <li><a href="#">Tajur Halang, kabupaten Bogor</a></li>
+        <li><a href="collab.html" onclick="navigate('collab')">Mulai Proyek</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">© 2025 <a href="https://kitayangdesain.com">kitayangdesain.com</a> — Semua hak dilindungi.</span>
-    <span class="footer-copy">Dibuat dengan ♥ di Jakarta</span>
+    <span class="footer-copy">© 2026 <a href="https://kitayangdesain.com">kitayangdesain.com</a> — Semua hak dilindungi.</span>
+    <span class="footer-copy">Dibuat dengan ♥ di Bogor</span>
   </div>
 </footer>
 
@@ -808,6 +805,7 @@
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
-<script src="js/main.js"></script>
+
+<script src="assets/js/main.js"></script>
 </body>
 </html>

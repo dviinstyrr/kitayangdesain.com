@@ -1,8 +1,5 @@
-/* ============================================================
-   DATA
-============================================================ */
 const portfolioData = {
-  nusantara: {
+  nevval: {
     title: 'Nusantara Heritage Co.',
     cat: 'Branding & Identity',
     year: '2024',
@@ -160,7 +157,7 @@ function filterPortfolio(cat, btn) {
 }
 
 function showMorePortfolio() {
-  showToast('Menampilkan semua 120+ karya...');
+  showToast('Menampilkan semua karya...');
 }
 
 /* ============================================================

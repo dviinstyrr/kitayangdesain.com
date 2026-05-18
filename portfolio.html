@@ -3,51 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portofolio — Kita Yang Desain</title>
-  <meta name="description" content="Kumpulan karya terpilih Kita Yang Desain: branding, UI/UX, packaging, web, dan spatial design." />
-
-  <!-- Fonts -->
+  <title>Portofolio — Kitayangdesain</title>
+  <meta name="description" content="Kumpulan karya terpilih Kitayangdesain: branding, UI/UX, packaging, web, dan spatial design." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/components.css" />
-  <link rel="stylesheet" href="css/portfolio-page.css" />
+  <link rel="stylesheet" href="assets/css/base.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/portfolio-page.css" />
 </head>
 <body class="pf-page">
-
+  <!-- LOADER -->
+<div id="loader"><span class="loader-text">KYD.</span></div>
   <!-- CURSOR -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursor-ring"></div>
-
-<!-- NAVIGATION -->
-<nav id="nav">
-  <a href="#" class="nav-logo" onclick="navigate('home')" data-hover>KitaYang<span>Desain</span></a>
-  <ul class="nav-links">
-    <li><a href="index.html" onclick="navigate('home')" data-page="home" class="active" data-hover>Home</a></li>
-    <li><a href="portfolio.html" onclick="navigate('portofolio')" data-page="portofolio" class="active" data-hover>Portofolio</a></li>
-    <li><a href="profile.html" onclick="navigate('profile')" data-page="profile" data-hover>Profil</a></li>
-    <li><a href="venture.html" onclick="navigate('venture')" data-page="venture" data-hover>Our Venture</a></li>
-    <li><a href="blog.html" onclick="navigate('blog')" data-page="blog" data-hover>Blog</a></li>
-    <li><a href="collab.html" onclick="navigate('collab')" data-page="collab" data-hover>Kerjasama</a></li>
-    <li><a href="#" class="nav-cta" onclick="navigate('collab')" data-hover>Mulai Proyek</a></li>
-  </ul>
-  <div class="hamburger" id="hamburger" onclick="toggleMenu()" data-hover>
-    <span></span><span></span><span></span>
-  </div>
-</nav>
-
-<!-- MOBILE DRAWER -->
-<div class="nav-drawer" id="nav-drawer">
-  <a href="index.html" onclick="navigate('home');toggleMenu()">Home</a>
-  <a href="portfolio.html" onclick="navigate('portofolio');toggleMenu()">Portofolio</a>
-  <a href="#" onclick="navigate('profile');toggleMenu()">Profil</a>
-  <a href="#" onclick="navigate('venture');toggleMenu()">Our Venture</a>
-  <a href="#" onclick="navigate('blog');toggleMenu()">Blog</a>
-  <a href="#" onclick="navigate('collab');toggleMenu()">Kerjasama</a>
-</div>
+  <div class="cursor"      id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
 
   <!-- ============================
        HEADER
@@ -141,7 +111,7 @@
         <!-- CTA -->
         <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);text-align:center">
           <p style="font-size:0.82rem;color:var(--fg3);margin-bottom:1rem">Tertarik berkolaborasi?</p>
-          <a href="index.html#collab" class="btn btn-accent" style="width:100%;justify-content:center">Mulai Proyek Serupa →</a>
+          <a href="collab.html" class="btn btn-accent" style="width:100%;justify-content:center">Mulai Proyek Serupa →</a>
         </div>
       </div>
     </div>
@@ -155,15 +125,16 @@
   ============================ -->
   <footer style="background:var(--fg);padding:2rem clamp(1.5rem,5vw,4rem);text-align:center">
     <a href="index.html" style="font-family:var(--serif);font-size:1.2rem;color:var(--white);letter-spacing:0.04em">
-      Kita Yang <span style="color:var(--accent)">Desain</span>
+      Kitayang<span style="color:var(--accent)">desain</span>
     </a>
     <p style="font-size:0.78rem;color:rgba(255,255,255,0.3);margin-top:0.75rem">
-      © 2025 kitayangdesain.com · <a href="admin.html" style="color:rgba(255,255,255,0.2);transition:color .2s" onmouseover="this.style.color='#C8A96E'" onmouseout="this.style.color='rgba(255,255,255,0.2)'">Admin</a>
+      © 2026 kitayangdesain.com · <a href="admin-local/admin.html" style="color:rgba(255,255,255,0.2);transition:color .2s" onmouseover="this.style.color='#C8A96E'" onmouseout="this.style.color='rgba(255,255,255,0.2)'">Admin</a>
     </p>
   </footer>
 
   <!-- JS -->
-  <script src="js/storage.js"></script>
-  <script src="js/portfolio-page.js"></script>
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/portfolio-page.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
