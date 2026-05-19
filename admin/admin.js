@@ -65,6 +65,17 @@
     showLogin();
   }
 
+  /* ── LOGIN ─────────────────────────────────────────────── */
+  function showLogin() {
+    $('screen-login').style.display = '';
+    $('screen-app').style.display   = 'none';
+  }
+  function showApp() {
+    $('screen-login').style.display = 'none';
+    $('screen-app').style.display   = 'grid';
+    initApp();
+  }
+
   $('login-form')?.addEventListener('submit', async e => {
     e.preventDefault();
     const pw = $('login-pw')?.value || '';
