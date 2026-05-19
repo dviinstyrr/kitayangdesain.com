@@ -37,6 +37,9 @@
   async function checkSession() {
     const token = getToken();
     if (!token) return false;
+    // Local token (fallback)
+    if (token.startsWith('local-token:')) return true;
+    // JWT token (online)
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
       if (payload.exp * 1000 <= Date.now()) { doLogout(); return false; }
@@ -66,6 +69,10 @@
   }
 
   /* ── LOGIN ─────────────────────────────────────────────── */
+  // Fallback password untuk testing lokal (tanpa Netlify Functions)
+  // Ganti dengan password kamu di sini untuk test lokal
+  const LOCAL_PASS = 'KYD1001@1';
+
   function showLogin() {
     $('screen-login').style.display = '';
     $('screen-app').style.display   = 'none';
@@ -84,6 +91,7 @@
     if (btn) { btn.disabled = true; btn.textContent = 'Memverifikasi...'; }
     if (err) err.style.display = 'none';
 
+    // Fallback: coba function dulu
     try {
       const res = await fetch('/.netlify/functions/auth', {
         method: 'POST',
@@ -95,13 +103,24 @@
         saveSession(data.token);
         $('login-pw').value = '';
         showApp();
+        return;
       } else {
         if (err) { err.textContent = data.error || 'Password salah.'; err.style.display = 'block'; }
         $('login-pw').value = '';
         $('login-pw').focus();
+        return;
       }
     } catch (ex) {
-      if (err) { err.textContent = 'Gagal terhubung ke server.'; err.style.display = 'block'; }
+      // Function tidak tersedia (lokal), pakai fallback
+      if (pw === LOCAL_PASS) {
+        saveSession('local-token:' + Date.now());
+        $('login-pw').value = '';
+        showApp();
+      } else {
+        if (err) { err.textContent = 'Password salah.'; err.style.display = 'block'; }
+        $('login-pw').value = '';
+        $('login-pw').focus();
+      }
     } finally {
       if (btn) { btn.disabled = false; btn.textContent = 'Masuk →'; }
     }
