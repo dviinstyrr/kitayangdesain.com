@@ -333,10 +333,11 @@
 }
 .pf-card:hover .pf-card-arrow { opacity: 1; transform: scale(1) rotate(0deg); }
 
-/* Card info bar (below image) */
+/* Card info bar (below image) — hidden in grid view on desktop (hover overlay handles it) */
 .pf-card-info {
   padding: 1rem 1.25rem;
   background: var(--white);
+  display: none;
 }
 .pf-card-info-title {
   font-size: 0.9rem;
@@ -594,6 +595,7 @@
   .pf-grid.view-list .pf-card { grid-template-columns: 120px 1fr; }
   .pf-header-meta { display: none; }
   .pf-view-toggle { display: none; }
+  .pf-card-info { display: block; }
 }
 
 @media (max-width: 480px) {

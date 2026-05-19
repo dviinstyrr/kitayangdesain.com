@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Admin — Kita Yang Desain</title>
+  <meta name="robots" content="noindex,nofollow"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+:root{
+  --bg:#F7F5F2;--bg2:#EEEAE4;--fg:#1A1714;--fg2:#5C5651;--fg3:#9C958E;
+  --accent:#C8A96E;--accent2:#8B5E3C;--white:#fff;--border:rgba(26,23,20,.1);
+  --danger:#D94F4F;--success:#2E7D54;--info:#2D4A6E;--warn:#B45309;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Outfit',system-ui,sans-serif;
+  --ease:cubic-bezier(.25,.1,.25,1);
+  --sidebar:256px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-size:15px;}
+body{font-family:var(--sans);background:var(--bg);color:var(--fg);min-height:100vh;-webkit-font-smoothing:antialiased;}
+button{cursor:pointer;border:none;background:none;font-family:var(--sans);}
+input,textarea,select{font-family:var(--sans);}
+::selection{background:var(--accent);color:#fff;}
+#screen-login,#screen-app{display:none;}
+
+/* ── LOGIN ─────────────────────────────────────────────── */
+#screen-login{
+  min-height:100vh;background:var(--fg);
+  display:grid;place-items:center;padding:1.5rem;
+}
+.login-box{
+  background:var(--bg);padding:clamp(2rem,5vw,3rem);
+  border-radius:12px;width:100%;max-width:400px;
+}
+.login-logo{font-family:var(--serif);font-size:1.6rem;font-weight:300;text-align:center;margin-bottom:.25rem;}
+.login-logo span{color:var(--accent);}
+.login-sub{font-size:.68rem;color:var(--fg3);letter-spacing:.18em;text-transform:uppercase;text-align:center;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);}
+.login-label{display:block;font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--fg2);margin-bottom:.45rem;}
+.login-input{width:100%;padding:.82rem 1rem;border:1px solid var(--border);border-radius:4px;font-size:.95rem;color:var(--fg);background:transparent;outline:none;transition:border-color .25s;}
+.login-input:focus{border-color:var(--accent);}
+.login-group{margin-bottom:1.1rem;}
+.login-btn{width:100%;padding:.9rem;background:var(--fg);color:#fff;font-size:.8rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;border-radius:4px;margin-top:.25rem;transition:background .25s;}
+.login-btn:hover{background:var(--accent2);}
+.login-err{background:#fee;color:var(--danger);border:1px solid #fbbcbc;border-radius:4px;padding:.65rem 1rem;font-size:.8rem;margin-top:.9rem;display:none;}
+.login-back{display:block;text-align:center;margin-top:1.5rem;font-size:.75rem;color:var(--fg3);text-decoration:none;transition:color .25s;}
+.login-back:hover{color:var(--accent);}
+
+/* ── APP LAYOUT ────────────────────────────────────────── */
+#screen-app{display:grid;grid-template-columns:var(--sidebar) 1fr;min-height:100vh;}
+
+/* SIDEBAR */
+.sidebar{background:var(--fg);display:flex;flex-direction:column;padding:1.75rem 1.5rem;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.s-logo{font-family:var(--serif);font-size:1.2rem;font-weight:300;color:#fff;margin-bottom:.2rem;}
+.s-logo span{color:var(--accent);}
+.s-sub{font-size:.6rem;color:rgba(255,255,255,.25);letter-spacing:.18em;text-transform:uppercase;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,.07);}
+.s-stats{background:rgba(255,255,255,.04);border-radius:6px;padding:.9rem;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:.6rem;}
+.s-stat-val{font-family:var(--serif);font-size:1.5rem;color:var(--accent);font-weight:300;line-height:1;}
+.s-stat-lbl{font-size:.6rem;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.1em;margin-top:.2rem;}
+.s-section{font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.2);margin:.9rem 0 .5rem;}
+.s-nav a,.s-nav button{display:flex;align-items:center;gap:.6rem;padding:.52rem .7rem;border-radius:5px;font-size:.82rem;color:rgba(255,255,255,.45);transition:all .2s;cursor:pointer;width:100%;text-align:left;margin-bottom:.15rem;text-decoration:none;}
+.s-nav a:hover,.s-nav button:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.85);}
+.s-nav a.active{background:rgba(200,169,110,.15);color:var(--accent);}
+.s-icon{width:16px;text-align:center;font-size:.85rem;flex-shrink:0;}
+.s-footer{margin-top:auto;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,.07);}
+.s-storage{font-size:.65rem;color:rgba(255,255,255,.22);margin-bottom:.75rem;}
+.s-storage strong{color:rgba(255,255,255,.35);display:block;margin-bottom:.2rem;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;}
+
+/* Draft banner */
+#draft-banner{
+  background:rgba(180,83,9,.15);border:1px solid rgba(180,83,9,.3);
+  border-radius:6px;padding:.75rem;margin-bottom:1rem;
+  font-size:.72rem;color:rgba(255,200,100,.85);line-height:1.5;display:none;
+}
+#draft-banner strong{display:block;margin-bottom:.2rem;}
+
+/* MAIN */
+.main{overflow:hidden;display:flex;flex-direction:column;}
+
+/* TOPBAR */
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:.85rem 1.75rem;display:flex;align-items:center;justify-content:space-between;gap:.75rem;flex-wrap:wrap;position:sticky;top:0;z-index:10;}
+.topbar-l{display:flex;align-items:center;gap:.65rem;flex:1;flex-wrap:wrap;}
+.adm-search{padding:.5rem .9rem;border:1px solid var(--border);border-radius:100px;font-size:.82rem;color:var(--fg);background:var(--bg);outline:none;width:200px;transition:border-color .25s,width .3s;}
+.adm-search:focus{border-color:var(--accent);width:240px;}
+.adm-filter{padding:.5rem .8rem;border:1px solid var(--border);border-radius:100px;font-size:.78rem;color:var(--fg2);background:var(--bg);outline:none;cursor:pointer;}
+#item-count{font-size:.72rem;color:var(--fg3);}
+.topbar-r{display:flex;gap:.5rem;}
+
+/* CONTENT */
+.content{padding:1.5rem 1.75rem 4rem;flex:1;}
+
+/* ── ITEM LIST ─────────────────────────────────────────── */
+#admin-list{display:flex;flex-direction:column;gap:.6rem;}
+.adm-item{display:grid;grid-template-columns:22px 64px 1fr auto;gap:.85rem;align-items:center;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:.85rem;transition:box-shadow .2s,border-color .2s,opacity .2s;cursor:grab;}
+.adm-item:hover{box-shadow:0 3px 16px rgba(26,23,20,.07);border-color:rgba(26,23,20,.16);}
+.adm-item.dragging{opacity:.45;cursor:grabbing;}
+.adm-item.drag-over{border-color:var(--accent);box-shadow:0 0 0 2px rgba(200,169,110,.3);}
+.adm-drag{color:var(--fg3);font-size:.95rem;cursor:grab;user-select:none;text-align:center;}
+.adm-thumb{width:64px;height:50px;border-radius:5px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.adm-info{min-width:0;}
+.adm-title{font-size:.88rem;font-weight:600;margin-bottom:.28rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.adm-meta{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.35rem;font-size:.7rem;color:var(--fg3);}
+.adm-tags{display:flex;gap:.28rem;flex-wrap:wrap;}
+.adm-tag{padding:.12rem .5rem;background:var(--bg);border:1px solid var(--border);border-radius:100px;font-size:.6rem;color:var(--fg2);}
+.cat-badge{padding:.15rem .6rem;border-radius:100px;font-size:.62rem;font-weight:600;}
+.cat-branding{background:#fff3dc;color:#8b5e3c;}
+.cat-digital {background:#dce8ff;color:#2d4a6e;}
+.cat-print   {background:#ffe8dc;color:#6b3a1f;}
+.cat-spatial {background:#e8f5e9;color:#2e7d54;}
+.cat-motion  {background:#ede8ff;color:#4a2d8b;}
+.cat-other   {background:var(--bg2);color:var(--fg3);}
+.feat-pill{background:var(--accent);color:#fff;padding:.15rem .6rem;border-radius:100px;font-size:.62rem;font-weight:600;}
+.adm-actions{display:flex;gap:.4rem;align-items:center;flex-shrink:0;}
+.adm-btn{font-size:.7rem;font-weight:500;padding:.38rem .8rem;border-radius:4px;transition:all .2s;font-family:var(--sans);}
+.ghost  {background:transparent;color:var(--fg3);border:1px solid var(--border);font-size:.9rem;}
+.ghost:hover{border-color:var(--accent);color:var(--accent);}
+.outline{border:1px solid var(--border);color:var(--fg2);background:transparent;}
+.outline:hover{background:var(--fg);color:#fff;border-color:var(--fg);}
+.primary{background:var(--fg);color:#fff;}
+.primary:hover{background:var(--accent2);}
+.accent-btn{background:var(--accent);color:#fff;}
+.accent-btn:hover{background:var(--accent2);}
+.danger{border:1px solid transparent;color:var(--danger);background:#fee;}
+.danger:hover{background:var(--danger);color:#fff;}
+.adm-empty{text-align:center;padding:3rem 2rem;color:var(--fg3);font-size:.88rem;}
+
+/* ── PANEL ─────────────────────────────────────────────── */
+#overlay{position:fixed;inset:0;z-index:100;background:rgba(26,23,20,.55);backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;}
+#overlay.open{opacity:1;visibility:visible;}
+#panel{position:fixed;top:0;right:0;bottom:0;width:min(520px,100vw);background:var(--bg);z-index:101;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .36s var(--ease);overflow:hidden;}
+#panel.open{transform:translateX(0);}
+.panel-hdr{padding:1.25rem 1.6rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:var(--white);}
+.panel-hdr h2{font-family:var(--serif);font-size:1.3rem;font-weight:300;}
+#btn-close-panel{width:32px;height:32px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--fg);transition:background .2s;}
+#btn-close-panel:hover{background:var(--border);}
+.panel-body{flex:1;overflow-y:auto;padding:1.5rem 1.6rem;}
+.panel-ftr{padding:1rem 1.6rem;border-top:1px solid var(--border);display:flex;gap:.6rem;flex-shrink:0;background:var(--white);}
+
+/* Form */
+.fg{margin-bottom:1.2rem;}
+.fl{display:block;font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--fg2);margin-bottom:.42rem;}
+.fr{color:var(--accent);}
+.fi,.ft,.fs{width:100%;padding:.76rem .9rem;border:1px solid var(--border);border-radius:4px;font-size:.87rem;color:var(--fg);background:var(--white);outline:none;transition:border-color .25s;}
+.fi:focus,.ft:focus,.fs:focus{border-color:var(--accent);}
+.ft{resize:vertical;min-height:78px;}
+.fs{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239C958E' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .9rem center;padding-right:2.2rem;}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
+.fhint{font-size:.66rem;color:var(--fg3);margin-top:.3rem;}
+.fdiv{display:flex;align-items:center;gap:.75rem;margin:1.4rem 0 1.2rem;font-size:.63rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--fg3);}
+.fdiv::before,.fdiv::after{content:'';flex:1;height:1px;background:var(--border);}
+
+/* Image upload */
+.img-drop{border:2px dashed var(--border);border-radius:7px;padding:1.6rem;text-align:center;cursor:pointer;transition:border-color .25s,background .25s;position:relative;}
+.img-drop:hover{border-color:var(--accent);background:rgba(200,169,110,.04);}
+.img-drop input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.img-drop-ico{font-size:1.7rem;margin-bottom:.5rem;}
+.img-drop-txt{font-size:.8rem;color:var(--fg2);}
+.img-drop-hint{font-size:.66rem;color:var(--fg3);margin-top:.2rem;}
+#img-wrap{display:none;margin-top:.85rem;border-radius:5px;overflow:hidden;position:relative;}
+#img-prev{width:100%;height:155px;object-fit:cover;display:block;}
+#btn-rm-img{position:absolute;top:.45rem;right:.45rem;background:rgba(26,23,20,.65);color:#fff;border-radius:100px;padding:.2rem .65rem;font-size:.68rem;font-weight:500;backdrop-filter:blur(4px);transition:background .2s;}
+#btn-rm-img:hover{background:var(--danger);}
+
+/* Color preview */
+.color-row{display:grid;grid-template-columns:1fr auto;gap:.9rem;align-items:end;}
+#color-prev{width:75px;height:56px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;border:1px solid var(--border);transition:background .3s;}
+
+/* Toggle */
+.ftoggle{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1rem;border:1px solid var(--border);border-radius:4px;cursor:pointer;transition:border-color .25s;}
+.ftoggle:hover{border-color:var(--accent);}
+.ftoggle-info h4{font-size:.82rem;font-weight:600;margin-bottom:.12rem;}
+.ftoggle-info p{font-size:.7rem;color:var(--fg3);}
+.tsw{position:relative;width:40px;height:22px;flex-shrink:0;}
+.tsw input{opacity:0;width:0;height:0;position:absolute;}
+.ttrack{position:absolute;inset:0;background:var(--bg2);border-radius:100px;cursor:pointer;transition:background .3s;}
+.ttrack::after{content:'';position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .3s var(--ease);}
+.tsw input:checked+.ttrack{background:var(--accent);}
+.tsw input:checked+.ttrack::after{transform:translateX(18px);}
+
+/* Form status */
+.form-status{font-size:.78rem;padding:.52rem .85rem;border-radius:4px;margin-bottom:.6rem;min-height:1.8rem;line-height:1.5;}
+.form-status.success{background:#e8f5e9;color:var(--success);}
+.form-status.error  {background:#fee;   color:var(--danger);}
+.form-status.info   {background:#dce8ff;color:var(--info);}
+
+/* ── CONTENT TOOLBAR ─────────────────────────────────── */
+.content-toolbar{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap;}
+.tb-btn{font-size:.75rem!important;padding:.45rem .85rem!important;white-space:nowrap;}
+.tb-hint{font-size:.65rem;color:var(--fg3);flex:1;min-width:120px;}
+
+/* ── BLOG PANEL ──────────────────────────────────────── */
+#blog-overlay{position:fixed;inset:0;z-index:100;background:rgba(26,23,20,.55);backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;}
+#blog-overlay.open{opacity:1;visibility:visible;}
+#blog-panel{position:fixed;top:0;right:0;bottom:0;width:min(600px,100vw);background:var(--bg);z-index:101;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .36s var(--ease);overflow:hidden;}
+#blog-panel.open{transform:translateX(0);}
+#blog-color-prev{width:75px;height:56px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;border:1px solid var(--border);transition:background .3s;}
+
+/* TOAST */
+#admin-toast{position:fixed;bottom:1.75rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--fg);color:#fff;padding:.82rem 1.6rem;border-radius:100px;font-size:.82rem;z-index:500;transition:transform .4s var(--ease);white-space:nowrap;pointer-events:none;}
+#admin-toast.show{transform:translateX(-50%) translateY(0);}
+
+/* RESPONSIVE */
+@media(max-width:860px){:root{--sidebar:210px;}}
+@media(max-width:640px){
+  #screen-app{grid-template-columns:1fr;}
+  .sidebar{position:static;height:auto;flex-direction:row;flex-wrap:wrap;gap:.4rem;padding:.9rem;}
+  .s-logo,.s-sub,.s-stats,.s-section,.s-footer,#draft-banner{display:none;}
+  .s-nav{display:flex;flex-wrap:wrap;gap:.2rem;}
+  .s-nav a,.s-nav button{padding:.38rem .65rem;font-size:.75rem;}
+  .adm-item{grid-template-columns:50px 1fr;}
+  .adm-drag{display:none;}
+  .f2{grid-template-columns:1fr;}
+  #panel{width:100vw;}
+  #blog-panel{width:100vw;}
+}
+@media(max-width:420px){.adm-actions{flex-wrap:wrap;}.topbar{flex-direction:column;align-items:flex-start;}.adm-search{width:100%;}}
+  </style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══════════════════════════════════════════════ -->
+<div id="screen-login">
+  <div class="login-box">
+    <div class="login-logo">Kita Yang <span>Desain</span></div>
+    <div class="login-sub">Panel Admin Portofolio</div>
+    <form id="login-form">
+      <div class="login-group">
+        <label class="login-label" for="login-pw">Password Admin</label>
+        <input class="login-input" type="password" id="login-pw"
+          placeholder="Masukkan password..." autocomplete="current-password" required/>
+      </div>
+      <button type="submit" class="login-btn">Masuk →</button>
+      <div class="login-err" id="login-err"></div>
+    </form>
+    <a href="/" class="login-back">← Kembali ke beranda</a>
+  </div>
+</div>
+
+<!-- ══ APP ════════════════════════════════════════════════ -->
+<div id="screen-app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="s-logo">KYD <span>Admin</span></div>
+    <div class="s-sub">Portfolio & Blog Manager · <span style="color:var(--accent)">Online</span></div>
+
+    <div class="s-stats">
+      <div><div class="s-stat-val" id="sidebar-count">0</div><div class="s-stat-lbl">Karya</div></div>
+      <div><div class="s-stat-val" id="sidebar-storage">—</div><div class="s-stat-lbl">Storage</div></div>
+    </div>
+
+    <!-- Draft banner -->
+    <div id="draft-banner">
+      <strong>⚠️ Ada perubahan belum di-deploy</strong>
+      Klik <strong>Deploy</strong> untuk push langsung ke GitHub.
+    </div>
+
+    <nav class="s-nav">
+      <div class="s-section">Kelola</div>
+      <button id="tab-portfolio" class="active" onclick="switchTab('portfolio')"><span class="s-icon">🖼</span> Portofolio</button>
+      <button id="tab-blog" onclick="switchTab('blog')"><span class="s-icon">📝</span> Blog Artikel</button>
+      <a href="/portfolio.html" target="_blank"><span class="s-icon">↗</span> Halaman Publik</a>
+      <a href="/" target="_blank"><span class="s-icon">🏠</span> Website Utama</a>
+
+      <div class="s-section">Data</div>
+      <button id="btn-new"><span class="s-icon">＋</span> Tambah Konten</button>
+      <button id="btn-deploy"><span class="s-icon">🚀</span> Deploy ke GitHub</button>
+      <input type="file" id="import-file" accept=".json" style="display:none"/>
+
+      <div class="s-section">Lainnya</div>
+      <button id="btn-reset" style="color:rgba(217,79,79,.7)"><span class="s-icon">↺</span> Reset Default</button>
+    </nav>
+
+    <div class="s-footer">
+      <div class="s-storage">
+        <strong>Penyimpanan Browser</strong>
+        <span id="sidebar-storage2"></span>
+      </div>
+      <button class="s-nav" id="btn-logout" style="display:flex;align-items:center;gap:.6rem;padding:.52rem .7rem;border-radius:5px;font-size:.82rem;color:rgba(255,255,255,.35);width:100%;cursor:pointer;">
+        <span class="s-icon">⏏</span> Keluar
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-l">
+        <input class="adm-search" id="search" type="search" placeholder="🔍  Cari karya..."/>
+        <select class="adm-filter" id="filter-cat">
+          <option value="all">Semua Kategori</option>
+          <option value="branding">Branding</option>
+          <option value="digital">Digital</option>
+          <option value="print">Print</option>
+          <option value="spatial">Spatial</option>
+          <option value="motion">Motion</option>
+          <option value="other">Lainnya</option>
+        </select>
+        <span id="item-count"></span>
+      </div>
+      <div class="topbar-r">
+        <button class="adm-btn accent-btn" id="btn-new-topbar"
+          onclick="document.getElementById('btn-new').click()">+ Tambah Karya</button>
+        <button class="adm-btn outline" style="white-space:nowrap"
+          onclick="document.getElementById('btn-deploy').click()">🚀 Deploy</button>
+      </div>
+    </div>
+
+    <div class="content">
+      <!-- Info cara deploy -->
+      <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;margin-bottom:1.25rem;font-size:.78rem;color:var(--fg2);line-height:1.8;display:flex;align-items:flex-start;gap:.75rem;">
+        <span style="font-size:1.25rem;flex-shrink:0">🚀</span>
+        <span>
+          <strong style="color:var(--fg)">Online Mode:</strong>
+          Edit karya di sini → klik <strong>Deploy</strong> → data langsung ter-push ke GitHub → Netlify otomatis update.
+        </span>
+      </div>
+      <div id="admin-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PANEL FORM ════════════════════════════════════════ -->
+<div id="overlay"></div>
+<div id="panel">
+  <div class="panel-hdr">
+    <h2 id="panel-title">+ Tambah Karya</h2>
+    <button id="btn-close-panel">✕</button>
+  </div>
+
+  <div class="panel-body">
+    <form id="item-form" onsubmit="return false">
+      <div class="form-status" id="form-status"></div>
+
+      <div class="fdiv">Informasi Dasar</div>
+      <div class="fg">
+        <label class="fl" for="f-title">Judul Karya <span class="fr">*</span></label>
+        <input class="fi" id="f-title" type="text" placeholder="cth: Rebrand Nusantara Heritage" required/>
+      </div>
+      <div class="f2">
+        <div class="fg">
+          <label class="fl" for="f-client">Klien</label>
+          <input class="fi" id="f-client" type="text" placeholder="Nama klien / perusahaan"/>
+        </div>
+        <div class="fg">
+          <label class="fl" for="f-year">Tahun</label>
+          <input class="fi" id="f-year" type="text" placeholder="2025" maxlength="4"/>
+        </div>
+      </div>
+      <div class="f2">
+        <div class="fg">
+          <label class="fl" for="f-category">Kategori <span class="fr">*</span></label>
+          <select class="fs fi" id="f-category" required>
+            <option value="">Pilih...</option>
+            <option value="branding">Branding & Identity</option>
+            <option value="digital">UI/UX Design</option>
+            <option value="print">Packaging & Print</option>
+            <option value="spatial">Spatial Branding</option>
+            <option value="motion">Motion & Event</option>
+            <option value="other">Lainnya</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl" for="f-tags">Tag</label>
+          <input class="fi" id="f-tags" type="text" placeholder="Logo, Branding (koma)"/>
+        </div>
+      </div>
+
+      <div class="fdiv">Gambar</div>
+      <div class="fg">
+        <div class="img-drop">
+          <input type="file" id="f-image" accept="image/*"/>
+          <div class="img-drop-ico">📷</div>
+          <div class="img-drop-txt">Klik atau drag gambar ke sini</div>
+          <div class="img-drop-hint">JPG / PNG / WebP · Dikompres otomatis · Disimpan sebagai base64 di JSON</div>
+        </div>
+        <div id="img-wrap">
+          <img id="img-prev" src="" alt="Preview"/>
+          <button type="button" id="btn-rm-img">✕ Hapus</button>
+        </div>
+      </div>
+
+      <div class="fg">
+        <label class="fl">Fallback (jika belum ada gambar)</label>
+        <div class="color-row">
+          <div class="f2" style="margin:0">
+            <div class="fg" style="margin:0">
+              <label class="fl" for="f-color">Warna</label>
+              <input class="fi" id="f-color" type="color" value="#C8A96E" style="height:40px;padding:.2rem"/>
+            </div>
+            <div class="fg" style="margin:0">
+              <label class="fl" for="f-emoji">Emoji</label>
+              <input class="fi" id="f-emoji" type="text" placeholder="🎨" maxlength="4"/>
+            </div>
+          </div>
+          <div>
+            <label class="fl">Preview</label>
+            <div id="color-prev">🎨</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fdiv">Deskripsi & Hasil</div>
+      <div class="fg">
+        <label class="fl" for="f-desc">Tentang Proyek</label>
+        <textarea class="ft" id="f-desc" rows="3" placeholder="Latar belakang, tantangan, pendekatan..."></textarea>
+      </div>
+      <div class="fg">
+        <label class="fl" for="f-result">Hasil / Impact</label>
+        <textarea class="ft" id="f-result" rows="3" placeholder="cth: Penjualan naik 3x. Brand dikenal di 5 negara..."></textarea>
+      </div>
+
+      <div class="fdiv">Pengaturan</div>
+      <div class="fg">
+        <label class="ftoggle" for="f-featured">
+          <div class="ftoggle-info">
+            <h4>★ Tampilkan di Featured</h4>
+            <p>Muncul di bagian atas halaman portofolio</p>
+          </div>
+          <div class="tsw">
+            <input type="checkbox" id="f-featured"/>
+            <div class="ttrack"></div>
+          </div>
+        </label>
+      </div>
+    </form>
+  </div>
+
+  <div class="panel-ftr">
+    <button class="adm-btn primary" id="submit-btn"
+      onclick="document.getElementById('item-form').dispatchEvent(new Event('submit'))">
+      Simpan Karya
+    </button>
+    <button class="adm-btn outline" id="btn-cancel">Batal</button>
+  </div>
+</div>
+
+<!-- ══ BLOG PANEL FORM ═══════════════════════════════════════ -->
+<div id="blog-overlay"></div>
+<div id="blog-panel">
+  <div class="panel-hdr">
+    <h2 id="blog-panel-title">+ Tambah Artikel</h2>
+    <button id="btn-close-blog-panel">✕</button>
+  </div>
+
+  <div class="panel-body">
+    <form id="blog-form" onsubmit="return false">
+      <div class="form-status" id="blog-form-status"></div>
+
+      <div class="fdiv">Informasi Artikel</div>
+      <div class="fg">
+        <label class="fl" for="b-title">Judul Artikel <span class="fr">*</span></label>
+        <input class="fi" id="b-title" type="text" placeholder="cth: Tips Memilih Font untuk Brand" required/>
+      </div>
+      <div class="f2">
+        <div class="fg">
+          <label class="fl" for="b-category">Kategori <span class="fr">*</span></label>
+          <select class="fs fi" id="b-category" required>
+            <option value="">Pilih...</option>
+            <option value="branding">Branding</option>
+            <option value="digital">Digital / UI/UX</option>
+            <option value="print">Packaging / Print</option>
+            <option value="spatial">Spatial</option>
+            <option value="motion">Motion & Video</option>
+            <option value="other">Lainnya</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label class="fl" for="b-catlabel">Label Kategori</label>
+          <input class="fi" id="b-catlabel" type="text" placeholder="cth: Brand Strategy, Tips, Tutorial..."/>
+        </div>
+      </div>
+      <div class="f2">
+        <div class="fg">
+          <label class="fl" for="b-date">Tanggal</label>
+          <input class="fi" id="b-date" type="date"/>
+          <div class="fhint">Pilih tanggal, otomatis jadi format Indonesia</div>
+        </div>
+        <div class="fg">
+          <label class="fl" for="b-readtime">Waktu Baca</label>
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <input class="fi" id="b-readtime" type="number" min="1" max="120" placeholder="8" style="width:100px"/>
+            <span style="font-size:.82rem;color:var(--fg2);white-space:nowrap">menit baca</span>
+          </div>
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl" for="b-excerpt">Ringkasan <span class="fr">*</span></label>
+        <textarea class="ft" id="b-excerpt" rows="2" placeholder="Ringkasan singkat artikel yang muncul di kartu blog..." required></textarea>
+      </div>
+
+      <div class="fdiv">Konten Artikel (HTML)</div>
+      <div class="fg">
+        <label class="fl" for="b-content">Isi Artikel <span class="fr">*</span></label>
+        <div class="content-toolbar">
+          <button type="button" class="adm-btn outline tb-btn" id="btn-insert-img" title="Sisipkan gambar di posisi kursor">📷 Sisipkan Gambar</button>
+          <input type="file" id="insert-img-file" accept="image/*" style="display:none"/>
+          <select class="adm-filter" id="insert-img-align" title="Posisi gambar">
+            <option value="full">Full Width</option>
+            <option value="center">Tengah</option>
+            <option value="left">Kiri (teks mengalir)</option>
+            <option value="right">Kanan (teks mengalir)</option>
+          </select>
+          <span class="tb-hint">Klik tombol → pilih gambar → otomatis masuk di posisi kursor</span>
+        </div>
+        <textarea class="ft" id="b-content" rows="12" placeholder="<p>Paragraf pembuka...</p>&#10;<h3>Subjudul</h3>&#10;<p>Isi konten...</p>" required style="font-family:monospace;font-size:.82rem;min-height:250px"></textarea>
+        <div class="fhint">Gunakan tag HTML: &lt;p&gt;, &lt;h3&gt;, &lt;em&gt;, &lt;strong&gt;. Gambar yang disisipkan otomatis jadi tag &lt;img&gt;.</div>
+      </div>
+
+      <div class="fdiv">Tampilan Kartu</div>
+      <div class="fg">
+        <div class="img-drop" id="blog-img-drop">
+          <input type="file" id="b-image" accept="image/*"/>
+          <div class="img-drop-ico">📷</div>
+          <div class="img-drop-txt">Klik atau drag gambar ke sini</div>
+          <div class="img-drop-hint">Gambar sampul artikel (opsional)</div>
+        </div>
+        <div id="blog-img-wrap" style="display:none;margin-top:.85rem;border-radius:5px;overflow:hidden;position:relative">
+          <img id="blog-img-prev" src="" alt="Preview" style="width:100%;height:155px;object-fit:cover;display:block"/>
+          <button type="button" id="btn-rm-blog-img" style="position:absolute;top:.45rem;right:.45rem;background:rgba(26,23,20,.65);color:#fff;border-radius:100px;padding:.2rem .65rem;font-size:.68rem;font-weight:500">✕ Hapus</button>
+        </div>
+      </div>
+      <div class="fg">
+        <label class="fl">Fallback (jika belum ada gambar)</label>
+        <div class="color-row">
+          <div class="f2" style="margin:0">
+            <div class="fg" style="margin:0">
+              <label class="fl" for="b-color">Warna</label>
+              <input class="fi" id="b-color" type="color" value="#C8A96E" style="height:40px;padding:.2rem"/>
+            </div>
+            <div class="fg" style="margin:0">
+              <label class="fl" for="b-emoji">Emoji</label>
+              <input class="fi" id="b-emoji" type="text" placeholder="✦" maxlength="4"/>
+            </div>
+          </div>
+          <div>
+            <label class="fl">Preview</label>
+            <div id="blog-color-prev">✦</div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="panel-ftr">
+    <button class="adm-btn primary" id="blog-submit-btn"
+      onclick="document.getElementById('blog-form').dispatchEvent(new Event('submit'))">
+      Simpan Artikel
+    </button>
+    <button class="adm-btn outline" id="btn-cancel-blog">Batal</button>
+  </div>
+</div>
+
+<div id="admin-toast"></div>
+
+<script src="../assets/js/storage.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

@@ -86,9 +86,20 @@ let mx = 0, my = 0, rx = 0, ry = 0;
 document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx+'px'; cursor.style.top = my+'px'; });
 function animRing() { rx += (mx-rx)*0.12; ry += (my-ry)*0.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); }
 animRing();
-document.querySelectorAll('a,button,.pf-card,.blog-card,.collab-card,.venture-item,[data-hover]').forEach(el => {
-  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+const hoverSelector = 'a,button,.pf-card,.blog-card,.collab-card,.venture-item,[data-hover]';
+let hoverTarget = null;
+document.addEventListener('mouseover', e => {
+  const hit = e.target.closest(hoverSelector);
+  if (hit) {
+    hoverTarget = hit;
+    document.body.classList.add('cursor-hover');
+  }
+});
+document.addEventListener('mouseout', e => {
+  if (hoverTarget && !hoverTarget.contains(e.relatedTarget)) {
+    hoverTarget = null;
+    document.body.classList.remove('cursor-hover');
+  }
 });
 
 /* ============================================================
@@ -181,7 +192,6 @@ function openModal(id) {
     <p style="font-size:0.92rem;color:var(--fg2);line-height:1.8;margin-bottom:2rem">${d.desc}</p>
     <h4 style="font-weight:600;margin-bottom:0.75rem;font-size:0.9rem">Hasil</h4>
     <p style="font-size:0.92rem;color:var(--fg2);line-height:1.8;margin-bottom:2.5rem">${d.result}</p>
-    <a href="#" class="btn btn-primary" onclick="closeModalDirect();navigate('collab')">Proyek Serupa? Hubungi Kami →</a>
   `;
   document.getElementById('modal').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -251,15 +261,14 @@ function submitForm(e) {
   const perusahaan = form.querySelector('[name="perusahaan"]').value || '-';
   const whatsapp = form.querySelector('[name="whatsapp"]').value || '-';
   const layanan = form.querySelector('[name="layanan"]').value;
-  const budget = form.querySelector('[name="budget"]').value || '-';
   const pesan = form.querySelector('[name="pesan"]').value;
 
   const subject = encodeURIComponent('Proyek Baru: ' + layanan);
   const body = encodeURIComponent(
-    `Nama: ${nama}\nEmail: ${email}\nPerusahaan: ${perusahaan}\nWhatsApp: ${whatsapp}\nLayanan: ${layanan}\nBudget: ${budget}\n\nPesan:\n${pesan}`
+    'Nama: ' + nama + '\nEmail: ' + email + '\nPerusahaan: ' + perusahaan + '\nWhatsApp: ' + whatsapp + '\nLayanan: ' + layanan + '\n\nPesan:\n' + pesan
   );
-  window.location.href = `mailto:hello@kitayangdesain.com?subject=${subject}&body=${body}`;
-  showToast('✓ Membuka aplikasi email Anda...');
+  window.location.href = 'mailto:hello@kitayangdesain.com?subject=' + subject + '&body=' + body;
+  showToast('Membuka aplikasi email Anda...');
 }
 
 /* ============================================================
