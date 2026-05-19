@@ -26,8 +26,8 @@
   function getToken() { return sessionStorage.getItem(SESSION_KEY) || ''; }
 
   /* ── INIT ──────────────────────────────────────────────── */
-  document.addEventListener('DOMContentLoaded', () => {
-    checkSession() ? showApp() : showLogin();
+  document.addEventListener('DOMContentLoaded', async () => {
+    (await checkSession()) ? showApp() : showLogin();
   });
 
   /* ── SESSION ───────────────────────────────────────────── */
@@ -505,11 +505,10 @@
         + '<div class="adm-title">' + x(item.title) + '</div>'
         + '<div class="adm-meta">'
         + '<span class="cat-badge cat-' + item.category + '">' + x(item.categoryLabel || item.category) + '</span>'
-        + '<span>' + x(item.date) + ' · ' + x(item.readTime) + '</span>'
+        + '<span>' + x(item.date) + '</span>'
+        + '<span>' + x(item.readTime) + '</span>'
         + '</div>'
-        + '<div class="adm-tags" style="font-size:.72rem;color:var(--fg3);margin-top:.2rem">'
-        + x((item.excerpt || '').substring(0, 100)) + ((item.excerpt || '').length > 100 ? '...' : '')
-        + '</div>'
+        + '<div class="adm-tags">' + x((item.excerpt || '').substring(0, 80)) + ((item.excerpt || '').length > 80 ? '...' : '') + '</div>'
         + '</div>'
         + '<div class="adm-actions">'
         + '<button class="adm-btn outline" onclick="blogEdit(\'' + item.id + '\')">Edit</button>'

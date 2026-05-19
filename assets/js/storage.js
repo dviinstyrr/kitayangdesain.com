@@ -322,6 +322,15 @@ const DEFAULT_BLOGS = [
     excerpt: 'Panduan praktis untuk desainer freelance dan studio kecil yang ingin keluar dari jebakan undercharging.',
     content: '<p>Salah satu masalah terbesar dalam industri desain Indonesia adalah culture undercharging. Banyak desainer merasa bersalah memasang harga yang pantas.</p>',
     image: null, color: '#6B3A1F', emoji: '🌿'
+  },
+  {
+    id: 'blog-1779172195237', order: 7,
+    title: 'Mengapa "Bunga" Adalah Elemen Paling Sempurna dalam Dunia Desain',
+    category: 'other', categoryLabel: 'Digital',
+    date: '20 Maret 2025', readTime: '6 menit baca',
+    excerpt: 'Dalam semesta visual, ada satu elemen yang tidak pernah gagal mencuri perhatian. Kehadirannya bukan sekadar pemanis, melainkan definisi dari harmoni, keanggunan, dan inspirasi yang tak lekang oleh waktu.',
+    content: '<p>Dalam semesta visual, ada satu elemen yang tidak pernah gagal mencuri perhatian. Ia bukan sekadar pemanis atau dekorasi musiman. Kehadirannya adalah definisi dari harmoni itu sendiri.</p>',
+    image: null, color: '#C8A96E', emoji: '✦'
   }
 ];
 
