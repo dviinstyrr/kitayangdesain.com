@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Venture — KitaYangDesain</title>
+  <meta name="description" content="Ekosistem venture Kita Yang Desain — dari edukasi desain hingga ruang kreatif." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- NAVIGATION -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo" data-hover>Kitayang<span>desain</span></a>
+  <ul class="nav-links">
+    <li><a href="portfolio.html" data-hover>Portofolio</a></li>
+    <li><a href="profile.html" data-hover>Profil</a></li>
+    <li><a href="venture.html" data-hover class="active">Our Venture</a></li>
+    <li><a href="blog.html" data-hover>Blog</a></li>
+    <li><a href="collab.html" data-hover>Kerjasama</a></li>
+    <li><a href="collab.html" class="nav-cta" data-hover>Mulai Proyek</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()" data-hover>
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="nav-drawer">
+  <a href="portfolio.html" onclick="toggleMenu()">Portofolio</a>
+  <a href="profile.html" onclick="toggleMenu()">Profil</a>
+  <a href="venture.html" onclick="toggleMenu()">Our Venture</a>
+  <a href="blog.html" onclick="toggleMenu()">Blog</a>
+  <a href="collab.html" onclick="toggleMenu()">Kerjasama</a>
+</div>
+
+<!-- PAGE: OUR VENTURE -->
+<div class="page active">
+  <section class="section">
+    <div class="container">
+      <div class="venture-header fade-in">
+        <span class="label">Ekosistem Kami</span>
+        <h1 class="title-xl" style="margin-bottom:1.5rem">Our Venture</h1>
+        <p class="subtitle" style="margin-bottom:0.5rem">Selain studio desain, kami mengelola beberapa venture yang lahir dari kepercayaan pada kekuatan desain sebagai penggerak bisnis.</p>
+      </div>
+
+      <div class="ventures-list">
+        <div class="venture-item">
+          <div class="venture-img-wrap">
+            <div class="venture-img-placeholder" style="background:linear-gradient(135deg,#C8A96E22,#F7F5F2)">
+              <div style="text-align:center"><div style="font-size:4rem">🎓</div></div>
+            </div>
+          </div>
+          <div>
+            <div class="venture-num">01</div>
+            <h2 class="venture-name">DesainID Academy</h2>
+            <div class="venture-tags">
+              <span class="venture-tag">Edukasi</span>
+              <span class="venture-tag">Online Learning</span>
+              <span class="venture-tag">Community</span>
+            </div>
+            <p class="venture-desc">Platform pendidikan desain online pertama yang berfokus pada konteks lokal Indonesia. Menawarkan kursus branding, UI/UX, tipografi, dan bisnis kreatif untuk desainer dari semua level. Sudah memiliki lebih dari 12.000 pelajar aktif.</p>
+            <div style="display:flex;gap:1rem;align-items:center">
+              <a href="#" class="btn btn-primary" onclick="showToast('Membuka DesainID Academy...')">Kunjungi &rarr;</a>
+              <span style="font-size:0.82rem;color:var(--fg3)">12K+ pelajar &middot; 45 kursus</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="venture-item">
+          <div class="venture-img-wrap">
+            <div class="venture-img-placeholder" style="background:linear-gradient(135deg,#1A1714,#3D2B1F)">
+              <div style="text-align:center"><div style="font-size:4rem">🛍️</div><div style="color:#C8A96E;margin-top:0.5rem;font-size:1rem">KYD Store</div></div>
+            </div>
+          </div>
+          <div>
+            <div class="venture-num">02</div>
+            <h2 class="venture-name">KYD Store</h2>
+            <div class="venture-tags">
+              <span class="venture-tag">E-commerce</span>
+              <span class="venture-tag">Print on Demand</span>
+              <span class="venture-tag">Digital Assets</span>
+            </div>
+            <p class="venture-desc">Toko online yang menjual produk desain berkualitas tinggi: template brand kit, preset foto, font lokal, dan merchandise eksklusif. Setiap produk dibuat dengan filosofi "desain yang bisa diakses semua kalangan".</p>
+            <div style="display:flex;gap:1rem;align-items:center">
+              <a href="#" class="btn btn-primary" onclick="showToast('Membuka KYD Store...')">Kunjungi &rarr;</a>
+              <span style="font-size:0.82rem;color:var(--fg3)">500+ produk &middot; 8K+ pelanggan</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="venture-item">
+          <div class="venture-img-wrap">
+            <div class="venture-img-placeholder" style="background:linear-gradient(135deg,#2D4A6E,#4A90D9)">
+              <div style="text-align:center"><div style="font-size:4rem">📱</div></div>
+            </div>
+          </div>
+          <div>
+            <div class="venture-num">03</div>
+            <h2 class="venture-name">Kreatif.app</h2>
+            <div class="venture-tags">
+              <span class="venture-tag">SaaS</span>
+              <span class="venture-tag">Design Tools</span>
+              <span class="venture-tag">Startup</span>
+            </div>
+            <p class="venture-desc">Aplikasi manajemen proyek desain yang dirancang khusus untuk freelancer dan studio kreatif Indonesia. Menggabungkan workflow, invoice, dan komunikasi klien dalam satu platform yang elegan.</p>
+            <div style="display:flex;gap:1rem;align-items:center">
+              <a href="#" class="btn btn-primary" onclick="showToast('Membuka Kreatif.app...')">Kunjungi &rarr;</a>
+              <span style="font-size:0.82rem;color:var(--fg3)">Beta &middot; 2.000+ pengguna</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="venture-item">
+          <div class="venture-img-wrap">
+            <div class="venture-img-placeholder" style="background:linear-gradient(135deg,#6B3A1F,#C8874A)">
+              <div style="text-align:center"><div style="font-size:4rem">☕</div></div>
+            </div>
+          </div>
+          <div>
+            <div class="venture-num">04</div>
+            <h2 class="venture-name">Ruang Kreatif</h2>
+            <div class="venture-tags">
+              <span class="venture-tag">Coworking</span>
+              <span class="venture-tag">Event Space</span>
+              <span class="venture-tag">Community Hub</span>
+            </div>
+            <p class="venture-desc">Ruang kolaboratif di Kemang, Jakarta Selatan yang menggabungkan coworking space, galeri kecil, dan kafe. Menjadi rumah bagi komunitas desainer dan pelaku kreatif Jakarta.</p>
+            <div style="display:flex;gap:1rem;align-items:center">
+              <a href="#" class="btn btn-primary" onclick="showToast('Membuka Ruang Kreatif...')">Kunjungi &rarr;</a>
+              <span style="font-size:0.82rem;color:var(--fg3)">Kemang, Jakarta &middot; Buka setiap hari</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="venture-item">
+          <div class="venture-img-wrap">
+            <div class="venture-img-placeholder" style="background:linear-gradient(135deg,#2D1B4E,#7B4FA6)">
+              <div style="text-align:center"><div style="font-size:4rem">✦</div></div>
+            </div>
+          </div>
+          <div>
+            <div class="venture-num">05</div>
+            <h2 class="venture-name">KYD Events</h2>
+            <div class="venture-tags">
+              <span class="venture-tag">Event Organizer</span>
+              <span class="venture-tag">Conference</span>
+              <span class="venture-tag">Workshop</span>
+            </div>
+            <p class="venture-desc">Penyelenggara acara kreatif tahunan seperti "Desain Masa Depan" — konferensi desain terbesar di Indonesia — dan serangkaian workshop intensif bulanan di beberapa kota besar.</p>
+            <div style="display:flex;gap:1rem;align-items:center">
+              <a href="#" class="btn btn-primary" onclick="showToast('Membuka KYD Events...')">Kunjungi &rarr;</a>
+              <span style="font-size:0.82rem;color:var(--fg3)">3 event/tahun &middot; 5K+ peserta total</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="nav-logo">Kitayang<span>desain</span></span>
+      <p class="footer-desc">Studio kreatif berbasis di Bogor yang percaya bahwa desain yang baik adalah desain yang jujur pada brand, pada audiens, dan pada dirinya sendiri.</p>
+      <div style="margin-top:2rem;display:flex;gap:0.75rem">
+        <a href="https://www.instagram.com/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)">Ig</a>
+        <a href="https://www.linkedin.com/company/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)">Li</a>
+        <a href="https://www.behance.net/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)">Be</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Studio</h5>
+      <ul>
+        <li><a href="portfolio.html">Portofolio</a></li>
+        <li><a href="profile.html">Profil</a></li>
+        <li><a href="venture.html">Our Venture</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Layanan</h5>
+      <ul>
+        <li><a href="collab.html">Brand Identity</a></li>
+        <li><a href="collab.html">UI/UX Design</a></li>
+        <li><a href="collab.html">Packaging</a></li>
+        <li><a href="collab.html">Web Design</a></li>
+        <li><a href="collab.html">Motion</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Kontak</h5>
+      <ul>
+        <li><a href="mailto:hello@kitayangdesain.com">hello@kitayangdesain.com</a></li>
+        <li><a href="tel:+6285156460209">+62 851 5646 0209</a></li>
+        <li><a href="#">Tajur Halang, kabupaten Bogor</a></li>
+        <li><a href="collab.html">Mulai Proyek</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">&copy; 2026 <a href="https://kitayangdesain.com">kitayangdesain.com</a> &mdash; Semua hak dilindungi.</span>
+    <span class="footer-copy">Dibuat dengan ♥ di Bogor</span>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Kembali ke atas">&uarr;</button>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

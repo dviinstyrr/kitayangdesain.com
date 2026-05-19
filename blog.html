@@ -3,12 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KitaYangDesain — Studio Kreatif</title>
-  <meta name="description" content="Kita Yang Desain adalah studio kreatif yang berfokus pada desain visual, branding, dan pengalaman digital yang bermakna." />
-  <meta name="keywords" content="desain, branding, kreatif, portofolio, studio desain, Indonesia" />
-  <meta property="og:title" content="Kita Yang Desain" />
-  <meta property="og:description" content="Studio kreatif untuk desain visual, branding, dan pengalaman digital." />
-  <meta property="og:url" content="https://kitayangdesain.com" />
+  <title>Blog — KitaYangDesain</title>
+  <meta name="description" content="Artikel dan wawasan dari Kita Yang Desain tentang desain, branding, dan kreativitas." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -22,14 +18,14 @@
 
 <!-- NAVIGATION -->
 <nav id="nav">
-  <a href="index.html" class="nav-logo" onclick="navigate('home')" data-hover>Kitayang<span>desain</span></a>
+  <a href="index.html" class="nav-logo" data-hover>Kitayang<span>desain</span></a>
   <ul class="nav-links">
-    <li><a href="portfolio.html" onclick="navigate('home')" data-page="home" data-hover>Portofolio</a></li>
-    <li><a href="profile.html" onclick="navigate('profile')" data-page="profile" data-hover>Profil</a></li>
-    <li><a href="venture.html" onclick="navigate('venture')" data-page="venture" data-hover>Our Venture</a></li>
-    <li><a href="#" onclick="navigate('blog')" data-page="blog" data-hover class="active">Blog</a></li>
-    <li><a href="collab.html" onclick="navigate('collab')" data-page="collab" data-hover>Kerjasama</a></li>
-    <li><a href="collab.html" class="nav-cta" onclick="navigate('collab')" data-hover>Mulai Proyek</a></li>
+    <li><a href="portfolio.html" data-hover>Portofolio</a></li>
+    <li><a href="profile.html" data-hover>Profil</a></li>
+    <li><a href="venture.html" data-hover>Our Venture</a></li>
+    <li><a href="blog.html" data-hover class="active">Blog</a></li>
+    <li><a href="collab.html" data-hover>Kerjasama</a></li>
+    <li><a href="collab.html" class="nav-cta" data-hover>Mulai Proyek</a></li>
   </ul>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()" data-hover>
     <span></span><span></span><span></span>
@@ -38,15 +34,14 @@
 
 <!-- MOBILE DRAWER -->
 <div class="nav-drawer" id="nav-drawer">
-  <a href="portfolio.html" onclick="navigate('home');toggleMenu()">Portofolio</a>
-  <a href="profile.html" onclick="navigate('profile');toggleMenu()">Profil</a>
-  <a href="venture.html" onclick="navigate('venture');toggleMenu()">Our Venture</a>
-  <a href="#" onclick="navigate('blog');toggleMenu()">Blog</a>
-  <a href="collab.html" onclick="navigate('collab');toggleMenu()">Kerjasama</a>
-
+  <a href="portfolio.html" onclick="toggleMenu()">Portofolio</a>
+  <a href="profile.html" onclick="toggleMenu()">Profil</a>
+  <a href="venture.html" onclick="toggleMenu()">Our Venture</a>
+  <a href="blog.html" onclick="toggleMenu()">Blog</a>
+  <a href="collab.html" onclick="toggleMenu()">Kerjasama</a>
 </div>
 
-<div id="page-blog" class="page active">
+<div class="page active">
   <section class="section">
     <div class="container">
       <div class="blog-header fade-in">
@@ -55,89 +50,13 @@
         <p class="subtitle" style="margin-bottom:4rem">Berbagi perspektif tentang desain, brand, dan kreativitas.</p>
       </div>
 
-      <div class="blog-featured">
-        <div class="blog-card" onclick="openBlogPost('1')">
-          <div class="blog-thumb" style="background:linear-gradient(135deg,#C8A96E22,#8B5E3C11)">
-            <span style="font-size:3rem">✦</span>
-          </div>
-          <div class="blog-body">
-            <span class="blog-cat">Brand Strategy</span>
-            <h2 class="blog-title">Mengapa Brand Lokal Indonesia Perlu Berhenti Meniru Barat dan Mulai Menciptakan Identitas Sendiri</h2>
-            <p class="blog-excerpt">Selama bertahun-tahun, brand-brand Indonesia tumbuh dengan mengikuti tren desain Barat. Saatnya kita bicara tentang mengapa ini justru merugikan — dan bagaimana caranya keluar dari siklus ini.</p>
-            <div class="blog-meta">
-              <span>15 Januari 2025</span>
-              <span class="blog-meta-dot"></span>
-              <span>8 menit baca</span>
-              <span class="blog-meta-dot"></span>
-              <span>1.2K dibaca</span>
-            </div>
-          </div>
-        </div>
-        <div class="blog-side-list">
-          <div class="blog-side-card" onclick="openBlogPost('2')">
-            <span class="blog-cat">UI/UX</span>
-            <h3 class="blog-title-sm">5 Kesalahan Desain UI yang Masih Sering Dilakukan Startup di Indonesia</h3>
-            <div class="blog-meta">
-              <span>8 Jan 2025</span><span class="blog-meta-dot"></span><span>5 mnt</span>
-            </div>
-          </div>
-          <div class="blog-side-card" onclick="openBlogPost('3')">
-            <span class="blog-cat">Typography</span>
-            <h3 class="blog-title-sm">Panduan Lengkap Memilih Font untuk Brand Indonesia yang Kuat</h3>
-            <div class="blog-meta">
-              <span>2 Jan 2025</span><span class="blog-meta-dot"></span><span>6 mnt</span>
-            </div>
-          </div>
-          <div class="blog-side-card" onclick="openBlogPost('4')">
-            <span class="blog-cat">Packaging</span>
-            <h3 class="blog-title-sm">Bagaimana Desain Kemasan Bisa Menjadi Senjata Pemasaran Paling Ampuh</h3>
-            <div class="blog-meta">
-              <span>26 Des 2024</span><span class="blog-meta-dot"></span><span>7 mnt</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- More Articles -->
-      <span class="label">Artikel Lainnya</span>
-      <div class="blog-grid-list" style="margin-top:1.5rem">
-        <div class="blog-card" onclick="openBlogPost('5')">
-          <div class="blog-thumb" style="background:linear-gradient(135deg,#2D4A6E22,#4A90D911)">
-            <span style="font-size:2.5rem">🎨</span>
-          </div>
-          <div class="blog-body">
-            <span class="blog-cat">Desain</span>
-            <h3 class="blog-title-sm">Minimalisme dalam Desain: Lebih Sedikit, Lebih Bermakna</h3>
-            <p class="blog-excerpt" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">Filosofi "less is more" bukan sekadar tren estetika — ia adalah pernyataan tentang menghormati perhatian audiens.</p>
-            <div class="blog-meta"><span>20 Des 2024</span></div>
-          </div>
-        </div>
-        <div class="blog-card" onclick="openBlogPost('6')">
-          <div class="blog-thumb" style="background:linear-gradient(135deg,#1A1714,#3D2B1F)">
-            <span style="font-size:2.5rem;color:#C8A96E">◈</span>
-          </div>
-          <div class="blog-body">
-            <span class="blog-cat">Industri</span>
-            <h3 class="blog-title-sm">Bagaimana AI Mengubah Industri Desain Grafis Indonesia</h3>
-            <p class="blog-excerpt" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">Refleksi jujur seorang desainer tentang peluang dan ancaman yang dibawa oleh AI dalam dunia kreatif.</p>
-            <div class="blog-meta"><span>15 Des 2024</span></div>
-          </div>
-        </div>
-        <div class="blog-card" onclick="openBlogPost('7')">
-          <div class="blog-thumb" style="background:linear-gradient(135deg,#6B3A1F,#C8874A)">
-            <span style="font-size:2.5rem">🌿</span>
-          </div>
-          <div class="blog-body">
-            <span class="blog-cat">Bisnis Kreatif</span>
-            <h3 class="blog-title-sm">Cara Menetapkan Harga Jasa Desain yang Adil dan Menguntungkan</h3>
-            <p class="blog-excerpt" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">Panduan praktis untuk desainer freelance dan studio kecil yang ingin keluar dari jebakan undercharging.</p>
-            <div class="blog-meta"><span>10 Des 2024</span></div>
-          </div>
-        </div>  
-      </div>
+      <!-- Dynamic content rendered by JS -->
+      <div id="blog-featured-area"></div>
+      <span class="label" id="blog-more-label" style="display:none">Artikel Lainnya</span>
+      <div id="blog-grid-area" class="blog-grid-list" style="margin-top:1.5rem"></div>
     </div>
+  </section>
 </div>
-
 
 <!-- FOOTER -->
 <footer>
@@ -146,28 +65,28 @@
       <span class="nav-logo">Kitayang<span>desain</span></span>
       <p class="footer-desc">Studio kreatif berbasis di Bogor yang percaya bahwa desain yang baik adalah desain yang jujur pada brand, pada audiens, dan pada dirinya sendiri.</p>
       <div style="margin-top:2rem;display:flex;gap:0.75rem">
-        <a href="https://www.instagram.com/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)" onclick="showToast('Instagram')">Ig</a>
-        <a href="https://www.linkedin.com/company/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)" onclick="showToast('LinkedIn')">Li</a>
-        <a href="https://www.behance.net/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)" onclick="showToast('Behance')">Be</a>
+        <a href="https://www.instagram.com/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)">Ig</a>
+        <a href="https://www.linkedin.com/company/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)">Li</a>
+        <a href="https://www.behance.net/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)">Be</a>
       </div>
     </div>
     <div class="footer-col">
       <h5>Studio</h5>
       <ul>
-        <li><a href="portfolio.html" onclick="navigate('home')">Portofolio</a></li>
-        <li><a href="#" onclick="navigate('profile')">Profil</a></li>
-        <li><a href="venture.html" onclick="navigate('venture')">Our Venture</a></li>
-        <li><a href="blog.html" onclick="navigate('blog')">Blog</a></li>
+        <li><a href="portfolio.html">Portofolio</a></li>
+        <li><a href="profile.html">Profil</a></li>
+        <li><a href="venture.html">Our Venture</a></li>
+        <li><a href="blog.html">Blog</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h5>Layanan</h5>
       <ul>
-        <li><a href="collab.html" onclick="navigate('collab')">Brand Identity</a></li>
-        <li><a href="collab.html" onclick="navigate('collab')">UI/UX Design</a></li>
-        <li><a href="collab.html" onclick="navigate('collab')">Packaging</a></li>
-        <li><a href="collab.html" onclick="navigate('collab')">Web Design</a></li>
-        <li><a href="collab.html" onclick="navigate('collab')">Motion</a></li>
+        <li><a href="collab.html">Brand Identity</a></li>
+        <li><a href="collab.html">UI/UX Design</a></li>
+        <li><a href="collab.html">Packaging</a></li>
+        <li><a href="collab.html">Web Design</a></li>
+        <li><a href="collab.html">Motion</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -176,29 +95,96 @@
         <li><a href="mailto:hello@kitayangdesain.com">hello@kitayangdesain.com</a></li>
         <li><a href="tel:+6285156460209">+62 851 5646 0209</a></li>
         <li><a href="#">Tajur Halang, kabupaten Bogor</a></li>
-        <li><a href="collab.html" onclick="navigate('collab')">Mulai Proyek</a></li>
+        <li><a href="collab.html">Mulai Proyek</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">© 2026 <a href="https://kitayangdesain.com">kitayangdesain.com</a> — Semua hak dilindungi.</span>
+    <span class="footer-copy">&copy; 2026 <a href="https://kitayangdesain.com">kitayangdesain.com</a> &mdash; Semua hak dilindungi.</span>
     <span class="footer-copy">Dibuat dengan ♥ di Bogor</span>
   </div>
 </footer>
 
-<!-- BACK TO TOP -->
-<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Kembali ke atas">↑</button>
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Kembali ke atas">&uarr;</button>
 
-<!-- PORTFOLIO MODAL -->
-<div class="modal-overlay" id="modal" onclick="closeModal(event)">
-  <div class="modal-box" style="position:relative" id="modal-content">
-    <button class="modal-close" onclick="closeModalDirect()">✕</button>
-    <div id="modal-inner"></div>
-  </div>
-</div>
-
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
+<script src="assets/js/storage.js"></script>
 <script src="assets/js/main.js"></script>
+<script>
+(function() {
+  var featuredArea = document.getElementById('blog-featured-area');
+  var gridArea = document.getElementById('blog-grid-area');
+  var moreLabel = document.getElementById('blog-more-label');
+
+  function esc(s) {
+    var d = document.createElement('div');
+    d.textContent = s || '';
+    return d.innerHTML;
+  }
+
+  function postUrl(id) { return 'blog-post.html?id=' + encodeURIComponent(id); }
+
+  function thumbHtml(p, sz) {
+    if (p.image) {
+      return '<img src="' + p.image + '" alt="" style="width:100%;height:100%;object-fit:cover">';
+    }
+    return '<span style="font-size:' + (sz || 3) + 'rem">' + esc(p.emoji || '✦') + '</span>';
+  }
+
+  function render(posts) {
+    posts.sort(function(a, b) { return (a.order || 0) - (b.order || 0); });
+    if (!posts.length) return;
+    var featured = posts[0], side = posts.slice(1, 4), rest = posts.slice(4);
+
+    featuredArea.innerHTML = '<div class="blog-featured">'
+      + '<a href="' + postUrl(featured.id) + '" class="blog-card" style="display:block">'
+      + '<div class="blog-thumb" style="background:' + (featured.color || 'var(--bg2)') + '">'
+      + thumbHtml(featured, 3) + '</div>'
+      + '<div class="blog-body"><span class="blog-cat">' + esc(featured.categoryLabel || featured.category) + '</span>'
+      + '<h2 class="blog-title">' + esc(featured.title) + '</h2>'
+      + '<p class="blog-excerpt">' + esc(featured.excerpt) + '</p>'
+      + '<div class="blog-meta"><span>' + esc(featured.date) + '</span><span class="blog-meta-dot"></span><span>' + esc(featured.readTime) + '</span></div>'
+      + '</div></a>'
+      + '<div class="blog-side-list">' + side.map(function(p) {
+        return '<a href="' + postUrl(p.id) + '" class="blog-side-card" style="display:block">'
+          + '<span class="blog-cat">' + esc(p.categoryLabel || p.category) + '</span>'
+          + '<h3 class="blog-title-sm">' + esc(p.title) + '</h3>'
+          + '<div class="blog-meta"><span>' + esc(p.date) + '</span><span class="blog-meta-dot"></span><span>' + esc(p.readTime) + '</span></div>'
+          + '</a>';
+      }).join('') + '</div></div>';
+
+    if (rest.length > 0) {
+      moreLabel.style.display = '';
+      gridArea.innerHTML = rest.map(function(p) {
+        return '<a href="' + postUrl(p.id) + '" class="blog-card" style="display:block">'
+          + '<div class="blog-thumb" style="background:' + (p.color || 'var(--bg2)') + '">'
+          + thumbHtml(p, 2.5) + '</div>'
+          + '<div class="blog-body"><span class="blog-cat">' + esc(p.categoryLabel || p.category) + '</span>'
+          + '<h3 class="blog-title-sm">' + esc(p.title) + '</h3>'
+          + '<p class="blog-excerpt" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">' + esc(p.excerpt) + '</p>'
+          + '<div class="blog-meta"><span>' + esc(p.date) + '</span></div></div></a>';
+      }).join('');
+    }
+  }
+
+  // Cek localStorage dulu (data dari admin), fallback ke blog.json
+  var localData = null;
+  try {
+    var raw = localStorage.getItem('kyd_blog_v1');
+    if (raw) { localData = JSON.parse(raw); }
+  } catch(e) {}
+
+  if (localData && localData.length > 0) {
+    render(localData);
+  } else {
+    fetch('/data/blog.json?_=' + Date.now())
+      .then(function(r) { return r.json(); })
+      .then(render)
+      .catch(function() {
+        featuredArea.innerHTML = '<p style="color:var(--fg3);text-align:center;padding:3rem 0">Gagal memuat artikel.</p>';
+      });
+  }
+})();
+</script>
 </body>
 </html>

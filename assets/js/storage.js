@@ -266,10 +266,62 @@ const DEFAULT_BLOGS = [
     category: 'branding', categoryLabel: 'Brand Strategy',
     date: '15 Januari 2025', readTime: '8 menit baca',
     excerpt: 'Selama bertahun-tahun, brand-brand Indonesia tumbuh dengan mengikuti tren desain Barat. Saatnya kita keluar dari siklus ini.',
-    content: `<p>Ini adalah isi konten lengkap dari blog pertama Anda. Anda bisa menulis menggunakan tag HTML biasa seperti &lt;p&gt;, &lt;h3&gt;, atau &lt;strong&gt; untuk mengatur layout artikel agar terlihat profesional.</p>
-              <h3>Filosofi Desain Lokal</h3>
-              <p>Desain yang baik adalah desain yang jujur pada audiensnya sendiri...</p>`,
+    content: '<p>Selama lebih dari satu dekade terakhir, saya mengamati tren yang mengkhawatirkan di industri desain Indonesia: brand-brand lokal berlomba-lomba meniru estetika Barat tanpa mempertanyakan apakah itu relevan dengan konteks lokal mereka.</p><p>Bukan berarti inspirasi dari luar itu buruk. Masalahnya muncul ketika kita menjadikan Barat sebagai satu-satunya patokan.</p><h3>Masalah dengan Pendekatan Copy-Paste</h3><p>Ketika sebuah brand lokal menggunakan minimalis ala Skandinavia tanpa konteks budaya yang kuat, hasilnya seringkali terasa hampa.</p>',
     image: null, color: '#C8A96E', emoji: '✦'
+  },
+  {
+    id: 'blog-2', order: 1,
+    title: '5 Kesalahan Desain UI yang Masih Sering Dilakukan Startup di Indonesia',
+    category: 'digital', categoryLabel: 'UI/UX',
+    date: '8 Januari 2025', readTime: '5 menit baca',
+    excerpt: 'Setelah menangani puluhan proyek startup, saya melihat pola kesalahan yang terus berulang.',
+    content: '<p>Sebagai desainer yang fokus pada UI/UX, saya sudah menangani lebih dari 30 proyek startup dalam 5 tahun terakhir. Ada pola kesalahan yang terus berulang.</p><h3>1. Mengabaikan Onboarding</h3><p>70% pengguna baru memutuskan dalam 3 menit pertama apakah mereka akan bertahan atau tidak.</p>',
+    image: null, color: '#2D4A6E', emoji: '◈'
+  },
+  {
+    id: 'blog-3', order: 2,
+    title: 'Panduan Lengkap Memilih Font untuk Brand Indonesia yang Kuat',
+    category: 'branding', categoryLabel: 'Typography',
+    date: '2 Januari 2025', readTime: '6 menit baca',
+    excerpt: 'Tipografi adalah tulang punggung identitas visual. Panduan ini membantu Anda memilih font yang tepat.',
+    content: '<p>Tipografi seringkali menjadi elemen yang paling diremehkan dalam proses branding. Padahal, font yang tepat bisa menjadi perbedaan antara brand yang terasa premium dan brand yang terasa asal-asalan.</p>',
+    image: null, color: '#6B3A1F', emoji: 'Aa'
+  },
+  {
+    id: 'blog-4', order: 3,
+    title: 'Bagaimana Desain Kemasan Bisa Menjadi Senjata Pemasaran Paling Ampuh',
+    category: 'print', categoryLabel: 'Packaging',
+    date: '26 Desember 2024', readTime: '7 menit baca',
+    excerpt: 'Di rak yang penuh sesak, kemasan Anda punya waktu kurang dari 3 detik untuk menarik perhatian.',
+    content: '<p>Dalam dunia retail, kemasan bukan sekadar pembungkus — ia adalah salesperson yang bekerja 24/7 tanpa gaji.</p>',
+    image: null, color: '#8B5E3C', emoji: '📦'
+  },
+  {
+    id: 'blog-5', order: 4,
+    title: 'Minimalisme dalam Desain: Lebih Sedikit, Lebih Bermakna',
+    category: 'branding', categoryLabel: 'Desain',
+    date: '20 Desember 2024', readTime: '5 menit baca',
+    excerpt: 'Filosofi "less is more" bukan sekadar tren estetika — ia adalah pernyataan tentang menghormati perhatian audiens.',
+    content: '<p>Minimalisme sering disalahpahami sebagai "membuat sesuatu menjadi kosong". Padahal esensi minimalisme adalah menghilangkan segala sesuatu yang tidak esensial.</p>',
+    image: null, color: '#2D4A6E', emoji: '🎨'
+  },
+  {
+    id: 'blog-6', order: 5,
+    title: 'Bagaimana AI Mengubah Industri Desain Grafis Indonesia',
+    category: 'digital', categoryLabel: 'Industri',
+    date: '15 Desember 2024', readTime: '6 menit baca',
+    excerpt: 'Refleksi jujur seorang desainer tentang peluang dan ancaman yang dibawa oleh AI dalam dunia kreatif.',
+    content: '<p>AI generatif sudah mengubah lanskap desain grafis secara fundamental. Sebagai seseorang yang sudah berkecimpung di industri ini selama 7+ tahun, saya melihat ini dari dua sisi.</p>',
+    image: null, color: '#1A1714', emoji: '◈'
+  },
+  {
+    id: 'blog-7', order: 6,
+    title: 'Cara Menetapkan Harga Jasa Desain yang Adil dan Menguntungkan',
+    category: 'other', categoryLabel: 'Bisnis Kreatif',
+    date: '10 Desember 2024', readTime: '7 menit baca',
+    excerpt: 'Panduan praktis untuk desainer freelance dan studio kecil yang ingin keluar dari jebakan undercharging.',
+    content: '<p>Salah satu masalah terbesar dalam industri desain Indonesia adalah culture undercharging. Banyak desainer merasa bersalah memasang harga yang pantas.</p>',
+    image: null, color: '#6B3A1F', emoji: '🌿'
   }
 ];
 
@@ -321,6 +373,14 @@ const BlogStorage = {
     items.forEach((it, i) => { it.order = i; });
     this._save(items); return true;
   },
+  reorder(fromIdx, toIdx) {
+    const items = this.getAll();
+    const [moved] = items.splice(fromIdx, 1);
+    items.splice(toIdx, 0, moved);
+    items.forEach((it, i) => { it.order = i; });
+    this._save(items);
+    return items;
+  },
   exportJSON() {
     const items = this.getAll();
     const blob = new Blob([JSON.stringify(items, null, 2)], { type: 'application/json' });
@@ -330,6 +390,33 @@ const BlogStorage = {
     document.body.appendChild(a); a.click();
     document.body.removeChild(a); URL.revokeObjectURL(url);
     this.clearDraft();
+  },
+  importJSON(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (!Array.isArray(data)) throw new Error('Format tidak valid');
+          this._save(data);
+          resolve(data.length);
+        } catch (err) { reject(err); }
+      };
+      reader.onerror = () => reject(new Error('Gagal membaca file'));
+      reader.readAsText(file);
+    });
+  },
+  storageSize() {
+    const raw = localStorage.getItem(KYD_BLOG_KEY) || '';
+    const bytes = new Blob([raw]).size;
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+  },
+  reset() {
+    localStorage.removeItem(KYD_BLOG_KEY);
+    localStorage.removeItem(KYD_BLOG_DRAFT);
+    return this._seed();
   }
 };
 

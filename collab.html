@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kerjasama — KitaYangDesain</title>
+  <meta name="description" content="Mari berkolaborasi dengan Kita Yang Desain. Brand identity, UI/UX, packaging, web design, dan lainnya." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- NAVIGATION -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo" data-hover>Kitayang<span>desain</span></a>
+  <ul class="nav-links">
+    <li><a href="portfolio.html" data-hover>Portofolio</a></li>
+    <li><a href="profile.html" data-hover>Profil</a></li>
+    <li><a href="venture.html" data-hover>Our Venture</a></li>
+    <li><a href="blog.html" data-hover>Blog</a></li>
+    <li><a href="collab.html" data-hover class="active">Kerjasama</a></li>
+    <li><a href="collab.html" class="nav-cta" data-hover>Mulai Proyek</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()" data-hover>
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="nav-drawer">
+  <a href="portfolio.html" onclick="toggleMenu()">Portofolio</a>
+  <a href="profile.html" onclick="toggleMenu()">Profil</a>
+  <a href="venture.html" onclick="toggleMenu()">Our Venture</a>
+  <a href="blog.html" onclick="toggleMenu()">Blog</a>
+  <a href="collab.html" onclick="toggleMenu()">Kerjasama</a>
+</div>
+
+<!-- PAGE: KERJASAMA -->
+<div class="page active">
+  <section class="section">
+    <div class="container">
+      <div class="collab-header fade-in" style="max-width:700px;margin-bottom:4rem">
+        <span class="label">Mulai Bersama</span>
+        <h1 class="title-xl" style="margin-bottom:1.5rem">Mari<br><em style="font-style:italic;color:var(--accent)">berkolaborasi</em></h1>
+        <p class="subtitle">Kami terbuka untuk berbagai bentuk kerjasama — dari proyek desain skala kecil hingga kemitraan strategis jangka panjang.</p>
+      </div>
+
+      <!-- Contact Form + Info -->
+      <span class="label" style="margin-bottom:2rem;display:block">Hubungi Kami</span>
+      <div class="contact-form-wrap">
+        <div>
+          <form id="contact-form" onsubmit="submitForm(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Nama Lengkap *</label>
+                <input type="text" class="form-input" name="nama" placeholder="Nama Anda" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email *</label>
+                <input type="email" class="form-input" name="email" placeholder="email@perusahaan.com" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Perusahaan</label>
+                <input type="text" class="form-input" name="perusahaan" placeholder="Nama Perusahaan" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">No. WhatsApp</label>
+                <input type="tel" class="form-input" name="whatsapp" placeholder="+62 812 xxxx xxxx" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Jenis Layanan *</label>
+              <select class="form-select form-input" name="layanan" required>
+                <option value="">Pilih layanan...</option>
+                <option>Brand Identity</option>
+                <option>UI/UX Design</option>
+                <option>Packaging Design</option>
+                <option>Web Design & Development</option>
+                <option>Motion & Video</option>
+                <option>Spatial Branding</option>
+                <option>Konsultasi Brand</option>
+                <option>Kemitraan Strategis</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Ceritakan Proyekmu *</label>
+              <textarea class="form-textarea form-input" name="pesan" rows="5" placeholder="Deskripsikan bisnis Anda, tujuan proyek, timeline yang diinginkan, dan hal lain yang menurut Anda penting untuk kami ketahui..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Kirim Pesan &rarr;</button>
+          </form>
+          <p style="font-size:0.78rem;color:var(--fg3);margin-top:1rem;text-align:center">Kami biasanya merespons dalam 1x24 jam kerja.</p>
+        </div>
+        <div>
+          <h3 class="title-md" style="margin-bottom:2rem">Atau temui<br>kami langsung</h3>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📍</div>
+            <div class="contact-info-text">
+              <h4>Studio Kami</h4>
+              <p>Tajur Halang<br>Kabupaten Bogor</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📧</div>
+            <div class="contact-info-text">
+              <h4>Email</h4>
+              <p>hello@kitayangdesain.com<br>project@kitayangdesain.com</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">📞</div>
+            <div class="contact-info-text">
+              <h4>WhatsApp</h4>
+              <p>+62 851 5646 0209<br>Senin–Jumat, 09.00–18.00 WIB</p>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-icon">🌐</div>
+            <div class="contact-info-text">
+              <h4>Media Sosial</h4>
+              <p>@kitayangdesain</p>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <h4 style="font-size:0.8rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--fg2);margin-bottom:1rem">Ikuti Kami</h4>
+          <div class="social-links">
+            <a href="https://www.instagram.com/kitayangdesain" class="social-link" title="Instagram">Ig</a>
+            <a href="https://www.linkedin.com/company/kitayangdesain" class="social-link" title="LinkedIn">Li</a>
+            <a href="https://www.behance.net/kitayangdesain" class="social-link" title="Behance">Be</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="nav-logo">Kitayang<span>desain</span></span>
+      <p class="footer-desc">Studio kreatif berbasis di Bogor yang percaya bahwa desain yang baik adalah desain yang jujur pada brand, pada audiens, dan pada dirinya sendiri.</p>
+      <div style="margin-top:2rem;display:flex;gap:0.75rem">
+        <a href="https://www.instagram.com/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)">Ig</a>
+        <a href="https://www.linkedin.com/company/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)">Li</a>
+        <a href="https://www.behance.net/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)">Be</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Studio</h5>
+      <ul>
+        <li><a href="portfolio.html">Portofolio</a></li>
+        <li><a href="profile.html">Profil</a></li>
+        <li><a href="venture.html">Our Venture</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Layanan</h5>
+      <ul>
+        <li><a href="collab.html">Brand Identity</a></li>
+        <li><a href="collab.html">UI/UX Design</a></li>
+        <li><a href="collab.html">Packaging</a></li>
+        <li><a href="collab.html">Web Design</a></li>
+        <li><a href="collab.html">Motion</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Kontak</h5>
+      <ul>
+        <li><a href="mailto:hello@kitayangdesain.com">hello@kitayangdesain.com</a></li>
+        <li><a href="tel:+6285156460209">+62 851 5646 0209</a></li>
+        <li><a href="#">Tajur Halang, kabupaten Bogor</a></li>
+        <li><a href="collab.html">Mulai Proyek</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">&copy; 2026 <a href="https://kitayangdesain.com">kitayangdesain.com</a> &mdash; Semua hak dilindungi.</span>
+    <span class="footer-copy">Dibuat dengan ♥ di Bogor</span>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Kembali ke atas">&uarr;</button>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

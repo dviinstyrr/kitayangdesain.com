@@ -597,7 +597,7 @@
     ============================ */
     
     .profile-hero {
-      padding-top: calc(var(--nav-h) + 0rem);
+      padding-top: calc(var(--nav-h) + -5rem);
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 4rem; align-items: center;
     }
@@ -702,10 +702,36 @@
     }
     .blog-side-card:hover { transform: translateX(6px); }
 
+    /* Blog Post Content in Modal */
+    .blog-post-content p { margin-bottom: 1.25rem; }
+    .blog-post-content h3 {
+      font-family: var(--serif); font-size: 1.2rem;
+      font-weight: 400; color: var(--fg);
+      margin: 2rem 0 0.75rem;
+    }
+    .blog-post-content em { color: var(--accent); font-style: italic; }
+
+    /* Blog inline images (admin-inserted) */
+    .blog-img-full,
+    .blog-img-center,
+    .blog-img-left,
+    .blog-img-right {
+      margin: 1.5rem 0; overflow: hidden; border-radius: 6px;
+    }
+    .blog-img-full img { width: 100%; border-radius: 6px; display: block; }
+    .blog-img-center img { display: block; margin: 0 auto; max-width: 100%; border-radius: 6px; }
+    .blog-img-left img { float: left; margin: 0 1.5rem 1rem 0; max-width: 50%; border-radius: 6px; }
+    .blog-img-right img { float: right; margin: 0 0 1rem 1.5rem; max-width: 50%; border-radius: 6px; }
+    @media (max-width: 768px) {
+      .blog-img-left img, .blog-img-right img {
+        float: none; max-width: 100%; margin: 1rem 0;
+      }
+    }
+
     /* ============================
        ▶ PAGE: OUR VENTURE
     ============================ */
-    .venture-header { padding-top: calc(var(--nav-h) + 5rem); }
+    .venture-header { padding-top: calc(var(--nav-h) + -5rem); }
     .ventures-list { display: flex; flex-direction: column; gap: 0; }
     .venture-item {
       display: grid; grid-template-columns: 1fr 2fr;
@@ -745,7 +771,7 @@
     /* ============================
        ▶ PAGE: KERJASAMA
     ============================ */
-    .collab-header { padding-top: calc(var(--nav-h) + 5rem); }
+    .collab-header { padding-top: calc(var(--nav-h) + -5rem); }
     .collab-options {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));

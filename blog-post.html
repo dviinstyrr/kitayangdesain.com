@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — KitaYangDesain</title>
+  <meta name="description" content="Artikel dan wawasan dari Kita Yang Desain tentang desain, branding, dan kreativitas." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    .post-hero {
+      padding-top: calc(var(--nav-h) + 5rem);
+      padding-bottom: 4rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .post-hero .label { margin-bottom: 1.5rem; }
+    .post-hero .title-xl {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin-bottom: 1.5rem;
+      line-height: 1.15;
+    }
+    .post-meta {
+      display: flex; align-items: center; gap: 1.25rem;
+      font-size: 0.82rem; color: var(--fg3);
+      flex-wrap: wrap;
+    }
+    .post-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--fg3); }
+    .post-cover {
+      width: 100%; max-width: 1000px; margin: 0 auto 4rem;
+      aspect-ratio: 21/9; border-radius: 8px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .post-cover span { font-size: 6rem; }
+    .post-body {
+      max-width: 720px; margin: 0 auto;
+      padding: 0 clamp(1.5rem, 5vw, 4rem) 5rem;
+      font-size: 1.05rem; line-height: 1.9; color: var(--fg2);
+    }
+    .post-body p { margin-bottom: 1.5rem; }
+    .post-body h3 {
+      font-family: var(--serif); font-size: 1.35rem;
+      font-weight: 400; color: var(--fg);
+      margin: 2.5rem 0 1rem;
+    }
+    .post-body em { color: var(--accent); font-style: italic; }
+    .post-body strong { color: var(--fg); font-weight: 600; }
+    /* Blog inline images (admin-inserted) */
+    .blog-img-full img { width: 100%; border-radius: 6px; display: block; margin: 1.5rem 0; }
+    .blog-img-center img { display: block; margin: 1.5rem auto; max-width: 100%; border-radius: 6px; }
+    .blog-img-left img { float: left; margin: 0 1.5rem 1rem 0; max-width: 50%; border-radius: 6px; }
+    .blog-img-right img { float: right; margin: 0 0 1rem 1.5rem; max-width: 50%; border-radius: 6px; }
+    @media (max-width: 768px) {
+      .blog-img-left img, .blog-img-right img {
+        float: none; max-width: 100%; margin: 1rem 0;
+      }
+    }
+    .post-footer {
+      max-width: 720px; margin: 0 auto;
+      padding: 0 clamp(1.5rem, 5vw, 4rem) 4rem;
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+    }
+    .post-author {
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .post-author-avatar {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--bg2); display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 1.3rem; color: var(--accent);
+      overflow: hidden;
+    }
+    .post-author-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .post-author-name { font-weight: 600; font-size: 0.95rem; }
+    .post-author-role { font-size: 0.82rem; color: var(--fg3); }
+    .related-section {
+      padding: 5rem clamp(1.5rem, 5vw, 4rem);
+      background: var(--white);
+    }
+    .related-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem; margin-top: 2rem;
+    }
+    .related-card {
+      background: var(--bg); border-radius: 4px; overflow: hidden;
+      cursor: pointer; transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    }
+    .related-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(26,23,20,0.08); }
+    .related-card .blog-thumb { aspect-ratio: 16/9; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--fg3);
+      margin-bottom: 2rem; transition: color 0.25s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .post-loading {
+      min-height: 60vh; display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 1.2rem; color: var(--fg3);
+    }
+    .post-not-found {
+      min-height: 60vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- NAVIGATION -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo" data-hover>Kitayang<span>desain</span></a>
+  <ul class="nav-links">
+    <li><a href="portfolio.html" data-hover>Portofolio</a></li>
+    <li><a href="profile.html" data-hover>Profil</a></li>
+    <li><a href="venture.html" data-hover>Our Venture</a></li>
+    <li><a href="blog.html" data-hover class="active">Blog</a></li>
+    <li><a href="collab.html" data-hover>Kerjasama</a></li>
+    <li><a href="collab.html" class="nav-cta" data-hover>Mulai Proyek</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()" data-hover>
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="nav-drawer">
+  <a href="portfolio.html" onclick="toggleMenu()">Portofolio</a>
+  <a href="profile.html" onclick="toggleMenu()">Profil</a>
+  <a href="venture.html" onclick="toggleMenu()">Our Venture</a>
+  <a href="blog.html" onclick="toggleMenu()">Blog</a>
+  <a href="collab.html" onclick="toggleMenu()">Kerjasama</a>
+</div>
+
+<!-- CONTENT -->
+<div id="post-container">
+  <div class="post-loading">Memuat artikel...</div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="assets/js/storage.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+(function() {
+  var container = document.getElementById('post-container');
+  var params = new URLSearchParams(window.location.search);
+  var postId = params.get('id');
+
+  function esc(s) {
+    var d = document.createElement('div');
+    d.textContent = s || '';
+    return d.innerHTML;
+  }
+
+  function coverHtml(post) {
+    if (post.image) {
+      return '<img src="' + post.image + '" alt="" style="width:100%;height:100%;object-fit:cover">';
+    }
+    return '<span>' + esc(post.emoji || '✦') + '</span>';
+  }
+
+  function relatedThumb(r) {
+    if (r.image) {
+      return '<img src="' + r.image + '" alt="" style="width:100%;height:100%;object-fit:cover">';
+    }
+    return '<span style="font-size:2.5rem">' + esc(r.emoji || '✦') + '</span>';
+  }
+
+  if (!postId) {
+    container.innerHTML = '<div class="post-not-found"><h2 class="title-lg">Artikel tidak ditemukan</h2><p style="color:var(--fg3);margin:1rem 0 2rem">ID artikel tidak valid.</p><a href="blog.html" class="btn btn-outline">Kembali ke Blog</a></div>';
+    return;
+  }
+
+  function renderPost(posts) {
+    var post = null;
+    for (var i = 0; i < posts.length; i++) {
+      if (posts[i].id === postId) { post = posts[i]; break; }
+    }
+    if (!post) {
+      container.innerHTML = '<div class="post-not-found"><h2 class="title-lg">Artikel tidak ditemukan</h2><p style="color:var(--fg3);margin:1rem 0 2rem">Artikel yang Anda cari tidak tersedia.</p><a href="blog.html" class="btn btn-outline">Kembali ke Blog</a></div>';
+      return;
+    }
+
+    document.title = post.title + ' — KitaYangDesain';
+
+    var related = [];
+    for (var j = 0; j < posts.length; j++) {
+      if (posts[j].id !== postId && related.length < 3) related.push(posts[j]);
+    }
+
+    var html = '<section class="section"><div class="post-hero fade-in">'
+      + '<a href="blog.html" class="back-link">&larr; Kembali ke Blog</a>'
+      + '<span class="label">' + esc(post.categoryLabel || post.category) + '</span>'
+      + '<h1 class="title-xl">' + esc(post.title) + '</h1>'
+      + '<div class="post-meta"><span>' + esc(post.date) + '</span><span class="post-meta-dot"></span><span>' + esc(post.readTime) + '</span></div>'
+      + '</div></section>'
+      + '<div class="post-cover" style="background:' + (post.color || 'var(--bg2)') + '">' + coverHtml(post) + '</div>'
+      + '<div class="post-body">' + post.content + '</div>'
+      + '<div class="post-footer"><div class="post-author">'
+      + '<div class="post-author-avatar"><img src="assets/img/profile/profile-devin.webp" alt="Devin" onerror="this.style.display=\'none\';this.parentElement.textContent=\'DA\'"></div>'
+      + '<div><div class="post-author-name">Devin Agastya Royadi</div>'
+      + '<div class="post-author-role">Founder & Creative Director</div></div></div></div>';
+
+    if (related.length > 0) {
+      html += '<section class="related-section"><div class="container">'
+        + '<span class="label">Baca Juga</span><h2 class="title-md">Artikel Terkait</h2>'
+        + '<div class="related-grid">';
+      for (var k = 0; k < related.length; k++) {
+        var r = related[k];
+        html += '<a href="blog-post.html?id=' + encodeURIComponent(r.id) + '" class="related-card">'
+          + '<div class="blog-thumb" style="background:' + (r.color || 'var(--bg2)') + '">' + relatedThumb(r) + '</div>'
+          + '<div class="blog-body"><span class="blog-cat">' + esc(r.categoryLabel || r.category) + '</span>'
+          + '<h3 class="blog-title-sm">' + esc(r.title) + '</h3>'
+          + '<div class="blog-meta"><span>' + esc(r.date) + '</span><span class="blog-meta-dot"></span><span>' + esc(r.readTime) + '</span></div></div></a>';
+      }
+      html += '</div></div></section>';
+    }
+
+    container.innerHTML = html;
+  }
+
+  // Cek localStorage dulu (data dari admin), fallback ke blog.json
+  var localData = null;
+  try {
+    var raw = localStorage.getItem('kyd_blog_v1');
+    if (raw) localData = JSON.parse(raw);
+  } catch(e) {}
+
+  if (localData && localData.length > 0) {
+    renderPost(localData);
+  } else {
+    fetch('/data/blog.json?_=' + Date.now())
+      .then(function(r) { return r.json(); })
+      .then(renderPost)
+      .catch(function() {
+        container.innerHTML = '<div class="post-not-found"><h2 class="title-lg">Gagal memuat artikel</h2><p style="color:var(--fg3);margin:1rem 0 2rem">Terjadi kesalahan saat memuat data.</p><a href="blog.html" class="btn btn-outline">Kembali ke Blog</a></div>';
+      });
+  }
+})();
+</script>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="nav-logo">Kitayang<span>desain</span></span>
+      <p class="footer-desc">Studio kreatif berbasis di Bogor yang percaya bahwa desain yang baik adalah desain yang jujur pada brand, pada audiens, dan pada dirinya sendiri.</p>
+      <div style="margin-top:2rem;display:flex;gap:0.75rem">
+        <a href="https://www.instagram.com/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)">Ig</a>
+        <a href="https://www.linkedin.com/company/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)">Li</a>
+        <a href="https://www.behance.net/kitayangdesain" class="social-link" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)">Be</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Studio</h5>
+      <ul>
+        <li><a href="portfolio.html">Portofolio</a></li>
+        <li><a href="profile.html">Profil</a></li>
+        <li><a href="venture.html">Our Venture</a></li>
+        <li><a href="blog.html">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Layanan</h5>
+      <ul>
+        <li><a href="collab.html">Brand Identity</a></li>
+        <li><a href="collab.html">UI/UX Design</a></li>
+        <li><a href="collab.html">Packaging</a></li>
+        <li><a href="collab.html">Web Design</a></li>
+        <li><a href="collab.html">Motion</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Kontak</h5>
+      <ul>
+        <li><a href="mailto:hello@kitayangdesain.com">hello@kitayangdesain.com</a></li>
+        <li><a href="tel:+6285156460209">+62 851 5646 0209</a></li>
+        <li><a href="#">Tajur Halang, kabupaten Bogor</a></li>
+        <li><a href="collab.html">Mulai Proyek</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">&copy; 2026 <a href="https://kitayangdesain.com">kitayangdesain.com</a> &mdash; Semua hak dilindungi.</span>
+    <span class="footer-copy">Dibuat dengan ♥ di Bogor</span>
+  </div>
+</footer>
+
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Kembali ke atas">&uarr;</button>
+</body>
+</html>

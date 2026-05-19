@@ -201,15 +201,65 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDi
 /* ============================================================
    BLOG POST OPEN
 ============================================================ */
-function openBlogPost(id) {
-  showToast('Membuka artikel...');
+let blogData = null;
+
+async function loadBlogData() {
+  if (blogData) return blogData;
+  try {
+    const res = await fetch('/data/blog.json?t=' + Date.now());
+    blogData = await res.json();
+  } catch (e) {
+    blogData = [];
+  }
+  return blogData;
+}
+
+async function openBlogPost(id) {
+  const posts = await loadBlogData();
+  const post = posts.find(p => p.id === String(id));
+  if (!post) { showToast('Artikel tidak ditemukan'); return; }
+
+  document.getElementById('modal-inner').innerHTML = `
+    <div class="modal-img" style="background:${post.iconBg}">
+      <span style="font-size:4rem">${post.icon}</span>
+    </div>
+    <div class="modal-tags">
+      <span class="modal-tag">${post.category}</span>
+      <span class="modal-tag">${post.date}</span>
+      <span class="modal-tag">${post.readTime}</span>
+    </div>
+    <span class="label">${post.category}</span>
+    <h2 class="title-md" style="margin-bottom:1rem">${post.title}</h2>
+    <div class="divider"></div>
+    <div class="blog-post-content" style="font-size:0.95rem;color:var(--fg2);line-height:1.9">${post.content}</div>
+    <div style="margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+      <p style="font-size:0.82rem;color:var(--fg3)">Ditulis oleh <strong style="color:var(--fg)">Devin Agastya Royadi</strong> · ${post.date}</p>
+    </div>
+  `;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
 
 /* ============================================================
    FORM SUBMIT
 ============================================================ */
-function submitForm() {
-  showToast('✓ Pesan terkirim! Kami akan segera menghubungi Anda.');
+function submitForm(e) {
+  e.preventDefault();
+  const form = e.target;
+  const nama = form.querySelector('[name="nama"]').value;
+  const email = form.querySelector('[name="email"]').value;
+  const perusahaan = form.querySelector('[name="perusahaan"]').value || '-';
+  const whatsapp = form.querySelector('[name="whatsapp"]').value || '-';
+  const layanan = form.querySelector('[name="layanan"]').value;
+  const budget = form.querySelector('[name="budget"]').value || '-';
+  const pesan = form.querySelector('[name="pesan"]').value;
+
+  const subject = encodeURIComponent('Proyek Baru: ' + layanan);
+  const body = encodeURIComponent(
+    `Nama: ${nama}\nEmail: ${email}\nPerusahaan: ${perusahaan}\nWhatsApp: ${whatsapp}\nLayanan: ${layanan}\nBudget: ${budget}\n\nPesan:\n${pesan}`
+  );
+  window.location.href = `mailto:hello@kitayangdesain.com?subject=${subject}&body=${body}`;
+  showToast('✓ Membuka aplikasi email Anda...');
 }
 
 /* ============================================================
