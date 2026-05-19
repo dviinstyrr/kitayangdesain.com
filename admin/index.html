@@ -92,7 +92,7 @@ input,textarea,select{font-family:var(--sans);}
 .content{padding:1.5rem 1.75rem 4rem;flex:1;}
 
 /* ── ITEM LIST ─────────────────────────────────────────── */
-#admin-list{display:flex;flex-direction:column;gap:.6rem;}
+#admin-list,#blog-list{display:flex;flex-direction:column;gap:.6rem;}
 .adm-item{display:grid;grid-template-columns:22px 64px 1fr auto;gap:.85rem;align-items:center;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:.85rem;transition:box-shadow .2s,border-color .2s,opacity .2s;cursor:grab;}
 .adm-item:hover{box-shadow:0 3px 16px rgba(26,23,20,.07);border-color:rgba(26,23,20,.16);}
 .adm-item.dragging{opacity:.45;cursor:grabbing;}
@@ -228,8 +228,14 @@ input,textarea,select{font-family:var(--sans);}
     <form id="login-form">
       <div class="login-group">
         <label class="login-label" for="login-pw">Password Admin</label>
-        <input class="login-input" type="password" id="login-pw"
-          placeholder="Masukkan password..." autocomplete="current-password" required/>
+        <div style="position:relative">
+          <input class="login-input" type="password" id="login-pw"
+            placeholder="Masukkan password..." autocomplete="current-password" required
+            style="padding-right:2.8rem"/>
+          <button type="button" id="toggle-pw"
+            style="position:absolute;right:.7rem;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--fg3);padding:.2rem"
+          >&#128065;</button>
+        </div>
       </div>
       <button type="submit" class="login-btn">Masuk →</button>
       <div class="login-err" id="login-err"></div>

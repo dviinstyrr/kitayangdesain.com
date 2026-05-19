@@ -28,7 +28,7 @@ export default async (req) => {
     });
   }
 
-  const token = jwt.sign({ role: 'admin' }, secret, { expiresIn: '8h' });
+  const token = jwt.sign({ role: 'admin' }, secret, { expiresIn: '30m' });
 
   return new Response(JSON.stringify({ token }), {
     status: 200,

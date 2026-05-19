@@ -27,8 +27,11 @@
 
   /* ── INIT ──────────────────────────────────────────────── */
   document.addEventListener('DOMContentLoaded', async () => {
-    (await checkSession()) ? showApp() : showLogin();
+    if (await checkSession()) { showApp(); startSessionWatch(); }
+    else showLogin();
   });
+
+  let sessionTimer = null;
 
   /* ── SESSION ───────────────────────────────────────────── */
   async function checkSession() {
@@ -36,21 +39,30 @@
     if (!token) return false;
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload.exp * 1000 > Date.now();
-    } catch { return false; }
+      if (payload.exp * 1000 <= Date.now()) { doLogout(); return false; }
+      return true;
+    } catch { doLogout(); return false; }
   }
-  function saveSession(token) { sessionStorage.setItem(SESSION_KEY, token); }
-  function clearSession() { sessionStorage.removeItem(SESSION_KEY); }
+  function saveSession(token) {
+    sessionStorage.setItem(SESSION_KEY, token);
+    startSessionWatch();
+  }
 
-  /* ── LOGIN ─────────────────────────────────────────────── */
-  function showLogin() {
-    $('screen-login').style.display = '';
-    $('screen-app').style.display   = 'none';
+  function startSessionWatch() {
+    clearInterval(sessionTimer);
+    sessionTimer = setInterval(async () => {
+      if (!(await checkSession())) {
+        toast('Sesi habis (30 menit). Silakan login ulang.');
+        doLogout();
+      }
+    }, 60000);
   }
-  function showApp() {
-    $('screen-login').style.display = 'none';
-    $('screen-app').style.display   = '';
-    initApp();
+
+  function doLogout() {
+    clearInterval(sessionTimer);
+    sessionStorage.clear();
+    localStorage.clear();
+    showLogin();
   }
 
   $('login-form')?.addEventListener('submit', async e => {
@@ -89,6 +101,15 @@
     if (err) err.style.display = 'none';
   });
 
+  $('toggle-pw')?.addEventListener('click', () => {
+    const inp = $('login-pw');
+    const btn = $('toggle-pw');
+    if (!inp || !btn) return;
+    const show = inp.type === 'password';
+    inp.type = show ? 'text' : 'password';
+    btn.innerHTML = show ? '&#128584;' : '&#128065;';
+  });
+
   /* ── APP INIT ──────────────────────────────────────────── */
   function initApp() {
     allItems = PortfolioStorage.getAll();
@@ -107,7 +128,7 @@
     $('import-file')?.addEventListener('change', doImport);
     $('btn-reset')?.addEventListener('click', doReset);
     $('btn-logout')?.addEventListener('click', () => {
-      if (confirm('Keluar dari admin?')) { clearSession(); showLogin(); }
+      if (confirm('Keluar dari admin?')) doLogout();
     });
   }
 
@@ -413,7 +434,7 @@
     const data = type === 'blog' ? BlogStorage.getAll() : PortfolioStorage.getAll();
     const token = getToken();
 
-    if (!token) { toast('✗ Sesi habis, silakan login ulang'); clearSession(); showLogin(); return; }
+    if (!token) { toast('✗ Sesi habis, silakan login ulang'); doLogout(); return; }
 
     toast('⏳ Deploying ' + type + '.json...');
     try {
@@ -432,7 +453,7 @@
         updateSidebar();
       } else if (res.status === 401) {
         toast('✗ Sesi habis, silakan login ulang');
-        clearSession(); showLogin();
+        doLogout();
       } else {
         toast('✗ Deploy gagal: ' + (result.error || 'Unknown error'));
       }
