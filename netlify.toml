@@ -6,3 +6,25 @@
   from = "/admin"
   to = "/admin/index.html"
   status = 200
+
+# Admin panel — no cache (selalu fresh)
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    Pragma = "no-cache"
+    Expires = "0"
+
+# Data JSON — no cache (berubah setiap deploy)
+[[headers]]
+  for = "/data/*"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+    Pragma = "no-cache"
+    Expires = "0"
+
+# Functions — no cache
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
