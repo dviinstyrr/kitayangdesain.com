@@ -32,6 +32,7 @@
     renderCount();
     renderFeatured();
     renderGrid();
+    renderGallery();
     bindViewToggle();
     bindModal();
     bindKeyboard();
@@ -246,9 +247,161 @@
       ring.style.left=rx+'px'; ring.style.top=ry+'px';
       requestAnimationFrame(loop);
     })();
-    document.querySelectorAll('.pf-card,.pf-featured-card,.pf-modal-nav-btn').forEach(el => {
+    document.querySelectorAll('.pf-card,.pf-featured-card,.pf-modal-nav-btn,.pf-gallery-item').forEach(el => {
       el.addEventListener('mouseenter', ()=>document.body.classList.add('cursor-hover'));
       el.addEventListener('mouseleave', ()=>document.body.classList.remove('cursor-hover'));
+    });
+  }
+
+  /* ── GALLERY ─────────────────────────────────────────── */
+  function renderGallery() {
+    const wrap = $('pf-gallery-grid');
+    if (!wrap) return;
+
+    // Collect all gallery images from all portfolio items
+    const galleryImages = [];
+    allItems.forEach(item => {
+      if (item.gallery && Array.isArray(item.gallery)) {
+        item.gallery.forEach(img => {
+          if (img.image) {
+            galleryImages.push({
+              ...img,
+              sourceTitle: item.title
+            });
+          }
+        });
+      }
+    });
+
+    // Hide section if no gallery images
+    const section = document.querySelector('.pf-gallery-section');
+    if (!galleryImages.length) {
+      if (section) section.style.display = 'none';
+      return;
+    }
+    if (section) section.style.display = 'block';
+
+    // Create label
+    let html = `<div class="pf-gallery-label">Galeri Foto</div>`;
+
+    // Build masonry-style grid
+    html += `<div class="pf-gallery-masonry">`;
+
+    // Group images into rows of 4 columns worth
+    const cols = 4;
+    let row = [];
+    let rowSpan = 0;
+
+    galleryImages.forEach((img, idx) => {
+      // Determine span based on size
+      let span = 1; // small = 1 col
+      if (img.size === 'medium') span = 2;
+      if (img.size === 'large') span = 3;
+
+      // Determine aspect ratio based on span
+      let aspectRatio = '1/1'; // square for 1 col
+      if (span === 2) aspectRatio = '2/1'; // landscape for 2 cols
+      if (span === 3) aspectRatio = '3/1'; // wide for 3 cols
+      if (span === 4) aspectRatio = '4/1'; // full width
+
+      // Check if we need to start a new row
+      if (rowSpan + span > cols) {
+        // Render current row
+        html += renderGalleryRow(row, galleryImages);
+        row = [];
+        rowSpan = 0;
+      }
+
+      row.push({ ...img, span, aspectRatio, idx });
+      rowSpan += span;
+    });
+
+    // Render remaining row
+    if (row.length > 0) {
+      html += renderGalleryRow(row, galleryImages);
+    }
+
+    html += `</div>`;
+
+    // Lightbox
+    html += `<div class="pf-gallery-lightbox" id="pf-gallery-lightbox">
+      <button class="pf-gallery-lightbox-close" id="pf-gallery-lightbox-close">✕</button>
+      <img src="" alt="" id="pf-gallery-lightbox-img" />
+    </div>`;
+
+    wrap.innerHTML = html;
+
+    // Bind lightbox
+    bindGalleryLightbox(galleryImages);
+  }
+
+  function renderGalleryRow(items, allImages) {
+    const cols = 4;
+    let html = `<div class="pf-gallery-row">`;
+
+    items.forEach((img, i) => {
+      // Calculate justify based on position or fill remaining space
+      let justify = '';
+      if (img.position === 'left') justify = 'justify-content: flex-start;';
+      else if (img.position === 'center') justify = 'justify-content: center;';
+      else if (img.position === 'right') justify = 'justify-content: flex-end;';
+
+      // Add remaining space for non-full rows
+      const usedSpan = items.reduce((sum, item) => sum + item.span, 0);
+      const remaining = cols - usedSpan;
+
+      html += `<div class="pf-gallery-item" data-idx="${img.idx}" style="
+        grid-column: span ${img.span};
+        aspect-ratio: ${img.aspectRatio};
+        ${justify}
+        ${remaining > 0 && !img.position ? `padding-right: ${remaining * (100 / cols)}%;` : ''}
+      ">
+        <img src="${img.image}" alt="${img.sourceTitle}" loading="lazy" />
+      </div>`;
+    });
+
+    html += `</div>`;
+    return html;
+  }
+
+  function bindGalleryLightbox(images) {
+    const lightbox = $('pf-gallery-lightbox');
+    const lightboxImg = $('pf-gallery-lightbox-img');
+    const closeBtn = $('pf-gallery-lightbox-close');
+
+    if (!lightbox || !lightboxImg) return;
+
+    // Click on gallery item opens lightbox
+    document.querySelectorAll('.pf-gallery-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const idx = parseInt(item.dataset.idx);
+        if (images[idx]) {
+          lightboxImg.src = images[idx].image;
+          lightboxImg.alt = images[idx].sourceTitle;
+          lightbox.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+      // Cursor effect for gallery items
+      item.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      item.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+
+    // Close lightbox
+    const closeLightbox = () => {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+      lightboxImg.src = '';
+    };
+
+    closeBtn?.addEventListener('click', closeLightbox);
+    closeBtn?.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+    closeBtn?.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
     });
   }
 

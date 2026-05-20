@@ -13,6 +13,7 @@
   let allItems     = [];
   let editingId    = null;
   let pendingImg   = null;
+  let galleryImages = []; // gallery photos
   let dragSrcIdx   = null;
 
   let currentTab   = 'portfolio';
@@ -155,6 +156,7 @@
       if (currentTab === 'blog') openBlogNew(); else openNew();
     });
     $('btn-deploy')?.addEventListener('click', doDeploy);
+    $('btn-export')?.addEventListener('click', doExport);
     $('import-file')?.addEventListener('change', doImport);
     $('btn-reset')?.addEventListener('click', doReset);
     $('btn-logout')?.addEventListener('click', () => {
@@ -167,6 +169,7 @@
     currentTab = tab;
     $('tab-portfolio')?.classList.toggle('active', tab === 'portfolio');
     $('tab-blog')?.classList.toggle('active', tab === 'blog');
+    $('tab-gallery')?.classList.toggle('active', tab === 'gallery');
 
     // Toggle topbar
     const topbar = document.querySelector('.topbar');
@@ -198,6 +201,24 @@
           <div id="blog-list"></div>`;
       }
       renderBlogList(allBlogPosts);
+      updateSidebar();
+    } else if (tab === 'gallery') {
+      if (topbar) {
+        topbar.querySelector('.topbar-l').innerHTML = `<span id="item-count"></span>`;
+        topbar.querySelector('#btn-new-topbar').textContent = 'Kelola Galeri';
+      }
+      if (content) {
+        content.innerHTML = `
+          <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;margin-bottom:1.25rem;font-size:.78rem;color:var(--fg2);line-height:1.8;display:flex;align-items:flex-start;gap:.75rem;">
+            <span style="font-size:1.25rem;flex-shrink:0">📸</span>
+            <span>
+              <strong style="color:var(--fg)">Kelola Galeri Foto:</strong>
+              Pilih karya untuk menambah/mengatur foto galeri. Klik <strong>Edit</strong> pada karya yang diinginkan.
+            </span>
+          </div>
+          <div id="gallery-by-item"></div>`;
+      }
+      renderGalleryManager();
       updateSidebar();
     } else {
       if (topbar) {
@@ -239,6 +260,12 @@
       setText('sidebar-storage', PortfolioStorage.storageSize() + ' / ~5MB');
       const draftBanner = $('draft-banner');
       if (draftBanner) draftBanner.style.display = PortfolioStorage.hasDraft() ? 'block' : 'none';
+    } else if (currentTab === 'gallery') {
+      const totalPhotos = allItems.reduce((sum, item) => sum + (item.gallery?.length || 0), 0);
+      setText('sidebar-count',   totalPhotos + ' foto');
+      setText('sidebar-storage', PortfolioStorage.storageSize() + ' / ~5MB');
+      const draftBanner = $('draft-banner');
+      if (draftBanner) draftBanner.style.display = PortfolioStorage.hasDraft() ? 'block' : 'none';
     } else {
       setText('sidebar-count',   allBlogPosts.length + ' artikel');
       setText('sidebar-storage', BlogStorage.storageSize() + ' / ~5MB');
@@ -276,6 +303,7 @@
             <span class="cat-badge cat-${item.category}">${x(item.categoryLabel)}</span>
             <span>${x(item.client)} · ${x(item.year)}</span>
             ${item.featured ? '<span class="feat-pill">★ Featured</span>' : ''}
+            ${item.gallery?.length ? `<span class="gal-pill">🖼 ${item.gallery.length}</span>` : ''}
           </div>
           <div class="adm-tags">${(item.tags || []).slice(0, 4).map(t => `<span class="adm-tag">${x(t)}</span>`).join('')}</div>
         </div>
@@ -333,7 +361,7 @@
 
   /* ── FORM OPEN ─────────────────────────────────────────── */
   function openNew() {
-    editingId = null; pendingImg = null;
+    editingId = null; pendingImg = null; galleryImages = [];
     clearForm();
     setText('panel-title', '+ Tambah Karya Baru');
     setText('submit-btn',  'Simpan Karya');
@@ -345,7 +373,9 @@
     if (!item) return;
     editingId  = id;
     pendingImg = item.image || null;
+    galleryImages = item.gallery || [];
     fillForm(item);
+    renderGallery();
     setText('panel-title', 'Edit Karya');
     setText('submit-btn',  'Update Karya');
     openPanel();
@@ -362,7 +392,7 @@
     $('panel')?.classList.remove('open');
     $('overlay')?.classList.remove('open');
     document.body.style.overflow = '';
-    editingId = null; pendingImg = null;
+    editingId = null; pendingImg = null; galleryImages = [];
   }
   $('btn-close-panel')?.addEventListener('click', closePanel);
   $('btn-cancel')?.addEventListener('click', closePanel);
@@ -394,8 +424,68 @@
 
     $('f-color')?.addEventListener('input', updatePrev);
     $('f-emoji')?.addEventListener('input', updatePrev);
+
+    // Gallery upload
+    $('f-gallery')?.addEventListener('change', async e => {
+      const files = Array.from(e.target.files || []);
+      if (!files.length) return;
+      setStatus('⏳ Memproses gambar...', 'info');
+      try {
+        for (const file of files) {
+          const b64 = await PortfolioStorage.compressImage(file, 1400, 0.85);
+          galleryImages.push({ id: Date.now() + Math.random(), image: b64, size: 'medium', position: 'left' });
+        }
+        renderGallery();
+        setStatus(`✓ ${galleryImages.length} foto galeri siap`, 'success');
+      } catch (err) {
+        setStatus('✗ ' + err.message, 'error');
+      }
+      if ($('f-gallery')) $('f-gallery').value = '';
+    });
+
     updatePrev();
   }
+
+  function renderGallery() {
+    const list = $('f-gallery-list');
+    if (!list) return;
+    if (!galleryImages.length) {
+      list.innerHTML = '<p style="font-size:.75rem;color:var(--fg3);text-align:center;padding:.5rem">Belum ada foto. Upload di atas.</p>';
+      return;
+    }
+    list.innerHTML = galleryImages.map((g, idx) => `
+      <div class="gallery-item" data-idx="${idx}">
+        <img src="${g.image}" alt=""/>
+        <div class="g-info">
+          <div style="font-size:.7rem;color:var(--fg3)">Ukuran</div>
+          <div class="g-size">
+            <button type="button" onclick="setGallerySize(${idx},'small')" class="${g.size==='small'?'active':''}">S</button>
+            <button type="button" onclick="setGallerySize(${idx},'medium')" class="${g.size==='medium'?'active':''}">M</button>
+            <button type="button" onclick="setGallerySize(${idx},'large')" class="${g.size==='large'?'active':''}">L</button>
+          </div>
+        </div>
+        <div class="g-info">
+          <div style="font-size:.7rem;color:var(--fg3)">Posisi</div>
+          <select class="g-pos" onchange="setGalleryPos(${idx},this.value)">
+            <option value="left" ${g.position==='left'?'selected':''}>Kiri</option>
+            <option value="center" ${g.position==='center'?'selected':''}>Tengah</option>
+            <option value="right" ${g.position==='right'?'selected':''}>Kanan</option>
+          </select>
+        </div>
+        <button class="g-del" onclick="removeGalleryItem(${idx})" title="Hapus">✕</button>
+      </div>
+    `).join('');
+  }
+
+  window.setGallerySize = function(idx, size) {
+    if (galleryImages[idx]) { galleryImages[idx].size = size; renderGallery(); }
+  };
+  window.setGalleryPos = function(idx, pos) {
+    if (galleryImages[idx]) { galleryImages[idx].position = pos; renderGallery(); }
+  };
+  window.removeGalleryItem = function(idx) {
+    galleryImages.splice(idx, 1); renderGallery();
+  };
 
   /* ── SAVE ──────────────────────────────────────────────── */
   function saveItem() {
@@ -422,6 +512,7 @@
       tags         : ($('f-tags')?.value   || '').split(',').map(t => t.trim()).filter(Boolean),
       featured     : !!$('f-featured')?.checked,
       image        : pendingImg || null,
+      gallery      : galleryImages,
     };
 
     const saved = editingId
@@ -457,6 +548,17 @@
       toast(updated.featured ? '★ Ditambahkan ke Featured' : '☆ Dihapus dari Featured');
     }
   };
+
+  /* ── EXPORT JSON ────────────────────────────────────────── */
+  function doExport() {
+    if (currentTab === 'blog') {
+      BlogStorage.exportJSON();
+      toast('✓ blog.json didownload');
+    } else {
+      PortfolioStorage.exportJSON();
+      toast('✓ portfolio.json didownload');
+    }
+  }
 
   /* ── DEPLOY ────────────────────────────────────────────── */
   async function doDeploy() {
@@ -530,6 +632,132 @@
   }
 
   /* ============================================================
+     GALLERY MANAGEMENT
+  ============================================================ */
+
+  let galleryExpandedId = null;
+
+  function renderGalleryManager() {
+    const container = $('gallery-by-item');
+    if (!container) return;
+
+    const totalPhotos = allItems.reduce((sum, item) => sum + (item.gallery?.length || 0), 0);
+    setText('item-count', totalPhotos + ' foto galeri');
+
+    if (!allItems.length) {
+      container.innerHTML = '<div class="adm-empty"><div style="font-size:2.5rem;margin-bottom:.75rem">📸</div><p>Belum ada karya.<br>Klik <strong>+ Tambah Karya</strong> untuk mulai.</p></div>';
+      return;
+    }
+
+    container.innerHTML = allItems.map(item => {
+      const photos = item.gallery || [];
+      const isExpanded = galleryExpandedId === item.id;
+      return `
+        <div class="gal-section">
+          <div class="gal-section-hdr" onclick="toggleGallerySection('${item.id}')">
+            <div class="gal-section-thumb" style="background:${item.color ? item.color + '33' : 'var(--bg2)'}">
+              ${item.image
+                ? `<img src="${item.image}" alt=""/>`
+                : `<span style="font-size:1.2rem">${item.emoji || '🖼'}</span>`}
+            </div>
+            <div class="gal-section-info">
+              <div class="gal-section-title">${x(item.title)}</div>
+              <div class="gal-section-count">${photos.length} foto galeri</div>
+            </div>
+            <span style="font-size:1rem;color:var(--fg3);transition:transform .2s;transform:rotate(${isExpanded ? '90deg' : '0deg'})">▶</span>
+          </div>
+          <div class="gal-section-body ${isExpanded ? '' : 'collapsed'}" id="gal-body-${item.id}">
+            ${photos.length ? `
+              <div class="gal-grid">
+                ${photos.map((photo, idx) => `
+                  <div class="gal-thumb">
+                    <img src="${photo.image}" alt=""/>
+                    <div class="gal-thumb-overlay">
+                      <button onclick="event.stopPropagation();galSetSize('${item.id}',${idx},'small')" title="Kecil" style="${photo.size==='small'?'background:var(--accent);color:#fff':''}">S</button>
+                      <button onclick="event.stopPropagation();galSetSize('${item.id}',${idx},'medium')" title="Sedang" style="${photo.size==='medium'?'background:var(--accent);color:#fff':''}">M</button>
+                      <button onclick="event.stopPropagation();galSetSize('${item.id}',${idx},'large')" title="Besar" style="${photo.size==='large'?'background:var(--accent);color:#fff':''}">L</button>
+                      <button onclick="event.stopPropagation();galDeletePhoto('${item.id}',${idx})" title="Hapus" style="background:var(--danger);color:#fff">✕</button>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            ` : `
+              <div class="gal-empty">
+                <div class="gal-empty-icon">📷</div>
+                <p>Belum ada foto galeri</p>
+              </div>
+            `}
+            <div class="gal-controls">
+              <input type="file" id="gal-upload-${item.id}" accept="image/*" multiple style="display:none" onchange="galUploadPhotos('${item.id}', this.files)"/>
+              <button onclick="document.getElementById('gal-upload-${item.id}').click()">+ Tambah Foto</button>
+              <label>Ukuran default:</label>
+              <select id="gal-default-size-${item.id}" onchange="galSetDefaultSize('${item.id}', this.value)">
+                <option value="small">Kecil (S)</option>
+                <option value="medium" selected>Sedang (M)</option>
+                <option value="large">Besar (L)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  window.toggleGallerySection = function(id) {
+    galleryExpandedId = galleryExpandedId === id ? null : id;
+    renderGalleryManager();
+  };
+
+  window.galUploadPhotos = async function(itemId, files) {
+    if (!files || !files.length) return;
+    const item = allItems.find(i => i.id === itemId);
+    if (!item) return;
+
+    const defaultSize = $('gal-default-size-' + itemId)?.value || 'medium';
+
+    for (const file of files) {
+      try {
+        const b64 = await PortfolioStorage.compressImage(file, 1400, 0.85);
+        if (!item.gallery) item.gallery = [];
+        item.gallery.push({
+          id: Date.now() + Math.random(),
+          image: b64,
+          size: defaultSize,
+          position: 'left'
+        });
+      } catch (err) {
+        console.error('Gagal upload:', err);
+      }
+    }
+
+    PortfolioStorage._save(allItems);
+    renderGalleryManager();
+    toast(`${files.length} foto ditambahkan`);
+  };
+
+  window.galSetSize = function(itemId, photoIdx, size) {
+    const item = allItems.find(i => i.id === itemId);
+    if (!item || !item.gallery || !item.gallery[photoIdx]) return;
+    item.gallery[photoIdx].size = size;
+    PortfolioStorage._save(allItems);
+    renderGalleryManager();
+  };
+
+  window.galDeletePhoto = function(itemId, photoIdx) {
+    const item = allItems.find(i => i.id === itemId);
+    if (!item || !item.gallery) return;
+    if (!confirm('Hapus foto ini?')) return;
+    item.gallery.splice(photoIdx, 1);
+    PortfolioStorage._save(allItems);
+    renderGalleryManager();
+    toast('Foto dihapus');
+  };
+
+  window.galSetDefaultSize = function(itemId, size) {
+    // Just a visual hint, not stored
+  };
+
+  /* ============================================================
      BLOG MANAGEMENT
   ============================================================ */
 
@@ -559,7 +787,7 @@
         + '<span>' + x(item.date) + '</span>'
         + '<span>' + x(item.readTime) + '</span>'
         + '</div>'
-        + '<div class="adm-tags">' + x((item.excerpt || '').substring(0, 80)) + ((item.excerpt || '').length > 80 ? '...' : '') + '</div>'
+        + '<div class="adm-excerpt">' + x((item.excerpt || '').substring(0, 80)) + ((item.excerpt || '').length > 80 ? '...' : '') + '</div>'
         + '</div>'
         + '<div class="adm-actions">'
         + '<button class="adm-btn outline" onclick="blogEdit(\'' + item.id + '\')">Edit</button>'
@@ -850,6 +1078,7 @@
     if ($('f-color')) $('f-color').value = '#C8A96E';
     if ($('f-year'))  $('f-year').value  = String(new Date().getFullYear());
     hidePreview(); updatePrev(); clearStatus();
+    renderGallery();
   }
 
   function fillForm(item) {
@@ -864,6 +1093,7 @@
     setVal('f-tags',     (item.tags || []).join(', '));
     if ($('f-featured')) $('f-featured').checked = !!item.featured;
     item.image ? showPreview(item.image) : hidePreview();
+    renderGallery();
     updatePrev(); clearStatus();
   }
 

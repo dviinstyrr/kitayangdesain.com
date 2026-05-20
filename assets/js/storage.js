@@ -18,9 +18,17 @@ const DEFAULT_ITEMS = [
     title: 'Nusantara Heritage Co.', client: 'Nusantara Heritage Co.', year: '2024',
     category: 'branding', categoryLabel: 'Branding & Identity',
     tags: ['Logo Design', 'Brand System', 'Stationery', 'Brand Guidelines'],
-    description: 'Nusantara Heritage Co. adalah perusahaan yang mengkurasi dan memasarkan kerajinan tangan autentik dari seluruh nusantara. Identitas baru mencerminkan kekayaan budaya Indonesia namun tetap relevan bagi konsumen modern.',
+    description: 'Nusantara Heritage Co. adalah perusahaan yang mengkurasi dan pemasarkan kerajinan tangan autentik dari seluruh nusantara. Identitas baru mencerminkan kekayaan budaya Indonesia namun tetap relevan bagi konsumen modern.',
     result: 'Brand recognition meningkat 240% dalam 6 bulan. Kini terdistribusi di 8 negara Asia Tenggara.',
-    image: null, color: '#C8A96E', emoji: '🌿',
+    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80', color: '#C8A96E', emoji: '🌿',
+    gallery: [
+      { id: 'g1', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', size: 'large', position: 'left' },
+      { id: 'g2', image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&q=80', size: 'small', position: 'center' },
+      { id: 'g3', image: 'https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&q=80', size: 'small', position: 'right' },
+      { id: 'g4', image: 'https://images.unsplash.com/photo-1542744094-3a31f272c490?w=600&q=80', size: 'medium', position: 'left' },
+      { id: 'g5', image: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80', size: 'medium', position: 'center' },
+      { id: 'g6', image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80', size: 'small', position: 'right' },
+    ],
   },
   {
     id: 'default-2', order: 1, featured: true,
@@ -29,7 +37,13 @@ const DEFAULT_ITEMS = [
     tags: ['UI Design', 'UX Research', 'Prototyping', 'Design System'],
     description: 'Aplikasi fintech untuk segmen milenial Indonesia. Menyederhanakan kompleksitas keuangan menjadi pengalaman yang natural dan aman.',
     result: 'App store rating dari 3.2 ke 4.7 bintang. User retention naik 65%.',
-    image: null, color: '#1A1714', emoji: '◈',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80', color: '#1A1714', emoji: '◈',
+    gallery: [
+      { id: 'g7', image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80', size: 'medium', position: 'left' },
+      { id: 'g8', image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80', size: 'small', position: 'center' },
+      { id: 'g9', image: 'https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=600&q=80', size: 'large', position: 'right' },
+      { id: 'g10', image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=80', size: 'medium', position: 'left' },
+    ],
   },
   {
     id: 'default-3', order: 2, featured: false,
@@ -38,7 +52,14 @@ const DEFAULT_ITEMS = [
     tags: ['Packaging', 'Print Design', 'Illustration', 'Retail'],
     description: 'Brand kopi specialty asal Toraja. Kemasan bercerita tentang asal-usul dan kebanggaan lokal tanpa terkesan kuno.',
     result: 'Penjualan meningkat 3x lipat dalam 6 bulan. Terdistribusi di 200+ kafe specialty.',
-    image: null, color: '#6B3A1F', emoji: '☕',
+    image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=800&q=80', color: '#6B3A1F', emoji: '☕',
+    gallery: [
+      { id: 'g11', image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=600&q=80', size: 'small', position: 'center' },
+      { id: 'g12', image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80', size: 'large', position: 'left' },
+      { id: 'g13', image: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=80', size: 'medium', position: 'right' },
+      { id: 'g14', image: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80', size: 'small', position: 'left' },
+      { id: 'g15', image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80', size: 'small', position: 'right' },
+    ],
   },
   {
     id: 'default-4', order: 3, featured: false,
@@ -47,7 +68,12 @@ const DEFAULT_ITEMS = [
     tags: ['Web Design', 'UI/UX', 'Illustration'],
     description: 'Platform e-learning yang menghubungkan pelajar dengan mentor terbaik. Serius tapi tetap approachable.',
     result: 'Waktu di platform +42 menit per sesi. Conversion rate dari 3.1% ke 8.7%.',
-    image: null, color: '#2D4A6E', emoji: '📚',
+    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80', color: '#2D4A6E', emoji: '📚',
+    gallery: [
+      { id: 'g16', image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=80', size: 'large', position: 'center' },
+      { id: 'g17', image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&q=80', size: 'small', position: 'left' },
+      { id: 'g18', image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80', size: 'medium', position: 'right' },
+    ],
   },
   {
     id: 'default-5', order: 4, featured: false,
@@ -56,7 +82,15 @@ const DEFAULT_ITEMS = [
     tags: ['Spatial Design', 'Signage', 'Wayfinding'],
     description: 'Resort butik di Ubud, Bali. Seluruh elemen visual bernafaskan keseimbangan kemewahan dan ketenangan alam.',
     result: 'Rating 9.2/10 di Booking.com. Diliput Condé Nast Traveler & Tatler Asia.',
-    image: null, color: '#8B7355', emoji: '🏨',
+    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80', color: '#8B7355', emoji: '🏨',
+    gallery: [
+      { id: 'g19', image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80', size: 'large', position: 'left' },
+      { id: 'g20', image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80', size: 'medium', position: 'center' },
+      { id: 'g21', image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&q=80', size: 'small', position: 'right' },
+      { id: 'g22', image: 'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=600&q=80', size: 'small', position: 'left' },
+      { id: 'g23', image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80', size: 'medium', position: 'right' },
+      { id: 'g24', image: 'https://images.unsplash.com/photo-1596436889106-be35e843f974?w=600&q=80', size: 'small', position: 'center' },
+    ],
   },
   {
     id: 'default-6', order: 5, featured: false,
@@ -65,7 +99,14 @@ const DEFAULT_ITEMS = [
     tags: ['Motion Graphics', 'Event Design', 'LED Content'],
     description: 'Gala dinner tahunan Astra Motor tema "Future Forward". Dihadiri 2.000+ tamu undangan.',
     result: '98% survei pasca-event menyatakan kepuasan tertinggi terhadap elemen visual.',
-    image: null, color: '#2D1B4E', emoji: '✦',
+    image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80', color: '#2D1B4E', emoji: '✦',
+    gallery: [
+      { id: 'g25', image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&q=80', size: 'large', position: 'center' },
+      { id: 'g26', image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80', size: 'medium', position: 'left' },
+      { id: 'g27', image: 'https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=600&q=80', size: 'medium', position: 'right' },
+      { id: 'g28', image: 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&q=80', size: 'small', position: 'left' },
+      { id: 'g29', image: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=600&q=80', size: 'small', position: 'right' },
+    ],
   }
 ];
 

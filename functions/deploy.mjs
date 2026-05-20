@@ -36,7 +36,10 @@ export default async (req) => {
   try {
     // 1. Get current branch ref
     const refRes = await gh(`/repos/${repo}/git/refs/heads/${branch}`);
-    if (!refRes.ok) return json({ error: 'Failed to get branch ref' }, 502);
+    if (!refRes.ok) {
+      const detail = await refRes.text();
+      return json({ error: 'Failed to get branch ref', detail: `${repo}/${branch}: ${refRes.status}` }, 502);
+    }
     const { object: { sha: commitSha } } = await refRes.json();
 
     // 2. Get current commit (for tree SHA)

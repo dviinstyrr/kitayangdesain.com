@@ -103,6 +103,7 @@ input,textarea,select{font-family:var(--sans);}
 .adm-title{font-size:.88rem;font-weight:600;margin-bottom:.28rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .adm-meta{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.35rem;font-size:.7rem;color:var(--fg3);}
 .adm-tags{display:flex;gap:.28rem;flex-wrap:wrap;}
+.adm-excerpt{font-size:.72rem;color:var(--fg3);margin-top:.2rem;}
 .adm-tag{padding:.12rem .5rem;background:var(--bg);border:1px solid var(--border);border-radius:100px;font-size:.6rem;color:var(--fg2);}
 .cat-badge{padding:.15rem .6rem;border-radius:100px;font-size:.62rem;font-weight:600;}
 .cat-branding{background:#fff3dc;color:#8b5e3c;}
@@ -112,6 +113,7 @@ input,textarea,select{font-family:var(--sans);}
 .cat-motion  {background:#ede8ff;color:#4a2d8b;}
 .cat-other   {background:var(--bg2);color:var(--fg3);}
 .feat-pill{background:var(--accent);color:#fff;padding:.15rem .6rem;border-radius:100px;font-size:.62rem;font-weight:600;}
+.gal-pill{background:var(--fg2);color:#fff;padding:.15rem .6rem;border-radius:100px;font-size:.62rem;font-weight:600;margin-left:.4rem;}
 .adm-actions{display:flex;gap:.4rem;align-items:center;flex-shrink:0;}
 .adm-btn{font-size:.7rem;font-weight:500;padding:.38rem .8rem;border-radius:4px;transition:all .2s;font-family:var(--sans);}
 .ghost  {background:transparent;color:var(--fg3);border:1px solid var(--border);font-size:.9rem;}
@@ -175,6 +177,16 @@ input,textarea,select{font-family:var(--sans);}
 .tsw{position:relative;width:40px;height:22px;flex-shrink:0;}
 .tsw input{opacity:0;width:0;height:0;position:absolute;}
 .ttrack{position:absolute;inset:0;background:var(--bg2);border-radius:100px;cursor:pointer;transition:background .3s;}
+/* Gallery items */
+.gallery-item{display:flex;align-items:center;gap:.75rem;padding:.6rem;background:var(--white);border:1px solid var(--border);border-radius:6px;}
+.gallery-item img{width:56px;height:44px;object-fit:cover;border-radius:4px;flex-shrink:0;}
+.gallery-item .g-info{flex:1;min-width:0;}
+.gallery-item .g-controls{display:flex;gap:.4rem;margin-top:.35rem;flex-wrap:wrap;}
+.gallery-item select,.gallery-item .g-size{display:flex;gap:.25rem;}
+.gallery-item select{padding:.25rem .5rem;border:1px solid var(--border);border-radius:4px;font-size:.7rem;background:var(--bg);color:var(--fg);}
+.gallery-item .g-size button{padding:.2rem .5rem;border:1px solid var(--border);border-radius:4px;font-size:.7rem;background:var(--bg);cursor:pointer;transition:all .2s;}
+.gallery-item .g-size button.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.gallery-item .g-del{background:none;border:none;color:var(--danger);cursor:pointer;font-size:.8rem;padding:.25rem;}
 .ttrack::after{content:'';position:absolute;left:3px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .3s var(--ease);}
 .tsw input:checked+.ttrack{background:var(--accent);}
 .tsw input:checked+.ttrack::after{transform:translateX(18px);}
@@ -189,6 +201,37 @@ input,textarea,select{font-family:var(--sans);}
 .content-toolbar{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap;}
 .tb-btn{font-size:.75rem!important;padding:.45rem .85rem!important;white-space:nowrap;}
 .tb-hint{font-size:.65rem;color:var(--fg3);flex:1;min-width:120px;}
+
+/* ── GALLERY MANAGER ────────────────────────────────── */
+.gal-section{background:var(--white);border:1px solid var(--border);border-radius:8px;margin-bottom:1rem;overflow:hidden;}
+.gal-section-hdr{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;background:var(--bg);border-bottom:1px solid var(--border);cursor:pointer;}
+.gal-section-hdr:hover{background:var(--bg2);}
+.gal-section-thumb{width:48px;height:38px;border-radius:4px;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.gal-section-thumb img{width:100%;height:100%;object-fit:cover;}
+.gal-section-info{flex:1;min-width:0;}
+.gal-section-title{font-size:.85rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.gal-section-count{font-size:.7rem;color:var(--fg3);}
+.gal-section-body{padding:1rem 1.25rem;}
+.gal-section-body.collapsed{display:none;}
+
+.gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:.5rem;margin-bottom:1rem;}
+.gal-thumb{aspect-ratio:1/1;border-radius:6px;overflow:hidden;position:relative;cursor:pointer;border:2px solid transparent;transition:all .2s;}
+.gal-thumb:hover{border-color:var(--accent);}
+.gal-thumb.selected{border-color:var(--accent);}
+.gal-thumb img{width:100%;height:100%;object-fit:cover;}
+.gal-thumb-overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;}
+.gal-thumb:hover .gal-thumb-overlay{opacity:1;}
+.gal-thumb-overlay button{width:28px;height:28px;border-radius:50%;background:var(--white);border:none;cursor:pointer;font-size:.75rem;display:flex;align-items:center;justify-content:center;margin:.15rem;transition:background .2s;}
+.gal-thumb-overlay button:hover{background:var(--danger);color:#fff;}
+
+.gal-controls{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;}
+.gal-controls label{font-size:.7rem;color:var(--fg3);}
+.gal-controls select{padding:.3rem .5rem;border:1px solid var(--border);border-radius:4px;font-size:.72rem;}
+.gal-controls button{padding:.3rem .6rem;border:1px solid var(--border);border-radius:4px;font-size:.7rem;cursor:pointer;transition:all .2s;}
+.gal-controls button:hover{border-color:var(--accent);color:var(--accent);}
+.gal-controls button.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.gal-empty{text-align:center;padding:2rem;color:var(--fg3);font-size:.8rem;}
+.gal-empty-icon{font-size:2rem;margin-bottom:.5rem;}
 
 /* ── BLOG PANEL ──────────────────────────────────────── */
 #blog-overlay{position:fixed;inset:0;z-index:100;background:rgba(26,23,20,.55);backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;}
@@ -267,11 +310,13 @@ input,textarea,select{font-family:var(--sans);}
       <div class="s-section">Kelola</div>
       <button id="tab-portfolio" class="active" onclick="switchTab('portfolio')"><span class="s-icon">🖼</span> Portofolio</button>
       <button id="tab-blog" onclick="switchTab('blog')"><span class="s-icon">📝</span> Blog Artikel</button>
+      <button id="tab-gallery" onclick="switchTab('gallery')"><span class="s-icon">📸</span> Galeri Foto</button>
       <a href="/portfolio.html" target="_blank"><span class="s-icon">↗</span> Halaman Publik</a>
       <a href="/" target="_blank"><span class="s-icon">🏠</span> Website Utama</a>
 
       <div class="s-section">Data</div>
       <button id="btn-new"><span class="s-icon">＋</span> Tambah Konten</button>
+      <button id="btn-export"><span class="s-icon">⬇</span> Export JSON</button>
       <button id="btn-deploy"><span class="s-icon">🚀</span> Deploy ke GitHub</button>
       <input type="file" id="import-file" accept=".json" style="display:none"/>
 
@@ -310,6 +355,8 @@ input,textarea,select{font-family:var(--sans);}
         <button class="adm-btn accent-btn" id="btn-new-topbar"
           onclick="document.getElementById('btn-new').click()">+ Tambah Karya</button>
         <button class="adm-btn outline" style="white-space:nowrap"
+          onclick="document.getElementById('btn-export').click()">⬇ Export</button>
+        <button class="adm-btn outline" style="white-space:nowrap"
           onclick="document.getElementById('btn-deploy').click()">🚀 Deploy</button>
       </div>
     </div>
@@ -324,6 +371,20 @@ input,textarea,select{font-family:var(--sans);}
         </span>
       </div>
       <div id="admin-list"></div>
+
+      <!-- Galeri Tab Content -->
+      <div id="gallery-content" style="display:none;">
+        <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;margin-bottom:1.25rem;font-size:.78rem;color:var(--fg2);line-height:1.8;display:flex;align-items:flex-start;gap:.75rem;">
+          <span style="font-size:1.25rem;flex-shrink:0">📸</span>
+          <span>
+            <strong style="color:var(--fg)">Kelola Galeri:</strong>
+            Pilih karya untuk menambah/mengatur foto galeri. Klik <strong>Edit</strong> pada karya yang diinginkan.
+          </span>
+        </div>
+
+        <!-- Gallery by Portfolio Item -->
+        <div id="gallery-by-item"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -430,6 +491,17 @@ input,textarea,select{font-family:var(--sans);}
             <div class="ttrack"></div>
           </div>
         </label>
+      </div>
+
+      <div class="fdiv">Galeri Foto</div>
+      <div class="fg">
+        <div class="img-drop" id="f-gallery-drop">
+          <input type="file" id="f-gallery" accept="image/*" multiple style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%"/>
+          <div class="img-drop-ico">🖼</div>
+          <div class="img-drop-txt">Klik atau drag gambar di sini</div>
+          <div class="img-drop-hint">JPG / PNG / WebP</div>
+        </div>
+        <div id="f-gallery-list" style="margin-top:.85rem;display:flex;flex-direction:column;gap:.5rem;"></div>
       </div>
     </form>
   </div>
