@@ -13,7 +13,7 @@ export default async (req) => {
   catch { return json({ error: 'Token expired or invalid' }, 401); }
 
   const { type, data } = await req.json();
-  if (!type || !data || !['portfolio', 'blog'].includes(type))
+  if (!type || !data || !['portfolio', 'blog', 'gallery'].includes(type))
     return json({ error: 'Invalid request' }, 400);
 
   const ghToken = process.env.GITHUB_TOKEN;

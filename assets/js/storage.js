@@ -473,3 +473,110 @@ const BlogStorage = {
 window.BlogStorage = BlogStorage;
 
 window.PortfolioStorage = PortfolioStorage;
+
+/* ============================================================
+   GALLERY STORAGE ENGINE — Standalone photo gallery
+   Data : { gallery: [ { id, image } ] }
+============================================================ */
+const KYD_GALLERY_KEY   = 'kyd_gallery_v1';
+const KYD_GALLERY_DRAFT = 'kyd_gallery_draft_pending';
+
+const DEFAULT_GALLERY = { gallery: [] };
+
+const GalleryStorage = {
+  async fetchPublic() {
+    try {
+      const res = await fetch('/data/gallery.json?_=' + Date.now());
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return await res.json();
+    } catch (e) {
+      console.warn('[KYD] Gagal fetch gallery.json:', e.message);
+      return { gallery: [] };
+    }
+  },
+  getAll() {
+    try {
+      const raw = localStorage.getItem(KYD_GALLERY_KEY);
+      if (!raw) return this._seed();
+      const data = JSON.parse(raw);
+      return Array.isArray(data) ? data : (data.gallery || []);
+    } catch { return this._seed(); }
+  },
+  _seed() {
+    const items = [];
+    this._save(items);
+    return items;
+  },
+  _save(items) {
+    try {
+      localStorage.setItem(KYD_GALLERY_KEY, JSON.stringify(items));
+      localStorage.setItem(KYD_GALLERY_DRAFT, '1');
+      return true;
+    } catch (e) {
+      if (e.name === 'QuotaExceededError') {
+        alert('⚠️ Penyimpanan penuh!\nHapus beberapa foto galeri.');
+      }
+      return false;
+    }
+  },
+  hasDraft() { return !!localStorage.getItem(KYD_GALLERY_DRAFT); },
+  clearDraft() { localStorage.removeItem(KYD_GALLERY_DRAFT); },
+  add(data) {
+    const items = this.getAll();
+    const newItem = { id: 'gal-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6), ...data };
+    items.push(newItem);
+    this._save(items);
+    return newItem;
+  },
+  remove(id) {
+    const items = this.getAll().filter(i => i.id !== id);
+    this._save(items);
+    return true;
+  },
+  reorder(fromIdx, toIdx) {
+    const items = this.getAll();
+    const [moved] = items.splice(fromIdx, 1);
+    items.splice(toIdx, 0, moved);
+    this._save(items);
+    return items;
+  },
+  exportJSON() {
+    const items = this.getAll();
+    const blob = new Blob([JSON.stringify({ gallery: items }, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'gallery.json';
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a); URL.revokeObjectURL(url);
+    this.clearDraft();
+  },
+  importJSON(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const data = JSON.parse(e.target.result);
+          const items = Array.isArray(data) ? data : (data.gallery || []);
+          this._save(items);
+          resolve(items.length);
+        } catch (err) { reject(err); }
+      };
+      reader.onerror = () => reject(new Error('Gagal membaca file'));
+      reader.readAsText(file);
+    });
+  },
+  storageSize() {
+    const raw = localStorage.getItem(KYD_GALLERY_KEY) || '';
+    const bytes = new Blob([raw]).size;
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+  },
+  reset() {
+    localStorage.removeItem(KYD_GALLERY_KEY);
+    localStorage.removeItem(KYD_GALLERY_DRAFT);
+    return this._seed();
+  }
+};
+
+window.GalleryStorage = GalleryStorage;

@@ -17,6 +17,7 @@
   let dragSrcIdx   = null;
 
   let currentTab   = 'portfolio';
+  let allGalleryItems = [];
   let allBlogPosts = [];
   let blogEditingId   = null;
   let blogPendingImg  = null;
@@ -145,6 +146,7 @@
   function initApp() {
     allItems = PortfolioStorage.getAll();
     allBlogPosts = BlogStorage.getAll();
+    allGalleryItems = GalleryStorage.getAll();
     renderList(allItems);
     renderBlogList(allBlogPosts);
     updateSidebar();
@@ -153,7 +155,9 @@
     bindSearch();
 
     $('btn-new')?.addEventListener('click', () => {
-      if (currentTab === 'blog') openBlogNew(); else openNew();
+      if (currentTab === 'blog') openBlogNew();
+      else if (currentTab === 'gallery') galAddPhotos();
+      else openNew();
     });
     $('btn-deploy')?.addEventListener('click', doDeploy);
     $('btn-export')?.addEventListener('click', doExport);
@@ -186,7 +190,8 @@
             <option value="other">Bisnis Kreatif</option>
           </select>
           <span id="item-count"></span>`;
-        topbar.querySelector('#btn-new-topbar').textContent = '+ Tambah Artikel';
+        const newBtn = topbar.querySelector('#btn-new-topbar');
+        if (newBtn) { newBtn.style.display = ''; newBtn.textContent = '+ Tambah Artikel'; }
         bindSearch();
       }
       if (content) {
@@ -205,20 +210,30 @@
     } else if (tab === 'gallery') {
       if (topbar) {
         topbar.querySelector('.topbar-l').innerHTML = `<span id="item-count"></span>`;
-        topbar.querySelector('#btn-new-topbar').textContent = 'Kelola Galeri';
+        const newBtn = topbar.querySelector('#btn-new-topbar');
+        if (newBtn) newBtn.style.display = 'none';
       }
       if (content) {
         content.innerHTML = `
           <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;margin-bottom:1.25rem;font-size:.78rem;color:var(--fg2);line-height:1.8;display:flex;align-items:flex-start;gap:.75rem;">
             <span style="font-size:1.25rem;flex-shrink:0">📸</span>
             <span>
-              <strong style="color:var(--fg)">Kelola Galeri Foto:</strong>
-              Pilih karya untuk menambah/mengatur foto galeri. Klik <strong>Edit</strong> pada karya yang diinginkan.
+              <strong style="color:var(--fg)">Galeri:</strong>
+              Klik area di bawah atau tombol <strong>+ Tambah Foto</strong> untuk upload. Drag foto untuk mengurutkan. Hover untuk menghapus.
             </span>
           </div>
-          <div id="gallery-by-item"></div>`;
+          <div id="gallery-grid-wrap">
+            <div class="img-drop" id="gal-drop" style="margin-bottom:1.25rem;cursor:pointer">
+              <input type="file" id="gal-upload-input" accept="image/*" multiple style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%"/>
+              <div class="img-drop-ico">📷</div>
+              <div class="img-drop-txt">Klik atau drag gambar ke sini</div>
+              <div class="img-drop-hint">JPG / PNG / WebP · Bisa pilih lebih dari 1</div>
+            </div>
+            <div id="gallery-grid"></div>
+          </div>`;
       }
-      renderGalleryManager();
+      bindGalleryUpload();
+      renderGalleryGrid();
       updateSidebar();
     } else {
       if (topbar) {
@@ -234,7 +249,8 @@
             <option value="other">Lainnya</option>
           </select>
           <span id="item-count"></span>`;
-        topbar.querySelector('#btn-new-topbar').textContent = '+ Tambah Karya';
+        const newBtn = topbar.querySelector('#btn-new-topbar');
+        if (newBtn) { newBtn.style.display = ''; newBtn.textContent = '+ Tambah Karya'; }
         bindSearch();
       }
       if (content) {
@@ -261,11 +277,10 @@
       const draftBanner = $('draft-banner');
       if (draftBanner) draftBanner.style.display = PortfolioStorage.hasDraft() ? 'block' : 'none';
     } else if (currentTab === 'gallery') {
-      const totalPhotos = allItems.reduce((sum, item) => sum + (item.gallery?.length || 0), 0);
-      setText('sidebar-count',   totalPhotos + ' foto');
-      setText('sidebar-storage', PortfolioStorage.storageSize() + ' / ~5MB');
+      setText('sidebar-count',   allGalleryItems.length + ' foto');
+      setText('sidebar-storage', GalleryStorage.storageSize() + ' / ~5MB');
       const draftBanner = $('draft-banner');
-      if (draftBanner) draftBanner.style.display = PortfolioStorage.hasDraft() ? 'block' : 'none';
+      if (draftBanner) draftBanner.style.display = GalleryStorage.hasDraft() ? 'block' : 'none';
     } else {
       setText('sidebar-count',   allBlogPosts.length + ' artikel');
       setText('sidebar-storage', BlogStorage.storageSize() + ' / ~5MB');
@@ -554,6 +569,9 @@
     if (currentTab === 'blog') {
       BlogStorage.exportJSON();
       toast('✓ blog.json didownload');
+    } else if (currentTab === 'gallery') {
+      GalleryStorage.exportJSON();
+      toast('✓ gallery.json didownload');
     } else {
       PortfolioStorage.exportJSON();
       toast('✓ portfolio.json didownload');
@@ -562,10 +580,13 @@
 
   /* ── DEPLOY ────────────────────────────────────────────── */
   async function doDeploy() {
-    const type = currentTab === 'blog' ? 'blog' : 'portfolio';
-    const data = type === 'blog' ? BlogStorage.getAll() : PortfolioStorage.getAll();
-    const token = getToken();
+    const type = currentTab === 'blog' ? 'blog' : currentTab === 'gallery' ? 'gallery' : 'portfolio';
+    let data;
+    if (type === 'blog') data = BlogStorage.getAll();
+    else if (type === 'gallery') data = { gallery: GalleryStorage.getAll() };
+    else data = PortfolioStorage.getAll();
 
+    const token = getToken();
     if (!token) { toast('✗ Sesi habis, silakan login ulang'); doLogout(); return; }
 
     toast('⏳ Deploying ' + type + '.json...');
@@ -581,7 +602,9 @@
       const result = await res.json();
       if (res.ok && result.success) {
         toast('✓ ' + type + '.json berhasil di-deploy ke GitHub!');
-        if (type === 'blog') BlogStorage.clearDraft(); else PortfolioStorage.clearDraft();
+        if (type === 'blog') BlogStorage.clearDraft();
+        else if (type === 'gallery') GalleryStorage.clearDraft();
+        else PortfolioStorage.clearDraft();
         updateSidebar();
       } else if (res.status === 401) {
         toast('✗ Sesi habis, silakan login ulang');
@@ -604,6 +627,11 @@
         allBlogPosts = BlogStorage.getAll();
         renderBlogList(allBlogPosts);
         toast('✓ ' + count + ' artikel berhasil diimport');
+      } else if (currentTab === 'gallery') {
+        const count = await GalleryStorage.importJSON(file);
+        allGalleryItems = GalleryStorage.getAll();
+        renderGalleryGrid();
+        toast('✓ ' + count + ' foto berhasil diimport');
       } else {
         const count = await PortfolioStorage.importJSON(file);
         allItems = PortfolioStorage.getAll();
@@ -623,6 +651,11 @@
       allBlogPosts = BlogStorage.reset();
       renderBlogList(allBlogPosts);
       toast('Artikel direset ke default');
+    } else if (currentTab === 'gallery') {
+      if (!confirm('Reset semua foto galeri?\nTidak bisa dibatalkan!')) return;
+      allGalleryItems = GalleryStorage.reset();
+      renderGalleryGrid();
+      toast('Galeri direset');
     } else {
       if (!confirm('Reset semua data ke default?\nTidak bisa dibatalkan!')) return;
       allItems = PortfolioStorage.reset();
@@ -632,129 +665,110 @@
   }
 
   /* ============================================================
-     GALLERY MANAGEMENT
+     GALLERY MANAGEMENT — Standalone photo gallery
   ============================================================ */
 
-  let galleryExpandedId = null;
+  let galDragIdx = null;
 
-  function renderGalleryManager() {
-    const container = $('gallery-by-item');
-    if (!container) return;
+  function galAddPhotos() {
+    const inp = $('gal-upload-input');
+    if (inp) inp.click();
+  }
 
-    const totalPhotos = allItems.reduce((sum, item) => sum + (item.gallery?.length || 0), 0);
-    setText('item-count', totalPhotos + ' foto galeri');
+  function bindGalleryUpload() {
+    const inp = $('gal-upload-input');
+    if (!inp) return;
+    inp.addEventListener('change', async function(e) {
+      const files = Array.from(e.target.files || []);
+      if (!files.length) return;
+      let count = 0;
+      for (const file of files) {
+        try {
+          const b64 = await PortfolioStorage.compressImage(file, 1400, 0.85);
+          GalleryStorage.add({ image: b64 });
+          count++;
+        } catch (err) {
+          console.error('Gagal upload:', err);
+        }
+      }
+      allGalleryItems = GalleryStorage.getAll();
+      renderGalleryGrid();
+      updateSidebar();
+      toast(count + ' foto ditambahkan');
+      e.target.value = '';
+    });
+  }
 
-    if (!allItems.length) {
-      container.innerHTML = '<div class="adm-empty"><div style="font-size:2.5rem;margin-bottom:.75rem">📸</div><p>Belum ada karya.<br>Klik <strong>+ Tambah Karya</strong> untuk mulai.</p></div>';
+  function renderGalleryGrid() {
+    const grid = $('gallery-grid');
+    if (!grid) return;
+    setText('item-count', allGalleryItems.length + ' foto');
+
+    if (!allGalleryItems.length) {
+      grid.innerHTML = `
+        <div class="gal-empty">
+          <div class="gal-empty-icon">📷</div>
+          <p>Belum ada foto. Upload di area di atas.</p>
+        </div>`;
       return;
     }
 
-    container.innerHTML = allItems.map(item => {
-      const photos = item.gallery || [];
-      const isExpanded = galleryExpandedId === item.id;
-      return `
-        <div class="gal-section">
-          <div class="gal-section-hdr" onclick="toggleGallerySection('${item.id}')">
-            <div class="gal-section-thumb" style="background:${item.color ? item.color + '33' : 'var(--bg2)'}">
-              ${item.image
-                ? `<img src="${item.image}" alt=""/>`
-                : `<span style="font-size:1.2rem">${item.emoji || '🖼'}</span>`}
-            </div>
-            <div class="gal-section-info">
-              <div class="gal-section-title">${x(item.title)}</div>
-              <div class="gal-section-count">${photos.length} foto galeri</div>
-            </div>
-            <span style="font-size:1rem;color:var(--fg3);transition:transform .2s;transform:rotate(${isExpanded ? '90deg' : '0deg'})">▶</span>
-          </div>
-          <div class="gal-section-body ${isExpanded ? '' : 'collapsed'}" id="gal-body-${item.id}">
-            ${photos.length ? `
-              <div class="gal-grid">
-                ${photos.map((photo, idx) => `
-                  <div class="gal-thumb">
-                    <img src="${photo.image}" alt=""/>
-                    <div class="gal-thumb-overlay">
-                      <button onclick="event.stopPropagation();galSetSize('${item.id}',${idx},'small')" title="Kecil" style="${photo.size==='small'?'background:var(--accent);color:#fff':''}">S</button>
-                      <button onclick="event.stopPropagation();galSetSize('${item.id}',${idx},'medium')" title="Sedang" style="${photo.size==='medium'?'background:var(--accent);color:#fff':''}">M</button>
-                      <button onclick="event.stopPropagation();galSetSize('${item.id}',${idx},'large')" title="Besar" style="${photo.size==='large'?'background:var(--accent);color:#fff':''}">L</button>
-                      <button onclick="event.stopPropagation();galDeletePhoto('${item.id}',${idx})" title="Hapus" style="background:var(--danger);color:#fff">✕</button>
-                    </div>
-                  </div>
-                `).join('')}
-              </div>
-            ` : `
-              <div class="gal-empty">
-                <div class="gal-empty-icon">📷</div>
-                <p>Belum ada foto galeri</p>
-              </div>
-            `}
-            <div class="gal-controls">
-              <input type="file" id="gal-upload-${item.id}" accept="image/*" multiple style="display:none" onchange="galUploadPhotos('${item.id}', this.files)"/>
-              <button onclick="document.getElementById('gal-upload-${item.id}').click()">+ Tambah Foto</button>
-              <label>Ukuran default:</label>
-              <select id="gal-default-size-${item.id}" onchange="galSetDefaultSize('${item.id}', this.value)">
-                <option value="small">Kecil (S)</option>
-                <option value="medium" selected>Sedang (M)</option>
-                <option value="large">Besar (L)</option>
-              </select>
+    grid.innerHTML = `
+      <div class="gal-grid" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr))">
+        ${allGalleryItems.map((photo, idx) => `
+          <div class="gal-thumb" draggable="true" data-idx="${idx}" style="cursor:grab;position:relative">
+            <img src="${photo.image}" alt=""/>
+            <div style="position:absolute;top:3px;left:3px;background:rgba(0,0,0,.5);color:#fff;border-radius:4px;padding:1px 5px;font-size:.6rem;pointer-events:none">${idx + 1}</div>
+            <div class="gal-thumb-overlay">
+              <button onclick="event.stopPropagation();galDeleteItem('${photo.id}')" title="Hapus" style="background:var(--danger);color:#fff">✕</button>
             </div>
           </div>
-        </div>
-      `;
-    }).join('');
+        `).join('')}
+      </div>`;
+
+    bindGalDrag();
   }
 
-  window.toggleGallerySection = function(id) {
-    galleryExpandedId = galleryExpandedId === id ? null : id;
-    renderGalleryManager();
-  };
+  function bindGalDrag() {
+    document.querySelectorAll('.gal-thumb[draggable]').forEach(function(thumb) {
+      thumb.addEventListener('dragstart', function(e) {
+        galDragIdx = parseInt(thumb.dataset.idx);
+        thumb.style.opacity = '0.4';
+        e.dataTransfer.effectAllowed = 'move';
+      });
+      thumb.addEventListener('dragend', function() {
+        thumb.style.opacity = '1';
+        document.querySelectorAll('.gal-thumb').forEach(function(t) { t.style.borderColor = 'transparent'; });
+      });
+      thumb.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        thumb.style.borderColor = 'var(--accent)';
+      });
+      thumb.addEventListener('dragleave', function() {
+        thumb.style.borderColor = 'transparent';
+      });
+      thumb.addEventListener('drop', function(e) {
+        e.preventDefault();
+        thumb.style.borderColor = 'transparent';
+        var toIdx = parseInt(thumb.dataset.idx);
+        if (galDragIdx !== null && galDragIdx !== toIdx) {
+          allGalleryItems = GalleryStorage.reorder(galDragIdx, toIdx);
+          renderGalleryGrid();
+          updateSidebar();
+          toast('✓ Urutan foto diubah');
+        }
+        galDragIdx = null;
+      });
+    });
+  }
 
-  window.galUploadPhotos = async function(itemId, files) {
-    if (!files || !files.length) return;
-    const item = allItems.find(i => i.id === itemId);
-    if (!item) return;
-
-    const defaultSize = $('gal-default-size-' + itemId)?.value || 'medium';
-
-    for (const file of files) {
-      try {
-        const b64 = await PortfolioStorage.compressImage(file, 1400, 0.85);
-        if (!item.gallery) item.gallery = [];
-        item.gallery.push({
-          id: Date.now() + Math.random(),
-          image: b64,
-          size: defaultSize,
-          position: 'left'
-        });
-      } catch (err) {
-        console.error('Gagal upload:', err);
-      }
-    }
-
-    PortfolioStorage._save(allItems);
-    renderGalleryManager();
-    toast(`${files.length} foto ditambahkan`);
-  };
-
-  window.galSetSize = function(itemId, photoIdx, size) {
-    const item = allItems.find(i => i.id === itemId);
-    if (!item || !item.gallery || !item.gallery[photoIdx]) return;
-    item.gallery[photoIdx].size = size;
-    PortfolioStorage._save(allItems);
-    renderGalleryManager();
-  };
-
-  window.galDeletePhoto = function(itemId, photoIdx) {
-    const item = allItems.find(i => i.id === itemId);
-    if (!item || !item.gallery) return;
+  window.galDeleteItem = function(id) {
     if (!confirm('Hapus foto ini?')) return;
-    item.gallery.splice(photoIdx, 1);
-    PortfolioStorage._save(allItems);
-    renderGalleryManager();
+    GalleryStorage.remove(id);
+    allGalleryItems = GalleryStorage.getAll();
+    renderGalleryGrid();
+    updateSidebar();
     toast('Foto dihapus');
-  };
-
-  window.galSetDefaultSize = function(itemId, size) {
-    // Just a visual hint, not stored
   };
 
   /* ============================================================

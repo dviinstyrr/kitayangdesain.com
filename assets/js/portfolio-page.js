@@ -6,9 +6,10 @@
 (function () {
   'use strict';
 
-  let allItems    = [];
-  let filtered    = [];
-  let currentView = 'grid';
+  let allItems      = [];
+  let filtered      = [];
+  let galleryPhotos = [];
+  let currentView   = 'grid';
   let activeFilter= 'all';
   let modalIndex  = -1;
 
@@ -28,6 +29,11 @@
     showSkeleton();
     allItems = await PortfolioStorage.fetchPublic();
     filtered = [...allItems];
+    // Pre-fetch gallery
+    try {
+      const galData = await GalleryStorage.fetchPublic();
+      galleryPhotos = Array.isArray(galData) ? galData : (galData.gallery || []);
+    } catch (e) { galleryPhotos = []; }
     buildFilterTabs();
     renderCount();
     renderFeatured();
@@ -71,8 +77,9 @@
   }
 
   function renderCount() {
-    const el = $('pf-count'); if (el) el.textContent = filtered.length;
-    const t  = $('pf-total'); if (t)  t.textContent  = allItems.length;
+    const total = allItems.length + galleryPhotos.length;
+    const el = $('pf-count'); if (el) el.textContent = total;
+    const t  = $('pf-total'); if (t)  t.textContent  = total;
   }
 
   /* ── FEATURED ─────────────────────────────────────────── */
@@ -258,70 +265,25 @@
     const wrap = $('pf-gallery-grid');
     if (!wrap) return;
 
-    // Collect all gallery images from all portfolio items
-    const galleryImages = [];
-    allItems.forEach(item => {
-      if (item.gallery && Array.isArray(item.gallery)) {
-        item.gallery.forEach(img => {
-          if (img.image) {
-            galleryImages.push({
-              ...img,
-              sourceTitle: item.title
-            });
-          }
-        });
-      }
-    });
-
-    // Hide section if no gallery images
+    // Hide section if no photos
     const section = document.querySelector('.pf-gallery-section');
-    if (!galleryImages.length) {
+    if (!galleryPhotos.length) {
       if (section) section.style.display = 'none';
       return;
     }
     if (section) section.style.display = 'block';
 
-    // Create label
-    let html = `<div class="pf-gallery-label">Galeri Foto</div>`;
-
-    // Build masonry-style grid
-    html += `<div class="pf-gallery-masonry">`;
-
-    // Group images into rows of 4 columns worth
-    const cols = 4;
-    let row = [];
-    let rowSpan = 0;
-
-    galleryImages.forEach((img, idx) => {
-      // Determine span based on size
-      let span = 1; // small = 1 col
-      if (img.size === 'medium') span = 2;
-      if (img.size === 'large') span = 3;
-
-      // Determine aspect ratio based on span
-      let aspectRatio = '1/1'; // square for 1 col
-      if (span === 2) aspectRatio = '2/1'; // landscape for 2 cols
-      if (span === 3) aspectRatio = '3/1'; // wide for 3 cols
-      if (span === 4) aspectRatio = '4/1'; // full width
-
-      // Check if we need to start a new row
-      if (rowSpan + span > cols) {
-        // Render current row
-        html += renderGalleryRow(row, galleryImages);
-        row = [];
-        rowSpan = 0;
-      }
-
-      row.push({ ...img, span, aspectRatio, idx });
-      rowSpan += span;
-    });
-
-    // Render remaining row
-    if (row.length > 0) {
-      html += renderGalleryRow(row, galleryImages);
-    }
-
-    html += `</div>`;
+    let html = `
+      <div class="pf-gallery-label">Galeri</div>
+      <div class="pf-gallery-masonry">
+        <div class="pf-gallery-row" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px">
+          ${galleryPhotos.map((photo, idx) => `
+            <div class="pf-gallery-item" data-idx="${idx}" style="grid-column:span 1;aspect-ratio:1/1">
+              <img src="${photo.image}" alt="Galeri ${idx + 1}" loading="lazy" />
+            </div>
+          `).join('')}
+        </div>
+      </div>`;
 
     // Lightbox
     html += `<div class="pf-gallery-lightbox" id="pf-gallery-lightbox">
@@ -330,54 +292,22 @@
     </div>`;
 
     wrap.innerHTML = html;
-
-    // Bind lightbox
-    bindGalleryLightbox(galleryImages);
+    bindGalleryLightbox(galleryPhotos);
   }
 
-  function renderGalleryRow(items, allImages) {
-    const cols = 4;
-    let html = `<div class="pf-gallery-row">`;
-
-    items.forEach((img, i) => {
-      // Calculate justify based on position or fill remaining space
-      let justify = '';
-      if (img.position === 'left') justify = 'justify-content: flex-start;';
-      else if (img.position === 'center') justify = 'justify-content: center;';
-      else if (img.position === 'right') justify = 'justify-content: flex-end;';
-
-      // Add remaining space for non-full rows
-      const usedSpan = items.reduce((sum, item) => sum + item.span, 0);
-      const remaining = cols - usedSpan;
-
-      html += `<div class="pf-gallery-item" data-idx="${img.idx}" style="
-        grid-column: span ${img.span};
-        aspect-ratio: ${img.aspectRatio};
-        ${justify}
-        ${remaining > 0 && !img.position ? `padding-right: ${remaining * (100 / cols)}%;` : ''}
-      ">
-        <img src="${img.image}" alt="${img.sourceTitle}" loading="lazy" />
-      </div>`;
-    });
-
-    html += `</div>`;
-    return html;
-  }
-
-  function bindGalleryLightbox(images) {
+  function bindGalleryLightbox(photos) {
     const lightbox = $('pf-gallery-lightbox');
     const lightboxImg = $('pf-gallery-lightbox-img');
     const closeBtn = $('pf-gallery-lightbox-close');
 
     if (!lightbox || !lightboxImg) return;
 
-    // Click on gallery item opens lightbox
     document.querySelectorAll('.pf-gallery-item').forEach(item => {
       item.addEventListener('click', () => {
         const idx = parseInt(item.dataset.idx);
-        if (images[idx]) {
-          lightboxImg.src = images[idx].image;
-          lightboxImg.alt = images[idx].sourceTitle;
+        if (photos[idx]) {
+          lightboxImg.src = photos[idx].image;
+          lightboxImg.alt = 'Galeri';
           lightbox.classList.add('open');
           document.body.style.overflow = 'hidden';
         }
