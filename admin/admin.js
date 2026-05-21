@@ -79,10 +79,10 @@
     $('screen-login').style.display = '';
     $('screen-app').style.display   = 'none';
   }
-  function showApp() {
+  async function showApp() {
     $('screen-login').style.display = 'none';
     $('screen-app').style.display   = 'grid';
-    initApp();
+    await initApp();
   }
 
   $('login-form')?.addEventListener('submit', async e => {
@@ -143,10 +143,44 @@
   });
 
   /* ── APP INIT ──────────────────────────────────────────── */
-  function initApp() {
-    allItems = PortfolioStorage.getAll();
-    allBlogPosts = BlogStorage.getAll();
-    allGalleryItems = GalleryStorage.getAll();
+  async function initApp() {
+    // Portfolio: pakai localStorage kalau ada draft, else fetch deployed JSON
+    if (PortfolioStorage.hasDraft()) {
+      allItems = PortfolioStorage.getAll();
+    } else {
+      try {
+        allItems = await PortfolioStorage.fetchPublic();
+        localStorage.setItem(KYD_KEY, JSON.stringify(allItems));
+      } catch (e) {
+        allItems = PortfolioStorage.getAll();
+      }
+    }
+
+    // Blog: pola sama
+    if (BlogStorage.hasDraft()) {
+      allBlogPosts = BlogStorage.getAll();
+    } else {
+      try {
+        allBlogPosts = await BlogStorage.fetchPublic();
+        localStorage.setItem(KYD_BLOG_KEY, JSON.stringify(allBlogPosts));
+      } catch (e) {
+        allBlogPosts = BlogStorage.getAll();
+      }
+    }
+
+    // Gallery: pola sama (fetchPublic bisa return object/array)
+    if (GalleryStorage.hasDraft()) {
+      allGalleryItems = GalleryStorage.getAll();
+    } else {
+      try {
+        const raw = await GalleryStorage.fetchPublic();
+        allGalleryItems = Array.isArray(raw) ? raw : (raw.gallery || []);
+        localStorage.setItem(KYD_GALLERY_KEY, JSON.stringify(allGalleryItems));
+      } catch (e) {
+        allGalleryItems = GalleryStorage.getAll();
+      }
+    }
+
     renderList(allItems);
     renderBlogList(allBlogPosts);
     updateSidebar();
