@@ -1,34 +1,37 @@
 const portfolioData = {
   nevval: {
-    title: 'Nusantara Heritage Co.',
+    title: 'Nevval Brand Identity',
     cat: 'Branding & Identity',
     year: '2024',
-    client: 'Nusantara Heritage Co.',
+    client: 'Nevval Collection',
     tags: ['Logo Design', 'Brand System', 'Stationery', 'Packaging', 'Brand Guidelines'],
     emoji: '🌿',
     bg: 'linear-gradient(135deg,#E8DFD5 0%,#C8A96E22 100%)',
-    desc: 'Nusantara Heritage Co. adalah perusahaan yang mengkurasi dan memasarkan kerajinan tangan autentik dari seluruh penjuru nusantara. Mereka membutuhkan identitas yang mencerminkan kekayaan budaya Indonesia namun tetap relevan bagi konsumen modern di pasar global.',
-    result: 'Identitas baru berhasil meningkatkan brand recognition sebesar 240% dalam 6 bulan pertama. Produk kini terdistribusi di 8 negara Asia Tenggara dengan persepsi premium yang jauh lebih kuat.'
+    img: 'assets/img/portofolio/homepage/Nevval-logo.webp',
+    desc: 'Nevval adalah brand yang menghadirkan produk fashion dan gaya hidup modern dengan sentuhan lokal yang elegan. Identitas visual baru ini dirancang untuk memperkuat posisi brand di pasar, mencerminkan kesan premium, namun tetap dekat di hati konsumen setianya.',
+    result: 'Identitas baru berhasil meningkatkan brand recognition dengan persepsi premium yang jauh lebih kuat.'
   },
-  fintech: {
-    title: 'FinWave Mobile App',
-    cat: 'UI/UX Design',
+  bisbox: {
+    title: 'Bisbox Packing',
+    cat: 'Branding & Identity',
     year: '2024',
-    client: 'PT FinWave Technology',
-    tags: ['UI Design', 'UX Research', 'Prototyping', 'Design System', 'Mobile App'],
+    client: 'Bisbox packing',
+    tags: ['Logo Design', 'Brand System', 'Stationery', 'Packaging', 'Brand Guidelines'],
     emoji: '◈',
     bg: 'linear-gradient(135deg,#1A1714,#3D2B1F)',
-    desc: 'FinWave adalah startup fintech yang menyasar segmen milenial dan Gen-Z Indonesia. Mereka membutuhkan desain aplikasi yang tidak hanya cantik, tapi mampu menyederhanakan kompleksitas keuangan menjadi pengalaman yang terasa natural dan aman.',
-    result: 'App store rating meningkat dari 3.2 ke 4.7 bintang setelah redesign. User retention rate naik 65% dan waktu onboarding turun 40%.'
+    img: 'assets/img/portofolio/homepage/Bisbox-Packing-detail.webp',
+    desc: 'Bisbox Packing adalah penyedia layanan pembuatan kemasan kustom untuk berbagai kebutuhan industri dan bisnis. Identitas visual baru ini mencerminkan efisiensi, ketepatan, dan kualitas material premium yang siap meningkatkan daya saing produk di pasar luas.',
+    result: ''
   },
-  kopi: {
-    title: 'Kopi Rojo Packaging',
-    cat: 'Packaging Design',
+  vfz: {
+    title: 'VFZ Visual Identity',
+    cat: 'Branding & Identity',
     year: '2023',
-    client: 'Kopi Rojo',
-    tags: ['Packaging', 'Print Design', 'Branding', 'Illustration', 'Retail'],
+    client: 'VFZ Studio',
+    tags: ['Logo Design', 'Print Design', 'Branding', 'Illustration', 'Retail'],
     emoji: '☕',
     bg: 'linear-gradient(135deg,#6B3A1F,#C8874A)',
+    img: 'assets/img/portofolio/homepage/VFZ.webp',
     desc: 'Kopi Rojo adalah brand kopi specialty asal Toraja yang ingin bersaing di pasar premium nasional dan internasional. Tantangannya: menciptakan kemasan yang bercerita tentang asal-usul dan kebanggaan lokal tanpa terkesan kuno.',
     result: 'Penjualan meningkat 3x lipat dalam 6 bulan setelah relaunch. Kini terdistribusi di 200+ kafe specialty dan department store premium.'
   },
@@ -43,12 +46,12 @@ const portfolioData = {
     desc: 'EduPath adalah platform e-learning yang menghubungkan pelajar dengan mentor terbaik di Indonesia. Mereka ingin tampil serius tapi tetap approachable — platform yang membuat belajar terasa menyenangkan dan tidak menakutkan.',
     result: 'Waktu di platform meningkat rata-rata 42 menit per sesi. Conversion rate dari pengunjung ke pelajar berbayar naik dari 3.1% ke 8.7%.'
   },
-  hotel: {
-    title: 'Puri Alam Resort',
-    cat: 'Spatial Branding',
+  zaafer: {
+    title: 'Zaafer Indonesia',
+    cat: 'Packaging & Print',
     year: '2023',
-    client: 'Puri Alam Group',
-    tags: ['Spatial Design', 'Signage', 'Brand Identity', 'Environmental Graphics', 'Wayfinding'],
+    client: 'Zaafer Indonesia',
+    tags: ['Packaging Design', 'Print Design', 'Brand Identity', 'Marketing Materials'],
     emoji: '🏨',
     bg: 'linear-gradient(135deg,#C8B89A,#8B7355)',
     desc: 'Puri Alam adalah resort butik baru di Ubud, Bali yang memposisikan diri sebagai "luxury nature retreat". Seluruh elemen visual — dari signage hingga menu restoran — harus bernafaskan keseimbangan antara kemewahan dan ketenangan alam.',
@@ -178,10 +181,10 @@ function openModal(id) {
   const d = portfolioData[id];
   if (!d) return;
   document.getElementById('modal-inner').innerHTML = `
-    <div class="modal-img" style="background:${d.bg}">
-      <span style="font-size:4rem">${d.emoji}</span>
+    <div class="modal-img" style="background: transparent; padding: 0;">
+      <img src="${d.img}" alt="${d.title}" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: inherit;">
     </div>
-    <div class="modal-tags">
+    <div class="modal-tags" style="margin-top: 1.5rem;">
       ${d.tags.map(t => `<span class="modal-tag">${t}</span>`).join('')}
     </div>
     <span class="label">${d.cat} · ${d.year}</span>

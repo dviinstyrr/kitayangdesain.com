@@ -53,127 +53,23 @@
     "gallery": []
   },
   {
-    "id": "default-2",
-    "order": 2,
-    "featured": true,
-    "title": "FinWave Mobile App",
-    "client": "PT FinWave Technology",
-    "year": "2024",
-    "category": "digital",
-    "categoryLabel": "UI/UX Design",
-    "tags": [
-      "UI Design",
-      "UX Research",
-      "Prototyping",
-      "Design System"
-    ],
-    "description": "Aplikasi fintech untuk segmen milenial Indonesia. Menyederhanakan kompleksitas keuangan menjadi pengalaman yang natural dan aman.",
-    "result": "App store rating dari 3.2 ke 4.7 bintang. User retention naik 65%.",
-    "image": null,
-    "color": "#1A1714",
-    "emoji": "◈",
-    "gallery": []
-  },
-  {
-    "id": "default-3",
-    "order": 3,
-    "featured": false,
-    "title": "Kopi Rojo Packaging",
-    "client": "Kopi Rojo",
-    "year": "2023",
+    "title": "Porsche Packaging",
+    "client": "Porsche",
+    "year": "2025",
     "category": "print",
     "categoryLabel": "Packaging & Print",
-    "tags": [
-      "Packaging",
-      "Print Design",
-      "Illustration",
-      "Retail"
-    ],
-    "description": "Brand kopi specialty asal Toraja. Kemasan bercerita tentang asal-usul dan kebanggaan lokal tanpa terkesan kuno.",
-    "result": "Penjualan meningkat 3x lipat dalam 6 bulan. Terdistribusi di 200+ kafe specialty.",
-    "image": null,
-    "color": "#6B3A1F",
-    "emoji": "☕",
-    "gallery": []
-  },
-  {
-    "id": "default-4",
-    "order": 4,
-    "featured": false,
-    "title": "EduPath Platform",
-    "client": "PT EduPath Indonesia",
-    "year": "2023",
-    "category": "digital",
-    "categoryLabel": "UI/UX Design",
-    "tags": [
-      "Web Design",
-      "UI/UX",
-      "Illustration"
-    ],
-    "description": "Platform e-learning yang menghubungkan pelajar dengan mentor terbaik. Serius tapi tetap approachable.",
-    "result": "Waktu di platform +42 menit per sesi. Conversion rate dari 3.1% ke 8.7%.",
-    "image": null,
-    "color": "#2D4A6E",
-    "emoji": "📚",
-    "gallery": []
-  },
-  {
-    "id": "default-5",
-    "order": 5,
-    "featured": false,
-    "title": "Puri Alam Resort",
-    "client": "Puri Alam Group",
-    "year": "2023",
-    "category": "spatial",
-    "categoryLabel": "Spatial Branding",
-    "tags": [
-      "Spatial Design",
-      "Signage",
-      "Wayfinding"
-    ],
-    "description": "Resort butik di Ubud, Bali. Seluruh elemen visual bernafaskan keseimbangan kemewahan dan ketenangan alam.",
-    "result": "Rating 9.2/10 di Booking.com. Diliput Condé Nast Traveler & Tatler Asia.",
-    "image": null,
-    "color": "#8B7355",
-    "emoji": "🏨",
-    "gallery": []
-  },
-  {
-    "id": "default-6",
-    "order": 6,
-    "featured": false,
-    "title": "Gala Nite 2024",
-    "client": "Astra Motor Indonesia",
-    "year": "2024",
-    "category": "motion",
-    "categoryLabel": "Motion & Event",
-    "tags": [
-      "Motion Graphics",
-      "Event Design",
-      "LED Content"
-    ],
-    "description": "Gala dinner tahunan Astra Motor tema \"Future Forward\". Dihadiri 2.000+ tamu undangan.",
-    "result": "98% survei pasca-event menyatakan kepuasan tertinggi terhadap elemen visual.",
-    "image": null,
-    "color": "#2D1B4E",
-    "emoji": "✦",
-    "gallery": []
-  },
-  {
-    "title": "ALSDHFLSDAJFOIWEJ",
-    "client": "ASJDFOI",
-    "year": "2026",
-    "category": "spatial",
-    "categoryLabel": "Spatial Branding",
-    "color": "#c8a96e",
-    "emoji": "🎨",
+    "color": "#ad0000",
+    "emoji": "🏎️",
     "description": "",
     "result": "",
-    "tags": [],
-    "featured": false,
+    "tags": [
+      "Packaging",
+      "Design"
+    ],
+    "featured": true,
     "image": null,
-    "id": "kyd-1779034017467-bgu1",
-    "order": 7,
-    "gallery": []
+    "gallery": [],
+    "id": "kyd-1779384115364-5s5e",
+    "order": 2
   }
 ]

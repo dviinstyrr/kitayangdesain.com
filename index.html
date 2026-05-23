@@ -3,12 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KitaYangDesain — Studio Kreatif</title>
+  <title>Kitayangdesain - Studio Kreatif</title>
   <meta name="description" content="Kita Yang Desain adalah studio kreatif yang berfokus pada desain visual, branding, dan pengalaman digital yang bermakna." />
   <meta name="keywords" content="desain, branding, kreatif, portofolio, studio desain, Indonesia" />
-  <meta property="og:title" content="Kita Yang Desain" />
+  <link rel="canonical" href="https://kitayangdesain.com/" />
+  
+  <meta property="og:title" content="Kitayangdesain - Studio Kreatif" />
   <meta property="og:description" content="Studio kreatif untuk desain visual, branding, dan pengalaman digital." />
   <meta property="og:url" content="https://kitayangdesain.com" />
+  <meta property="og:type" content="website" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/fav/favicon.ico">
+  <link rel="icon" type="image" sizes="32x32" href="/assets/img/fav/favicon-32x32.png">
+  <link rel="icon" type="image" sizes="16x16" href="/assets/img/fav/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -16,14 +24,10 @@
 </head>
 <body>
 
-<!-- LOADER -->
 <div id="loader"><span class="loader-text">KYD.</span></div>
-
-<!-- CURSOR -->
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursor-ring"></div>
 
-<!-- NAVIGATION -->
 <nav id="nav">
   <a href="#" class="nav-logo" onclick="navigate('home')" data-hover>Kitayang<span>desain</span></a>
   <ul class="nav-links">
@@ -39,7 +43,6 @@
   </div>
 </nav>
 
-<!-- MOBILE DRAWER -->
 <div class="nav-drawer" id="nav-drawer">
   <a href="portfolio.html" onclick="navigate('home');toggleMenu()">Portofolio</a>
   <a href="profile.html" onclick="navigate('profile');toggleMenu()">Profil</a>
@@ -48,11 +51,7 @@
   <a href="collab.html" onclick="navigate('collab');toggleMenu()">Kerjasama</a>
 </div>
 
-<!-- ================================================
-     PAGE: HOME
-================================================ -->
 <div id="page-home" class="page active"> 
-
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg"></div>
@@ -80,7 +79,6 @@
       <div class="stat-item"><span class="stat-num">73+</span><span class="stat-label">Proyek Selesai</span></div>
       <div class="stat-item"><span class="stat-num">7+</span><span class="stat-label">Tahun Pengalaman</span></div>
       <div class="stat-item"><span class="stat-num">52+</span><span class="stat-label">Klien Puas</span></div>
-      <!--<div class="stat-item"><span class="stat-num">12</span><span class="stat-label">Penghargaan</span></div>-->
       <div class="stat-item"><span class="stat-num">18</span><span class="stat-label">Venture Aktif</span></div>
     </div>
   </div>
@@ -114,31 +112,31 @@
           <div class="pf-card-arrow">↗</div>
         </div>
 
-        <div class="pf-card" data-cat="digital" onclick="openModal('fintech')">
+        <div class="pf-card" data-cat="branding" onclick="openModal('bisbox')">
           <div class="pf-card-img-placeholder" style="background:linear-gradient(135deg,#1A1714 0%,#3D2B1F 100%)">
-            <div style="text-align:center;color:#C8A96E"><div style="font-size:2.5rem;margin-bottom:0.5rem">◈</div>Bisbox Packing</div>
+            <img src="assets/img/portofolio/homepage/Bisbox-Packing.webp" alt="Bisbox Packing" style="width:100%;height:auto;">
           </div>
           <div class="pf-card-overlay">
-            <span class="pf-card-cat">UI/UX Design</span>
-            <h3 class="pf-card-title">FinWave Mobile App</h3>
+            <span class="pf-card-cat">Branding & Identity</span>
+            <h3 class="pf-card-title">Bisbox Packing</h3>
           </div>
           <div class="pf-card-arrow">↗</div>
         </div>
 
-        <div class="pf-card" data-cat="print" onclick="openModal('kopi')">
+        <div class="pf-card" data-cat="branding" onclick="openModal('vfz')">
           <div class="pf-card-img-placeholder" style="background:linear-gradient(135deg,#6B3A1F 0%,#C8874A 100%)">
-            <div style="text-align:center;color:#F7F5F2"><div style="font-size:2.5rem;margin-bottom:0.5rem">☕</div>Kopi Rojo</div>
+            <img src="assets/img/portofolio/homepage/VFZ.webp" alt="VFZ" style="width:100%;height:auto;">
           </div>
           <div class="pf-card-overlay">
-            <span class="pf-card-cat">Packaging Design</span>
-            <h3 class="pf-card-title">Kopi Rojo Packaging</h3>
+            <span class="pf-card-cat">Branding & Identity</span>
+            <h3 class="pf-card-title">VFZ Visual Identity</h3>
           </div>
           <div class="pf-card-arrow">↗</div>
         </div>
 
         <div class="pf-card" data-cat="digital" onclick="openModal('edtech')">
           <div class="pf-card-img-placeholder" style="background:linear-gradient(135deg,#2D4A6E 0%,#4A90D9 100%)">
-            <div style="text-align:center;color:white"><div style="font-size:2.5rem;margin-bottom:0.5rem">📚</div>EduPath</div>
+            <img src="assets/img/portofolio/homepage/EduPath.webp" alt="EduPath" style="width:100%;height:auto;">
           </div>
           <div class="pf-card-overlay">
             <span class="pf-card-cat">Web Design</span>
@@ -147,20 +145,20 @@
           <div class="pf-card-arrow">↗</div>
         </div>
 
-        <div class="pf-card" data-cat="spatial" onclick="openModal('hotel')">
+        <div class="pf-card" data-cat="print" onclick="openModal('zaafer')">
           <div class="pf-card-img-placeholder" style="background:linear-gradient(135deg,#C8B89A 0%,#8B7355 100%)">
-            <div style="text-align:center;color:white"><div style="font-size:2.5rem;margin-bottom:0.5rem">🏨</div>Puri Resort</div>
+            <img src="assets/img/portofolio/homepage/Zaafer.webp" alt="Zaafer Indonesia" style="width:100%;height:auto;">
           </div>
           <div class="pf-card-overlay">
-            <span class="pf-card-cat">Spatial Branding</span>
-            <h3 class="pf-card-title">Puri Alam Resort</h3>
+            <span class="pf-card-cat">Packaging & Print</span>
+            <h3 class="pf-card-title">Zaafer Indonesia</h3>
           </div>
           <div class="pf-card-arrow">↗</div>
         </div>
 
         <div class="pf-card" data-cat="motion" onclick="openModal('event')">
           <div class="pf-card-img-placeholder" style="background:linear-gradient(135deg,#2D1B4E 0%,#7B4FA6 100%)">
-            <div style="text-align:center;color:white"><div style="font-size:2.5rem;margin-bottom:0.5rem">✦</div>Gala Nite</div>
+            <img src="assets/img/portofolio/homepage/Gala-Nite.webp" alt="Gala Nite" style="width:100%;height:auto;">
           </div>
           <div class="pf-card-overlay">
             <span class="pf-card-cat">Motion & Event</span>
